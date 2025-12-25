@@ -1,0 +1,469 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "W:\\File\\U3dProject\\MovementStstem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|w:\\file\\u3dproject\\movementststem\\assets\\scripts\\ui\\quitpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\quitpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\UI\\BasePanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\UI\\BasePanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\data\\states\\grounded\\playergroundeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\data\\states\\grounded\\playergroundeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\statemachine\\istate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\statemachine\\istate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\playerdashingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\playerdashingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\data\\states\\grounded\\playerdashdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\data\\states\\grounded\\playerdashdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\playergroundedstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\playergroundedstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\statemachine\\statemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\statemachine\\statemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\statemachines\\movement\\playermovementstatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\statemachines\\movement\\playermovementstatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\statemachines\\movement\\states\\playermovementstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\statemachines\\movement\\states\\playermovementstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\utilities\\input\\playerinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\utilities\\input\\playerinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\moving\\playersprintingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\moving\\playersprintingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\data\\states\\playerstatereusabledata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\data\\states\\playerstatereusabledata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\data\\scriptableobject\\playerso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\data\\scriptableobject\\playerso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\data\\colliders\\defaultcolliderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\data\\colliders\\defaultcolliderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\data\\states\\playerrotationdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\data\\states\\playerrotationdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\data\\states\\grounded\\moving\\playerwalkdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\data\\states\\grounded\\moving\\playerwalkdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\data\\states\\grounded\\moving\\playerrundata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\data\\states\\grounded\\moving\\playerrundata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\moving\\playermovingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\moving\\playermovingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\data\\layers\\playerlayerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\data\\layers\\playerlayerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\data\\colliders\\slopedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\data\\colliders\\slopedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\moving\\playerrunningstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\moving\\playerrunningstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\utilities\\colliders\\capsulecolliderutility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\utilities\\colliders\\capsulecolliderutility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\data\\colliders\\capsulecolliderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\data\\colliders\\capsulecolliderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\moving\\playerwalkingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\moving\\playerwalkingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|W:\\File\\U3dProject\\MovementStstem\\assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\playeridlingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2375DCE2-1FF7-FC5A-130D-07F74C14BDD8}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\statemachines\\movement\\states\\grounded\\playeridlingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "QuitPanel.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\UI\\QuitPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\QuitPanel.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\UI\\QuitPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\QuitPanel.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAgwEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-24T13:51:32.882Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BasePanel.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\UI\\BasePanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\BasePanel.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\UI\\BasePanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\BasePanel.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-24T13:37:34.507Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PlayerDashData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\PlayerDashData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\PlayerDashData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\PlayerDashData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\PlayerDashData.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-24T07:42:25.348Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlayerDashingState.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerDashingState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerDashingState.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerDashingState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerDashingState.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAD4v2IAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-24T07:34:41.135Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "PlayerSprintingState.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerSprintingState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerSprintingState.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerSprintingState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerSprintingState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T07:24:00.548Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "PlayerLayerData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\Layers\\PlayerLayerData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Data\\Layers\\PlayerLayerData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\Layers\\PlayerLayerData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Data\\Layers\\PlayerLayerData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T08:53:40.27Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PlayerGroundedState.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerGroundedState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerGroundedState.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerGroundedState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerGroundedState.cs",
+              "ViewState": "AgIAAJQAAAAAAAAAAAAYwJ8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T13:30:29.685Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SlopeData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Data\\Colliders\\SlopeData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Data\\Colliders\\SlopeData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Data\\Colliders\\SlopeData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Data\\Colliders\\SlopeData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-22T09:04:04.575Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "DefaultColliderData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Data\\Colliders\\DefaultColliderData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Data\\Colliders\\DefaultColliderData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Data\\Colliders\\DefaultColliderData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Data\\Colliders\\DefaultColliderData.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAuwBEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T12:52:32.741Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "CapsuleColliderData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Data\\Colliders\\CapsuleColliderData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Data\\Colliders\\CapsuleColliderData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Data\\Colliders\\CapsuleColliderData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Data\\Colliders\\CapsuleColliderData.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwBIAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T10:52:29.879Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "CapsuleColliderUtility.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Utilities\\Colliders\\CapsuleColliderUtility.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Utilities\\Colliders\\CapsuleColliderUtility.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Utilities\\Colliders\\CapsuleColliderUtility.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Utilities\\Colliders\\CapsuleColliderUtility.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAA5wDYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T10:07:41.538Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "PlayerMovingState.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerMovingState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerMovingState.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerMovingState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerMovingState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T15:24:38.01Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PlayerRunData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\Moving\\PlayerRunData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\Moving\\PlayerRunData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\Moving\\PlayerRunData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\Moving\\PlayerRunData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T07:21:15.507Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PlayerRotationData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\PlayerRotationData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Data\\States\\PlayerRotationData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\PlayerRotationData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Data\\States\\PlayerRotationData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T07:24:30.525Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "PlayerWalkData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\Moving\\PlayerWalkData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\Moving\\PlayerWalkData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\Moving\\PlayerWalkData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\Moving\\PlayerWalkData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAoAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T07:11:28.582Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PlayerGroundedData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\PlayerGroundedData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\PlayerGroundedData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\PlayerGroundedData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Data\\States\\Grounded\\PlayerGroundedData.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAjwB4AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T06:34:14.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "PlayerStateReusableData.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\PlayerStateReusableData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Data\\States\\PlayerStateReusableData.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\States\\PlayerStateReusableData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Data\\States\\PlayerStateReusableData.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAlwA8AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T06:02:08.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "PlayerSO.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\ScriptableObject\\PlayerSO.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Data\\ScriptableObject\\PlayerSO.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Data\\ScriptableObject\\PlayerSO.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Data\\ScriptableObject\\PlayerSO.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAD4vw8AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T05:58:16.553Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PlayerInput.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Utilities\\Input\\PlayerInput.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Utilities\\Input\\PlayerInput.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Utilities\\Input\\PlayerInput.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Utilities\\Input\\PlayerInput.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowCUAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T13:40:00.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Player.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Player.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\Player.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\Player.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\Player.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T07:55:37.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PlayerMovementState.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\PlayerMovementState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\PlayerMovementState.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\PlayerMovementState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\PlayerMovementState.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAtwBQAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T07:01:59.596Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IState.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\StateMachine\\IState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\StateMachine\\IState.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\StateMachine\\IState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\StateMachine\\IState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T06:44:44.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PlayerMovementStateMachine.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\PlayerMovementStateMachine.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\PlayerMovementStateMachine.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\PlayerMovementStateMachine.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\PlayerMovementStateMachine.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAYwAYAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T06:40:39.679Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "StateMachine.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\StateMachine\\StateMachine.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\StateMachine\\StateMachine.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\StateMachine\\StateMachine.cs",
+              "RelativeToolTip": "Assets\\Scripts\\StateMachine\\StateMachine.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAgwDAAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T08:09:33.257Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "PlayerRunningState.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerRunningState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerRunningState.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerRunningState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerRunningState.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAcAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T07:24:12.365Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "PlayerWalkingState.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerWalkingState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerWalkingState.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerWalkingState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\Moving\\PlayerWalkingState.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwAsAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T07:23:47.002Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "PlayerIdlingState.cs",
+              "DocumentMoniker": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerIdlingState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerIdlingState.cs",
+              "ToolTip": "W:\\File\\U3dProject\\MovementStstem\\Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerIdlingState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Characters\\Player\\StateMachines\\Movement\\States\\Grounded\\PlayerIdlingState.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBsAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T07:21:33.552Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
