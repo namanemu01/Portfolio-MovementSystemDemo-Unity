@@ -13,6 +13,9 @@ namespace MovementStstem
         public CapsuleCollider Collider {  get; private set; }
         //胶囊体碰撞器中心的本地储存
         public Vector3 ColliderCenterInLoaclSpace { get; private set; }
+
+        //16
+        public Vector3 ColliderVerticalExtents { get; private set; }
         /// <summary>
         /// 初始化
         /// </summary>
@@ -34,6 +37,8 @@ namespace MovementStstem
 
             //获得中心的方法1世界坐标转局部坐标2胶囊体碰撞器自带,这个中心也就是浮动胶囊体的核心
             ColliderCenterInLoaclSpace = Collider.center;
+            //16.1 计算胶囊体垂直方向的半径和高度之和的一半 也就是胶囊体在垂直方向上的半径
+            ColliderVerticalExtents = new Vector3(0f, Collider.bounds.extents.y,0f);
         }
     }
 }
