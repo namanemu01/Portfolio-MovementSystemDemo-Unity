@@ -6,17 +6,17 @@ using UnityEngine;
 namespace MovementStstem
 {
     /// <summary>
-    /// 13.2×°µÄÊÇÔ­±¾½ºÄÒÌåµÄ
+    /// 13.2è£…çš„æ˜¯åŸæœ¬èƒ¶å›Šä½“çš„
     /// </summary>
     [Serializable]
     public class DefaultColliderData
     {
-        //Ä¬ÈÏÊı¾İ
-        //Ä£ĞÍ¸ß¶È
+        //é»˜è®¤æ•°æ®
+        //æ¨¡å‹é«˜åº¦
         [field: SerializeField] public float Height { get; private set; } = 1.8f;
-        //ÖĞĞÄÈ¡¸ß¶ÈÒ»°ë
+        //ä¸­å¿ƒå–é«˜åº¦ä¸€åŠ
         [field: SerializeField] public float CenterY { get; private set; } = 0.9f;
-        //°ë¾¶
+        //åŠå¾„
         [field: SerializeField] public float Radius { get; private set; } = 0.2f;
     }
 }

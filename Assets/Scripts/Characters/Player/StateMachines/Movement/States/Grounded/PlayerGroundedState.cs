@@ -16,11 +16,32 @@ namespace MovementStstem
 
         public PlayerGroundedState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
-            //猜测是为了共享实例 这样改了一个另一个也能改 或者节省资源 
+            //为了共享实例 这样改了一个另一个也能改 或者节省资源 
             slopeData = stateMachine.Player.ColliderUtility.SlopeData;
         }
 
         #region IState Methods 接口状态方法 因为装这个的类是继承接口方法的
+        public override void Enter()
+        {
+            base.Enter();
+            //得到基类的hash
+            StartAnimation(stateMachine.Player.AnimationData.GroundedParemeterHash);
+
+            UpdateShouldSprintState();
+
+            //18.2使每次进入接地状态 都重新
+            UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            //停止基类的hash
+            StopAnimation(stateMachine.Player.AnimationData.GroundedParemeterHash);
+        }
+    
+
         /// <summary>
         /// 14.1 重写物理更新方法 是为了写浮动胶囊体 是只有地面状态才有的逻辑
         /// </summary>
@@ -87,7 +108,11 @@ namespace MovementStstem
                 //模型脚部穿模了可以尝试ik来解决一下 这里没有使用
             }
         }
-
+        /// <summary>
+        /// 斜坡速度修改器
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
         private float SetSlopeSpeedModifierOnAngle(float angle)
         {
             //使用动画曲线来设置斜坡速度修改器 而非if语句
@@ -96,13 +121,60 @@ namespace MovementStstem
             //获取给定时间的值
             float slopeSpeedModifier = movementData.SlopeSpeedAngles.Evaluate(angle);
 
+            //18.2
+            if(stateMachine.ReusableData.MovementOnSlopesSpeedModifier != slopeSpeedModifier)
+            {
+                //如果坡度速度修改器发生更改 值也会更新
+                stateMachine.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
+
+                UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
+            }
+
             //将值赋给重用数据里的斜坡速度修改器
-            stateMachine.ResuableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
+            stateMachine.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
 
             return slopeSpeedModifier;
         }
+
+        //16.3用来判断玩家离开地面时下面是否还有地面 这个方法是为了在玩家离开地面时检查下面是否还有地面，如果有地面，可能是台阶或斜坡等
+        private bool IsThereGroundUnderneath()
+        {
+            BoxCollider groundCheckCollider = stateMachine.Player.ColliderUtility.TriggerColliderData.GroundCheckCollider;
+
+            //用到checkbox方法，需要世界空间有一个中心，也就是盒子的位置
+            Vector3 groundColliderCenterInWorldSpace = groundCheckCollider.bounds.center;
+
+            //存储代码检测到的所有地面物体
+
+            //* 创建一个数组，用来存 检测到的所有地面碰撞器
+            // 在【指定中心点】生成一个隐形盒子，盒子大小 = 角色地面检测器的一半尺寸
+            // 把盒子里碰到的所有地面物体，存到数组里
+
+            //19.4修改过了
+            //这几个参数分别是：中心点 盒子尺寸 旋转 需要检测的层 以及查询触发器交互的选项
+            Collider[] overlappedGroundColliders = Physics.OverlapBox(groundColliderCenterInWorldSpace, stateMachine.Player.ColliderUtility.TriggerColliderData.GroundCheckColliderExtents,groundCheckCollider.transform.rotation,stateMachine.Player.LayerData.GroundLayer,QueryTriggerInteraction.Ignore);
+
+            return overlappedGroundColliders.Length > 0;
+        }
+
         #endregion
 
+        /// <summary>
+        /// 这个方法是为了在进入地面状态时检查是否满足继续冲刺的条件，如果不满足就把这个状态改回false
+        /// </summary>
+        private void UpdateShouldSprintState()
+        {
+            if (!stateMachine.ReusableData.ShouldSprint)
+            {
+                return;
+            }
+            if (stateMachine.ReusableData.MovementInput != Vector2.zero)
+            {
+                return;
+            }
+            //如果上面两个条件都不满足 那么就把这个状态改回false
+            stateMachine.ReusableData.ShouldSprint = false;
+        }
 
         //回调是用来监听输入的，看玩家什么时候松开按键
         //这个类的操作是为了节省资源，因为走路和跑步状态都需要监听松开按键事件
@@ -117,31 +189,44 @@ namespace MovementStstem
             //9.5添加移动和取消操作
             base.AddInputActionsCallBacks();
 
-            stateMachine.Player.Input.PlayerActions.Movement.canceled += OnMovementCanceled;
+           
 
             //15.6添加冲刺开始回调
             stateMachine.Player.Input.PlayerActions.Dash.started += OnDashStarted;
 
+            //15添加跳跃回调
+            stateMachine.Player.Input.PlayerActions.Jump.started += OnJumpStarted;
         }
 
-    
+     
 
+
+        //这个方法是
         protected override void RemoveInputActionsCallBacks()
         {
             base.RemoveInputActionsCallBacks();
 
-            stateMachine.Player.Input.PlayerActions.Movement.canceled -= OnMovementCanceled;
 
             stateMachine.Player.Input.PlayerActions.Dash.started -= OnDashStarted;
 
+
+            stateMachine.Player.Input.PlayerActions.Jump.started -= OnJumpStarted;
         }
 
         /// <summary>
         /// 11.2这一步是将按键控制走路和跑步变成公共shouldWalk变量控制，之前是每个状态有独立的控制
+        /// 这里面包含切换到 走路 冲刺 状态
         /// </summary>
         protected virtual void OnMove()
         {
-            if (stateMachine.ResuableData.ShouldWalk)
+            //15.7
+            if(stateMachine.ReusableData.ShouldSprint)
+            {
+                stateMachine.ChangeState(stateMachine.SprintingState);
+                return;
+            }
+
+            if (stateMachine.ReusableData.ShouldWalk)
             {
                 stateMachine.ChangeState(stateMachine.WalkingState);
                 return;
@@ -154,21 +239,58 @@ namespace MovementStstem
             //我们现在可以从待机空闲状态切换到其他状态了 ^-^
             //下一步是添加其他状态里的 逻辑
         }
+
+        /// <summary>
+        /// 
+        /// 离开地面时 切换到空降状态 这个方法是为了在玩家离开地面时切换到降落状态
+        /// </summary>
+        /// <param name="collider"></param>
+        protected override void OnContactWithGroundExited(Collider collider)
+        {
+            base.OnContactWithGroundExited(collider);
+
+            //汉语注释：当玩家离开地面时，首先检查下面是否还有地面。如果有地面，可能是台阶或斜坡等，这种情况下不切换状态。只有当下面没有地面时，才切换到空降状态。
+            if (IsThereGroundUnderneath())
+            {
+                //这种情况是玩家离开了地面 但是下面还有地面 可能是台阶或者斜坡等 这种情况不切换状态
+                return;
+            }
+
+            Vector3 capsuleColliderCenterInWorldSpace = stateMachine.Player.ColliderUtility.CapsuleColliderData.Collider.bounds.center;
+            //从胶囊体底部发射射线
+            Ray downwardsRayFormCapsuleBottom = new Ray(capsuleColliderCenterInWorldSpace-stateMachine.Player.ColliderUtility.CapsuleColliderData.ColliderVerticalExtents, Vector3.down);//起点 方向
+
+            //如果检测不到地面 就切换到空降状态 这里的检测距离是从胶囊体底部到地面的距离 加上一个额外的距离 这个额外的距离是为了让玩家在离开地面时有一个短暂的时间来调整位置或者跳跃等操作
+            if (Physics.Raycast(downwardsRayFormCapsuleBottom,out _,movementData.GroundToFallRayDistance,stateMachine.Player.LayerData.GroundLayer,QueryTriggerInteraction.Ignore))
+            {
+                OnFall();
+            }
+                
+             
+
+            
+        }
+
+     
+        protected virtual void OnFall()
+        {
+            stateMachine.ChangeState(stateMachine.FallingState);
+        }
         #endregion
 
         #region 输入方法 Input Methods
 
-        protected virtual void OnMovementCanceled(InputAction.CallbackContext context)
-        {
-            //松开按键切换到待机状态，让walk和run都继承这个方法，他们俩是一样的因为一松手就要切换到待机状态
-            //不需要为了独立性重新walk和run各自写一个↑
-            stateMachine.ChangeState(stateMachine.IdlingState);
-        }
+      
 
         protected virtual void OnDashStarted(InputAction.CallbackContext context)
         {
             //15.6 输入方法 冲刺开始时 切换到冲刺状态
             stateMachine.ChangeState(stateMachine.DashingState);
+        }
+
+        protected virtual void OnJumpStarted(InputAction.CallbackContext context)
+        {
+            stateMachine.ChangeState(stateMachine.JumpingState);
         }
         #endregion
 

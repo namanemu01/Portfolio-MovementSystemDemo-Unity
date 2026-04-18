@@ -9,9 +9,9 @@ namespace MovementStstem
     /// </summary>
     public abstract class StateMachine 
     {
-        protected IState currentState;//当前状态
+        protected IState currentState;//接口里当前状态
         /// <summary>
-        /// 改变状态 这种用法类似于不等于空就调用方法 判空的简写 
+        /// 改变状态 
         /// </summary>
         /// <param name="newState"></param>
         public void ChangeState(IState newState)
@@ -49,6 +49,18 @@ namespace MovementStstem
         public void OnAnimationTransitionEvent()
         {
             currentState?.OnAnimationEnterEvent();
+        }
+
+        //15.2
+        public void OnTriggerEnter(Collider collider)
+        {
+            //这个调用的是istate里面那个
+            currentState?.OnTriggerEnter(collider);
+        }
+        public void OnTriggerExit(Collider collider)
+        {
+            //这个调用的是istate里面那个
+            currentState?.OnTriggerExit(collider);
         }
     }
 }

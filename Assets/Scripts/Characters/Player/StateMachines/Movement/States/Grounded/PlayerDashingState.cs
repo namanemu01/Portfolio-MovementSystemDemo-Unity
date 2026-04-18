@@ -14,6 +14,9 @@ namespace MovementStstem
         //15.6 限制冲刺问题
         private float startTime;
         private int ContinuousDashesUsed;
+
+        //14处理旋转
+        private bool shouldKeepRotating;
         //15.2两种情况：
         //移动时冲刺 朝向移动方向冲刺 速度调节器提高即可 （添加修改值 于是需要写一个冲刺数据脚本
         //静止时冲刺 朝向朝向方向冲刺 添加一个力 （因为没有移动输入 所以速度调节器无效
@@ -24,29 +27,64 @@ namespace MovementStstem
         #region IState Methods
         public override void Enter()
         {
-            base.Enter();
             //15.4进入的时候 如果是移动状态 将速度修改为 经过速度调节器修改的 通过总类运动状态链接地面数据脚本
-            stateMachine.ResuableData.MovementSpeedModifier = dashData.SpeedModifier;
+            stateMachine.ReusableData.MovementSpeedModifier = dashData.SpeedModifier;
 
+            base.Enter();
+            StartAnimation(stateMachine.Player.AnimationData.DashParemeterHash);
+
+            //15
+            stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StrongForce;
+
+            //14
+            stateMachine.ReusableData.RotationData=dashData.RotationData;
             //15.5 待机状态的话
-            AddForceOnTransitionFromStationaryState();
+            Dash();
 
             //15.6
             UpdateConsecutiveDashes();
 
+            //14.1 处理旋转问题 先写一个变量来控制是否需要旋转
+            //按下移动键 该值为true
+            shouldKeepRotating = stateMachine.ReusableData.MovementInput != Vector2.zero;
+
             //15.6记录开始时间
             startTime = Time.time;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            StopAnimation(stateMachine.Player.AnimationData.DashParemeterHash);
+
+            //15.4退出的时候 需要把速度修改器改回初始值 这个是ai自动补的，先放着
+            //stateMachine.ResuableData.MovementSpeedModifier = 1f;
+            //14.2 退出状态时 把旋转数据重置为初始值
+            SetBaseRotationData();
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+
+            if(shouldKeepRotating)
+            {
+                return;
+            }
+            RotateTowardsTargetRotation();
+
         }
         /// <summary>
         /// 15.8复用基类的动画过渡事件方法 也就是现在先写方法 做动画机的时候里再添加事件
         /// </summary>
         public override void OnAnimationTransitionEvent()
         {
-            base.OnAnimationTransitionEvent();
-            if(stateMachine.ResuableData.MovementInput==Vector2.zero)
+            
+            if(stateMachine.ReusableData.MovementInput==Vector2.zero)
             {
                 //如果是静止状态 进入硬停止状态（因为没有写硬停止状态 所以先进入待机状态
-                stateMachine.ChangeState(stateMachine.IdlingState);
+                //13现在有了，就改了
+                stateMachine.ChangeState(stateMachine.HardStoppingState);
                 return;
             }
  
@@ -58,19 +96,24 @@ namespace MovementStstem
         #endregion
 
         #region Main Methods
-        private void AddForceOnTransitionFromStationaryState()
+        private void Dash()
         {
-            //区分移动还是静止状态 可以通过判断输入
-            if(stateMachine.ResuableData.MovementInput!=Vector2.zero)
-            {
-                return;
-            }
 
             //玩家面朝向 只需要水平方向
-            Vector3 characterRotationDirection = stateMachine.Player.transform.forward;
-            characterRotationDirection.y = 0f;
+            Vector3 dashDirection = stateMachine.Player.transform.forward;
+            dashDirection.y = 0f;
 
-            stateMachine.Player.Rigidbody.velocity = characterRotationDirection * GetMovementSpeed();
+            //14修复已知问题
+            UpdateTargetRotation(dashDirection, false);
+
+            //区分移动还是静止状态 可以通过判断输入
+            if (stateMachine.ReusableData.MovementInput!=Vector2.zero)
+            {
+                UpdateTargetRotation(GetMovementInputDirection());
+                dashDirection = GetTargetRotationDirection(stateMachine.ReusableData.CurrentTargetRotation.y);
+            }
+
+            stateMachine.Player.Rigidbody.velocity = dashDirection * GetMovementSpeed(false);
         }
 
         /// <summary>
@@ -106,19 +149,41 @@ namespace MovementStstem
         }
         #endregion
 
-        #region Input Methods 输入回调
-        //15.8 重写移动取消回调
-        protected override void OnMovementCanceled(InputAction.CallbackContext context)
+        #region Reusable Methods
+        protected override void AddInputActionsCallBacks()
         {
+            base.AddInputActionsCallBacks();
+
+            //值操作类型的performed在strat和每次按下新键的时候调用
+            stateMachine.Player.Input.PlayerActions.Movement.performed += OnMovementPerformed;
+        }
+
+       
+
+        protected override void RemoveInputActionsCallBacks()
+        {
+            base.RemoveInputActionsCallBacks();
+            stateMachine.Player.Input.PlayerActions.Movement.performed -= OnMovementPerformed;
+        }
+        #endregion
+
+        #region Input Methods 输入回调
+        //15.8 重写移动取消回调//18.2已删除
+    
             //需要在冲刺状态下松开移动键 进入硬停止状态
             //所以这里重写基类的方法
             //因为原来这个方法是进入走路或跑步状态 松开按键就是待机状态 默认 现在需要在这个类里改写
-        }
+      
         protected override void OnDashStarted(InputAction.CallbackContext context)
         {
             //这里要完成的逻辑是 持续冲刺 停下之后接得是硬停止状态
             //使用动画事件在关键帧 添加事件 并且可以在动画进入该帧时调用特定方法
             //但是需要创建动画之后才能测试 现在最多就是写方法
+        }
+
+        private void OnMovementPerformed(InputAction.CallbackContext context)
+        {
+            shouldKeepRotating = true;
         }
         #endregion
 

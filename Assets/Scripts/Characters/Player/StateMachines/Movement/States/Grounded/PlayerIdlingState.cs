@@ -10,9 +10,11 @@ namespace MovementStstem
     /// </summary>
     public class PlayerIdlingState : PlayerGroundedState
     {
+        private PlayerIdleData idleData;
         //这几个是要被缓存的状态，因为频繁切换
         public PlayerIdlingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
+            idleData = movementData.IdleData;
         }
 
         #region IState Methods 接口_状态方法
@@ -21,16 +23,31 @@ namespace MovementStstem
         /// </summary>
         public override void Enter()
         {
-            base.Enter();
 
             //1.一旦进入这个状态，将速度修改器设置为0，这样保证进来这个状态就不再移动
             //1.不需要离开这个值再设置，因为每个进入状态都会重新设置这个修改器的值
-            stateMachine.ResuableData.MovementSpeedModifier = 0f;
+            stateMachine.ReusableData.MovementSpeedModifier = 0f;
+
+            //18.2
+            stateMachine.ReusableData.BackwardsCameraRecenteringData = idleData.BackwardsCameraRecenteringData;
+
+            base.Enter();
+            //得到基类的hash
+            StartAnimation(stateMachine.Player.AnimationData.IdleParemeterHash);
+
+            //15
+            stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StationaryForce;
 
             //2.重置玩家速度，以防玩家因为物理原因移动
             ResetVelocity();
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+            //得到基类的hash
+            StopAnimation(stateMachine.Player.AnimationData.IdleParemeterHash);
+        }
         /// <summary>
         /// 9.3更新方法 在这里切换 其他状态
         /// </summary>
@@ -38,13 +55,23 @@ namespace MovementStstem
         {
             base.Update();
             //如果输入为0 调回
-            if (stateMachine.ResuableData.MovementInput == Vector2.zero) return;
+            if (stateMachine.ReusableData.MovementInput == Vector2.zero) return;
 
             //否则 进入切换状态
             OnMove();
         }
 
-        
+        //19.1使在状态中不漂移
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+
+            if(!IsMovingHorizontally())
+            {
+                return;
+            }
+            ResetVelocity();
+        }
         #endregion
     }
 }

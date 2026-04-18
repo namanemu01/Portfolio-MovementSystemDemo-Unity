@@ -17,8 +17,19 @@ namespace MovementStstem
         public float MovementSpeedModifier { get; set; } = 1f;
         //斜坡上运动速度修改器 因为默认是1 所以直接赋值1
         public float MovementOnSlopesSpeedModifier { get; set; } = 1f;
+
+        public float MovementDecelerationForce { get; set; } = 1f;
+
+        public List<PlayerCameraRecenteringData> SidewaysCameraRecenteringData { get;  set; }
+        public List<PlayerCameraRecenteringData> BackwardsCameraRecenteringData { get;  set; }
+        
         //进入走路状态的标志
-        public bool ShouldWalk { get; set; } = false;
+        public bool ShouldWalk { get; set; }
+
+        //15.7判断玩家是否跳跃后进入疾跑状态的变量
+        public bool ShouldSprint { get; set; }
+        //?
+        public Vector3 PublicProperty { get;set; }
 
         //*当属性类型为引用类型时（如类、接口、数组、委托等），属性存储的是对实际数据的引用，而不是数据本身。
         //*当属性类型为值类型时（如int、float、struct等），属性存储的是实际的数据值，如果从属性获取值，会得到数据的副本。
@@ -60,5 +71,8 @@ namespace MovementStstem
             }
         }
 
+        public Vector3 CurrentJumpForce { get; set; }
+
+        public PlayerRotationData RotationData { get;  set; }
     }
 }

@@ -6,6 +6,7 @@ namespace MovementStstem
 {
     /// <summary>
     /// 层级状态机，作为一个状态机的基类状态接口使用
+    /// 这里面装的是每个状态都有的方法，每个状态里面的接口方法也就是这个
     /// </summary>
     public interface IState
     {
@@ -19,5 +20,11 @@ namespace MovementStstem
         public void OnAnimationEnterEvent();//当玩家进入动画第一帧使玩家免受伤害
         public void OnAnimationExitEvent();//当玩家离开动画最后一帧使玩家可以受伤
         public void OnAnimationTransitionEvent();//动画进入到某一帧 转换状态
+
+        //15
+        public void OnTriggerEnter(Collider collider);
+        //16需要触发器来检测玩家是否接触地面 都要加
+        public void OnTriggerExit(Collider collider);
+
     }
 }

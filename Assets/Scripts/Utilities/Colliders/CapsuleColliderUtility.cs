@@ -27,11 +27,20 @@ namespace MovementStstem
         public void Initialize(GameObject gameObject)
         {
             //运行时动态创建的方法需要实例化 提前准备好的方法不用实例化
-            if (CapsuleColliderData != null) return;
+            if (CapsuleColliderData != null)
+            {
+                return;
+            }
             CapsuleColliderData = new CapsuleColliderData();
             CapsuleColliderData.Initialize(gameObject);
-        }
 
+            OnInitialize();
+        }
+        //19.4
+        protected virtual void OnInitialize()
+        {
+
+        }
         /// <summary>
         /// 13.5每次更新检查器时都会调用这个方法 计算胶囊体碰撞器尺寸 方法 为了得到中心坐标
         /// </summary>

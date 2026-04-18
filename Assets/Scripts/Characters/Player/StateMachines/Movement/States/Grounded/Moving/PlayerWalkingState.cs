@@ -11,8 +11,11 @@ namespace MovementStstem
     /// </summary>
     public class PlayerWalkingState : PlayerMovingState
     {
+        private PlayerWalkData walkData;
+
         public PlayerWalkingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
+            walkData = movementData.WalkData;
         }
 
         #region IState Methods
@@ -21,15 +24,38 @@ namespace MovementStstem
         /// </summary>
         public override void Enter()
         {
-            base.Enter();
             //更改速度控制器
             //12.4 更改变量 数据交换
-            stateMachine.ResuableData.MovementSpeedModifier = movementData.WalkData.SpeedModifier;
+            stateMachine.ReusableData.MovementSpeedModifier = walkData.SpeedModifier;
+            
+            //18.2
+            stateMachine.ReusableData.BackwardsCameraRecenteringData = walkData.BackwardsCameraRecenteringData;
+
+            base.Enter();
+            StartAnimation(stateMachine.Player.AnimationData.WalkParemeterHash);
+
+            //15
+            stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.WeakForce;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            StopAnimation(stateMachine.Player.AnimationData.WalkParemeterHash);
+            SetBaseCameraRecenteringData();
         }
         #endregion
 
 
         #region 输入方法 Input Methods
+        //13让步行之后进入轻停止状态
+        protected override void OnMovementCanceled(InputAction.CallbackContext context)
+        {
+            //这里重写了，原来的逻辑是进待机状态，现在有了停止状态就覆盖了
+            stateMachine.ChangeState(stateMachine.LightStoppingState);
+            //18.2使得禁用之后重新调用
+            base.OnMovementCanceled(context);
+        }
         /// <summary>
         /// 9.4给每个状态都回调，这个不用，直接切换
         /// </summary>
