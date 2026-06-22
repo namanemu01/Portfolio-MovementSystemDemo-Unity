@@ -48,3 +48,6 @@ ServerData/
 # OS files
 .DS_Store
 Thumbs.db
+/Library/Bee/artifacts/1900b0aE.dag/Unity.VisualScripting.SettingsProvider.Editor.pdb
+/Assets/Scripts/StateMachine/IState.cs
+/Assets/Scripts/Characters/Player/Data/ScriptableObject/PlayerSO.cs
