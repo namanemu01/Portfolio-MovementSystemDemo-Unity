@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,29 +9,58 @@ namespace MovementStstem
 {
     public class PlayerRunningState : PlayerMovingState
     {
+        private PlayerSprintData sprintData;
+
+        private float startTime;
         public PlayerRunningState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
+            sprintData = movementData.SprintData;
         }
-        #region IState Methods½Ó¿Ú·½·¨
+        #region IState Methodsæ¥å£æ–¹æ³•
         /// <summary>
-        /// 10.1ÏÈÉèÖÃËÙ¶ÈĞŞ¸ÄÆ÷ ÏÈĞ´½øÈëÂß¼­
+        /// 10.1å…ˆè®¾ç½®é€Ÿåº¦ä¿®æ”¹å™¨ å…ˆå†™è¿›å…¥é€»è¾‘
         /// </summary>
         public override void Enter()
         {
+            //å…¶å®åœ¨åšçš„æ˜¯æŠŠçŠ¶æ€çš„é€»è¾‘å’Œæ•°æ®åˆ†ç¦»ä¸ºè„šæœ¬å’Œsoæ–‡ä»¶
+            stateMachine.ReusableData.MovementSpeedModifier = movementData.RunData.SpeedModifier;
+
             base.Enter();
-            //ÆäÊµÔÚ×öµÄÊÇ°Ñ×´Ì¬µÄÂß¼­ºÍÊı¾İ·ÖÀëÎª½Å±¾ºÍsoÎÄ¼ş
-            stateMachine.ResuableData.MovementSpeedModifier = movementData.RunData.SpeedModifier;
+            StartAnimation(stateMachine.Player.AnimationData.RunParemeterHash);
+
+            stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.MediumForce;
+
+            startTime = Time.time;
         }
-        //10.2Ïë ÅÜ²½×´Ì¬ºÍÊ²Ã´×´Ì¬ÓĞ¹ØÁª£¬°ÑwalkµÄÖØÓÃºÍÊäÈë·½·¨¸´ÖÆ¹ıÀ´
+        public override void Exit()
+        {
+            base.Exit();
+            StopAnimation(stateMachine.Player.AnimationData.RunParemeterHash);
+        }
+        public override void Update()
+        {
+            base.Update();
+            if(!stateMachine.ReusableData.ShouldWalk)
+            {
+                return;
+            }
+            if(Time.time > startTime + sprintData.RunToWalkTime)
+            {
+                return;
+            }
+            StopRunning();
+        }
+
+        //10.2æƒ³ è·‘æ­¥çŠ¶æ€å’Œä»€ä¹ˆçŠ¶æ€æœ‰å…³è”ï¼ŒæŠŠwalkçš„é‡ç”¨å’Œè¾“å…¥æ–¹æ³•å¤åˆ¶è¿‡æ¥
         #endregion
 
-        //#region Reusable Methods ¿ÉÖØÓÃ·½·¨
+        //#region Reusable Methods å¯é‡ç”¨æ–¹æ³•
         ///// <summary>
-        ///// 9.5¸øÁíÒ»¸ö×´Ì¬Ìí¼ÓÒ»¸ö»Øµ÷
+        ///// 9.5ç»™å¦ä¸€ä¸ªçŠ¶æ€æ·»åŠ ä¸€ä¸ªå›è°ƒ
         ///// </summary>
         //protected override void AddInputActionsCallBacks()
         //{
-        //    //9.5Ìí¼ÓÒÆ¶¯ºÍÈ¡Ïû²Ù×÷
+        //    //9.5æ·»åŠ ç§»åŠ¨å’Œå–æ¶ˆæ“ä½œ
         //    base.AddInputActionsCallBacks();
 
         //    stateMachine.Player.Input.PlayerActions.Movement.canceled += OnMovementCanceled;
@@ -43,31 +74,47 @@ namespace MovementStstem
         //    stateMachine.Player.Input.PlayerActions.Movement.canceled -= OnMovementCanceled;
         //}
         //#endregion
+        #region Main Methods
+        private void StopRunning()
+        {
+            if(stateMachine.ReusableData.MovementInput==Vector2.zero)
+            {
+                stateMachine.ChangeState(stateMachine.MediumStoppingState);
 
-        #region ÊäÈë·½·¨ Input Methods
+                return;
+            }
+            stateMachine.ChangeState(stateMachine.WalkingState);
+        }
+        #endregion
+        #region è¾“å…¥æ–¹æ³• Input Methods
+        protected override void OnMovementCanceled(InputAction.CallbackContext context)
+        {
+            stateMachine.ChangeState(stateMachine.MediumStoppingState);
+            base.OnMovementCanceled(context);
+        }
         /// <summary>
-        /// 9.4¸øÃ¿¸ö×´Ì¬¶¼»Øµ÷£¬Õâ¸ö²»ÓÃ£¬Ö±½ÓÇĞ»»£¬Õâ¸ö²»ÓÃ»Øµ÷ÊÇÒòÎªÖ±½ÓÇĞ»»×´Ì¬ÁË
+        /// 9.4ç»™æ¯ä¸ªçŠ¶æ€éƒ½å›è°ƒï¼Œè¿™ä¸ªä¸ç”¨ï¼Œç›´æ¥åˆ‡æ¢ï¼Œè¿™ä¸ªä¸ç”¨å›è°ƒæ˜¯å› ä¸ºç›´æ¥åˆ‡æ¢çŠ¶æ€äº†
         /// </summary>
         /// <param name="context"></param>
         protected override void OnWalkToggleStarted(InputAction.CallbackContext context)
         {
-            //ÎÒ¾õµÃµ÷ÓÃÕâ¸ö´ú±íÊÇÏÈĞŞ¸ÄshouldwalkµÄ×´Ì¬£¬Èç¹ûÒÑ¾­ÊÇwalkÁË£¬È¡Ïû£¬È»ºó½øÈëÅÜ²½×´Ì¬
-            //Õâ¸öµ÷ÓÃÁËshouldwalk
+            //æˆ‘è§‰å¾—è°ƒç”¨è¿™ä¸ªä»£è¡¨æ˜¯å…ˆä¿®æ”¹shouldwalkçš„çŠ¶æ€ï¼Œå¦‚æœå·²ç»æ˜¯walkäº†ï¼Œå–æ¶ˆï¼Œç„¶åè¿›å…¥è·‘æ­¥çŠ¶æ€
+            //è¿™ä¸ªè°ƒç”¨äº†shouldwalk
             base.OnWalkToggleStarted(context);
-            //¹ı¶É×´Ì¬,Î¨Ò»ĞŞ¸ÄµÄ¾ÍÊÇÕâÀï ´ÓÅÜ²½ÇĞ»»µ½×ßÂ·
+            //è¿‡æ¸¡çŠ¶æ€,å”¯ä¸€ä¿®æ”¹çš„å°±æ˜¯è¿™é‡Œ ä»è·‘æ­¥åˆ‡æ¢åˆ°èµ°è·¯
             stateMachine.ChangeState(stateMachine.WalkingState);
         }
 
         ///// <summary>
-        ///// Öğ½¥Àí½âÁËÕâÀïµÄÊäÈë»Øµ÷£¬ÊÇÎªÁË¼àÌı°´¼üµÄËÉ¿ª£¬±ÜÃâÆäËû×´Ì¬Ã¿´Î¶¼ÒªÈ¥¼ì²âÊäÈë
+        ///// é€æ¸ç†è§£äº†è¿™é‡Œçš„è¾“å…¥å›è°ƒï¼Œæ˜¯ä¸ºäº†ç›‘å¬æŒ‰é”®çš„æ¾å¼€ï¼Œé¿å…å…¶ä»–çŠ¶æ€æ¯æ¬¡éƒ½è¦å»æ£€æµ‹è¾“å…¥
         ///// </summary>
         ///// <param name="context"></param>
         //protected void OnMovementCanceled(InputAction.CallbackContext context)
         //{
-        //    //ËÉ¿ª°´¼üÇĞ»»µ½´ı»ú×´Ì¬
+        //    //æ¾å¼€æŒ‰é”®åˆ‡æ¢åˆ°å¾…æœºçŠ¶æ€
         //    stateMachine.ChangeState(stateMachine.IdlingState);
         //}
-        //ÒòÎªÒÑ¾­Ìí¼ÓÁËplayergroundedstateµÄ»Øµ÷ ËùÒÔÕâÀï²»ĞèÒªÔÙÌí¼ÓÁË
+        //å› ä¸ºå·²ç»æ·»åŠ äº†playergroundedstateçš„å›è°ƒ æ‰€ä»¥è¿™é‡Œä¸éœ€è¦å†æ·»åŠ äº†
         #endregion
     }
 }

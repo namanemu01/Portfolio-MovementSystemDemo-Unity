@@ -11,9 +11,9 @@ namespace MovementStstem
         //15.4
         private PlayerJumpData jumpData;
         //15.3
-        //ÅĞ¶ÏÊÇ·ñĞèÒª¼ÌĞøĞı×ªµÄ±äÁ¿
+        //åˆ¤æ–­æ˜¯å¦éœ€è¦ç»§ç»­æ—‹è½¬çš„å˜é‡
         private bool shouldKeepRotating;
-        //16.4 ÓÃÀ´·ÀÖ¹ÔÚÌøÔ¾ÏÂÂäÊ± Íæ¼Ò½øÈëÏÂÂä×´Ì¬
+        //16.4 ç”¨æ¥é˜²æ­¢åœ¨è·³è·ƒä¸‹è½æ—¶ ç©å®¶è¿›å…¥ä¸‹è½çŠ¶æ€
         private bool canStartFalling;
 
         public PlayerJumpingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
@@ -33,7 +33,7 @@ namespace MovementStstem
 
             stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
-            //Èç¹ûÍæ¼ÒÔÚÌøÔ¾Ê±ÓĞÊäÈë£¬ÄÇÃ´ÎÒÃÇ¾Í¼ÌĞøĞı×ªµ½ÊäÈë·½Ïò£¬·ñÔò¾Í²»Ğı×ª
+            //å¦‚æœç©å®¶åœ¨è·³è·ƒæ—¶æœ‰è¾“å…¥ï¼Œé‚£ä¹ˆæˆ‘ä»¬å°±ç»§ç»­æ—‹è½¬åˆ°è¾“å…¥æ–¹å‘ï¼Œå¦åˆ™å°±ä¸æ—‹è½¬
             shouldKeepRotating = stateMachine.ReusableData.MovementInput!=Vector2.zero;
 
             Jump();
@@ -41,41 +41,41 @@ namespace MovementStstem
         }
 
 
-        // ÍË³öÊ±½«Íæ¼ÒµÄĞı×ªÊı¾İÖØÖÃÎª»ù´¡Ğı×ªÊı¾İ£¬ÒÔÈ·±£ÔÚÏÂ´Î½øÈëÌøÔ¾×´Ì¬Ê±ÄÜ¹»ÕıÈ·Ó¦ÓÃĞı×ªÊı¾İ
+        // é€€å‡ºæ—¶å°†ç©å®¶çš„æ—‹è½¬æ•°æ®é‡ç½®ä¸ºåŸºç¡€æ—‹è½¬æ•°æ®ï¼Œä»¥ç¡®ä¿åœ¨ä¸‹æ¬¡è¿›å…¥è·³è·ƒçŠ¶æ€æ—¶èƒ½å¤Ÿæ­£ç¡®åº”ç”¨æ—‹è½¬æ•°æ®
         public override void Exit()
         {
             base.Exit();
             SetBaseRotationData();
 
-            //ÖØÖÃ¿ª¹Ø »Ö¸´³õÊ¼
+            //é‡ç½®å¼€å…³ æ¢å¤åˆå§‹
             canStartFalling = false;
         }
         /// <summary>
-        /// ´ÓÌøÔ¾×´Ì¬ ¹ı¶Éµ½ ÏÂÂä×´Ì¬µÄÌõ¼şÊÇÍæ¼ÒµÄ´¹Ö±ËÙ¶ÈĞ¡ÓÚ»òµÈÓÚ0£¬ÕâÒâÎ¶×ÅÍæ¼ÒÒÑ¾­´ïµ½ÌøÔ¾µÄ×î¸ßµã£¬¿ªÊ¼ÏÂÂäÁË¡£
-        /// Í¨¹ı¼ì²éÊÇ²»ÊÇËÙ¶ÈÊÇ¸ºÊı ´Ó¶ø½øÈëÏÂ½µ×´Ì¬
-        /// Èç¹ûÓÃ¶¯»­×î¸ßµãÏÂ½µÊ±¹ı¶É Ôò¿ÉÄÜÔÚÉÏ·½ÓĞÕÏ°­Ê±²»ÄÜÕıÈ·¹ı¶Éµ½ÏÂ½µ×´Ì¬ ÒòÎªËÙ¶È¿ÉÄÜ»¹Ã»ÓĞ±ä³É¸ºÊı
+        /// ä»è·³è·ƒçŠ¶æ€ è¿‡æ¸¡åˆ° ä¸‹è½çŠ¶æ€çš„æ¡ä»¶æ˜¯ç©å®¶çš„å‚ç›´é€Ÿåº¦å°äºæˆ–ç­‰äº0ï¼Œè¿™æ„å‘³ç€ç©å®¶å·²ç»è¾¾åˆ°è·³è·ƒçš„æœ€é«˜ç‚¹ï¼Œå¼€å§‹ä¸‹è½äº†ã€‚
+        /// é€šè¿‡æ£€æŸ¥æ˜¯ä¸æ˜¯é€Ÿåº¦æ˜¯è´Ÿæ•° ä»è€Œè¿›å…¥ä¸‹é™çŠ¶æ€
+        /// å¦‚æœç”¨åŠ¨ç”»æœ€é«˜ç‚¹ä¸‹é™æ—¶è¿‡æ¸¡ åˆ™å¯èƒ½åœ¨ä¸Šæ–¹æœ‰éšœç¢æ—¶ä¸èƒ½æ­£ç¡®è¿‡æ¸¡åˆ°ä¸‹é™çŠ¶æ€ å› ä¸ºé€Ÿåº¦å¯èƒ½è¿˜æ²¡æœ‰å˜æˆè´Ÿæ•°
         /// </summary>
         public override void Update()
         {
             base.Update();
 
             //Debug.Log("canStartFalling = " + canStartFalling);
-            //Debug.Log("´¹Ö±ËÙ¶È = " + GetPlayerVerticalVelocity().y);
+            //Debug.Log("å‚ç›´é€Ÿåº¦ = " + GetPlayerVerticalVelocity().y);
 
-            //±íÊ¾µ½´ï×î¸ßµã ¿ÉÒÔ¿ªÊ¼ÏÂÂäÁË
+            //è¡¨ç¤ºåˆ°è¾¾æœ€é«˜ç‚¹ å¯ä»¥å¼€å§‹ä¸‹è½äº†
             if (!canStartFalling && IsMovingUp(0f))
             {
-                //´ò¿ª¿ª¹Ø ÔÊĞí½øÈëÏÂÂä×´Ì¬
+                //æ‰“å¼€å¼€å…³ å…è®¸è¿›å…¥ä¸‹è½çŠ¶æ€
                 canStartFalling = true;
             }
 
-            //Èç¹û²»ÄÜ¿ªÊ¼ÏÂÂä »òÕß Íæ¼ÒÕıÔÚÉÏÉı ¾Í²»½øÈëÏÂÂä×´Ì¬
+            //å¦‚æœä¸èƒ½å¼€å§‹ä¸‹è½ æˆ–è€… ç©å®¶æ­£åœ¨ä¸Šå‡ å°±ä¸è¿›å…¥ä¸‹è½çŠ¶æ€
             if (!canStartFalling || GetPlayerVerticalVelocity().y>0)
             {
                 return;
             }
 
-            //Èç¹ûÍæ¼ÒµÄ´¹Ö±ËÙ¶ÈĞ¡ÓÚ»òµÈÓÚ0£¬ËµÃ÷Íæ¼ÒÒÑ¾­´ïµ½ÌøÔ¾µÄ×î¸ßµã£¬¿ªÊ¼ÏÂÂäÁË£¬´ËÊ±ĞèÒªÇĞ»»µ½ÏÂÂä×´Ì¬
+            //å¦‚æœç©å®¶çš„å‚ç›´é€Ÿåº¦å°äºæˆ–ç­‰äº0ï¼Œè¯´æ˜ç©å®¶å·²ç»è¾¾åˆ°è·³è·ƒçš„æœ€é«˜ç‚¹ï¼Œå¼€å§‹ä¸‹è½äº†ï¼Œæ­¤æ—¶éœ€è¦åˆ‡æ¢åˆ°ä¸‹è½çŠ¶æ€
             stateMachine.ChangeState(stateMachine.FallingState);
 
         }
@@ -89,10 +89,10 @@ namespace MovementStstem
                 RotateTowardsTargetRotation();
             }
 
-            //15.5·ÀÖ¹Æ¯¸¡
+            //15.5é˜²æ­¢æ¼‚æµ®
             if(IsMovingUp())
             {
-                //´¹Ö±ÖáÌí¼ÓÁ¦
+                //å‚ç›´è½´æ·»åŠ åŠ›
                 DecelerateVertically();
             }
         }
@@ -102,47 +102,47 @@ namespace MovementStstem
         #region Reusable Methods
         protected override void ResetSprintState()
         {
-            //ÌøÔ¾×´Ì¬²»ĞèÒªÖØÖÃ³å´Ì×´Ì¬£¬ËùÒÔ¸²¸Ç¸¸Àà·½·¨²¢Áô¿Õ
-            //ÕâÑù³ıÁËÌøÔ¾×´Ì¬ÒÔÍâµÄ¿Õ½µ×´Ì¬¾Í»áÖØÖÃ³å´Ì×´Ì¬ÁË
+            //è·³è·ƒçŠ¶æ€ä¸éœ€è¦é‡ç½®å†²åˆºçŠ¶æ€ï¼Œæ‰€ä»¥è¦†ç›–çˆ¶ç±»æ–¹æ³•å¹¶ç•™ç©º
+            //è¿™æ ·é™¤äº†è·³è·ƒçŠ¶æ€ä»¥å¤–çš„ç©ºé™çŠ¶æ€å°±ä¼šé‡ç½®å†²åˆºçŠ¶æ€äº†
         }
         #endregion
         #region Main Methods
         private void Jump()
         {
 
-            //ÔÚÕâÀïÌí¼ÓÁÙÊ±±äÁ¿µÄÔ­ÒòÊÇÒòÎª ÌøÔ¾Á¦ ĞèÒª¸ù¾İ ÇãĞ±½Ç¶ÈºÍÌøÔ¾·½Ïò½øĞĞ¸ü¸Ä
-            //ÒâË¼¾ÍÊÇËµ Èç¹û²»ĞŞ¸ÄµÄ»°£¬ÄÇ¸öÁ¦¾ÍÒ»Ö±ÊÇÄÇ¸ö·½Ïò
-            //Í¨¹ı´´½¨ÁÙÊ±±äÁ¿ ÎÒÃÇ¿ÉÒÔ¸ù¾İĞèÒª¸üĞÂËû ¶ø²»ÓÃ¸ü¸ÄÔ­Ê¼ÊôĞÔÖµ
+            //åœ¨è¿™é‡Œæ·»åŠ ä¸´æ—¶å˜é‡çš„åŸå› æ˜¯å› ä¸º è·³è·ƒåŠ› éœ€è¦æ ¹æ® å€¾æ–œè§’åº¦å’Œè·³è·ƒæ–¹å‘è¿›è¡Œæ›´æ”¹
+            //æ„æ€å°±æ˜¯è¯´ å¦‚æœä¸ä¿®æ”¹çš„è¯ï¼Œé‚£ä¸ªåŠ›å°±ä¸€ç›´æ˜¯é‚£ä¸ªæ–¹å‘
+            //é€šè¿‡åˆ›å»ºä¸´æ—¶å˜é‡ æˆ‘ä»¬å¯ä»¥æ ¹æ®éœ€è¦æ›´æ–°ä»– è€Œä¸ç”¨æ›´æ”¹åŸå§‹å±æ€§å€¼
             Vector3 jumpforce = stateMachine.ReusableData.CurrentJumpForce;
-
+              
             Vector3 jumpDirection = stateMachine.Player.transform.forward;
 
-            if(shouldKeepRotating)
+            if (shouldKeepRotating)
             {
-                //19.3½«Ä¿±êĞı×ª¸üĞÂÎªÏà¶ÔÓÚÎÒÃÇÊäÈëºÍÏà»ú
+                //19.3å°†ç›®æ ‡æ—‹è½¬æ›´æ–°ä¸ºç›¸å¯¹äºæˆ‘ä»¬è¾“å…¥å’Œç›¸æœº
                 UpdateTargetRotation(GetMovementInputDirection());
-                //»ñÈ¡Íæ¼ÒÊäÈëµÄ·½Ïò ×÷ÎªÌøÔ¾µÄ·½Ïò
+                //è·å–ç©å®¶è¾“å…¥çš„æ–¹å‘ ä½œä¸ºè·³è·ƒçš„æ–¹å‘
                 jumpDirection = GetTargetRotationDirection(stateMachine.ReusableData.CurrentTargetRotation.y);
             }
 
             jumpforce.x *= jumpDirection.x;
             jumpforce.z *= jumpDirection.z;
 
-            //15.4ÅĞ¶ÏĞ±ÆÂ ÉäÏß
+            //15.4åˆ¤æ–­æ–œå¡ å°„çº¿
             Vector3 capsuleCplliderCenterInWorldSpace = stateMachine.Player.ColliderUtility.CapsuleColliderData.Collider.bounds.center;
-            
+            //åˆ›å»º
             Ray downwardsRayFromCapsuleCenter = new Ray(capsuleCplliderCenterInWorldSpace,Vector3.down);
-            
+            //æŠ•å°„
             if(Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit,jumpData.JumpToGroundRayDistance,stateMachine.Player.LayerData.GroundLayer,QueryTriggerInteraction.Ignore))
             {
-               //Èç¹ûÓÃÉäÏß»÷ÖĞÄ³Îï£¬ĞèÒªÖªµÀÊÇ·ñÔÚĞ±ÆÂÉÏ
+               //å¦‚æœç”¨å°„çº¿å‡»ä¸­æŸç‰©ï¼Œéœ€è¦çŸ¥é“æ˜¯å¦åœ¨æ–œå¡ä¸Š
                float groundAngle = Vector3.Angle(hit.normal, downwardsRayFromCapsuleCenter.direction);
 
-                //¼ì²é½Ç¶È²¢¸ù¾İĞèÒªµ÷ÕûÌøÔ¾Á¦ Ê¹ÓÃ¶¯»­ÇúÏßÍê³É´Ë²Ù×÷
-                //ÎªÃ¿ÖÖÇé¿ö¶¼ÉèÖÃ¶¯»­ÇúÏß
+                //æ£€æŸ¥è§’åº¦å¹¶æ ¹æ®éœ€è¦è°ƒæ•´è·³è·ƒåŠ› ä½¿ç”¨åŠ¨ç”»æ›²çº¿å®Œæˆæ­¤æ“ä½œ
+                //ä¸ºæ¯ç§æƒ…å†µéƒ½è®¾ç½®åŠ¨ç”»æ›²çº¿
                 if(IsMovingUp())
                 { 
-                    //Ö»ĞèÒªÔÚË®Æ½ÖáÉÏÌí¼ÓÁ¦
+                    //åªéœ€è¦åœ¨æ°´å¹³è½´ä¸Šæ·»åŠ åŠ›
                     float forceModifier = jumpData.JumpForceModifierOnSlopeUpwards.Evaluate(groundAngle);
                     jumpforce.x *= forceModifier;
                     jumpforce.z *= forceModifier;
@@ -150,17 +150,17 @@ namespace MovementStstem
 
                 if(IsMovingDown())
                 {
-                    //Ö»ĞèÒªÔÚ´¹Ö±ÖáÉÏÌí¼ÓÁ¦
+                    //åªéœ€è¦åœ¨å‚ç›´è½´ä¸Šæ·»åŠ åŠ›
                     float forceModifier = jumpData.JumpForceModifierOnSlopeDownwards.Evaluate(groundAngle);
                     jumpforce.y *= forceModifier;
                 }
             }
 
 
-            //ÔÚÌøÔ¾Ö®Ç°ÖØÖÃÍæ¼ÒµÄËÙ¶È£¬ÒÔÈ·±£ÌøÔ¾Á¦µÄĞ§¹û²»»á±»µ±Ç°ËÙ¶ÈËùÓ°Ïì
+            //åœ¨è·³è·ƒä¹‹å‰é‡ç½®ç©å®¶çš„é€Ÿåº¦ï¼Œä»¥ç¡®ä¿è·³è·ƒåŠ›çš„æ•ˆæœä¸ä¼šè¢«å½“å‰é€Ÿåº¦æ‰€å½±å“
             ResetVelocity();
 
-            //´ËÄ£Ê½ÊÇÒòÎªÓëÊ±¼äºÍÖÊÁ¿ÎŞ¹Ø
+            //æ­¤æ¨¡å¼æ˜¯å› ä¸ºä¸æ—¶é—´å’Œè´¨é‡æ— å…³
             stateMachine.Player.Rigidbody.AddForce(jumpforce, ForceMode.VelocityChange);
         }
         #endregion

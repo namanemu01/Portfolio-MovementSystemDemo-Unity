@@ -16,9 +16,8 @@ namespace MovementStstem
             stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
             base.Enter();
-
            
-            //17 设置在轻着陆状态下 可以使用跳跃 
+            //17 设置在轻着陆状态下 可以使用跳跃 将跳跃力设为固定力
             stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StationaryForce;
 
             ResetVelocity();

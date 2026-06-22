@@ -16,8 +16,13 @@ namespace MovementStstem
         public void PhysicsUpdate();//进行物理更新
 
         //15.7因为动画机添加方法
+        //可以将其用于当动画进入第一帧时使玩家免受伤害等
         public void OnAnimationEnterEvent();//当玩家进入动画第一帧使玩家免受伤害
         public void OnAnimationExitEvent();//当玩家离开动画最后一帧使玩家可以受伤
+        
         public void OnAnimationTransitionEvent();//动画进入到某一帧 转换状态
+
+        public void OnTriggerEnter(Collider collier);
+        public void OnTriggerExit(Collider collier);
     }
 }

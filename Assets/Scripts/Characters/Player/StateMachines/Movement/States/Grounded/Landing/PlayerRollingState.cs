@@ -41,9 +41,12 @@ namespace MovementStstem
             }
             RotateTowardsTargetRotation();
         }
+        /// <summary>
+        /// 设置动画转换事件
+        /// </summary>
         public override void OnAnimationTransitionEvent()
         {
-            //如果没有移动
+            //下来了如果没有移动 中停止，移动了 再考虑
             if(stateMachine.ReusableData.MovementInput == Vector2.zero)
             {
                 stateMachine.ChangeState(stateMachine.MediumStoppingState);
@@ -58,7 +61,7 @@ namespace MovementStstem
         #region Input Methods
         protected override void OnJumpStarted(InputAction.CallbackContext context)
         {
-           
+           //留空是不希望能跳
         }
         #endregion
     }

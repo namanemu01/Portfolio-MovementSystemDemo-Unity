@@ -9,81 +9,85 @@ namespace MovementStstem
  
     public class PlayerMovementState : IState
     {
-        //×´Ì¬»ú¿ÉÒÔÒıÓÃplayerÖ®ºó£¬×´Ì¬¶Ô×´Ì¬»ú½øĞĞÒıÓÃ,ÒòÎª¾¿¼«Ä¿±êÊÇÔÚstateÀïÃæÒıÓÃplayer£¿
+        //çŠ¶æ€æœºå¯ä»¥å¼•ç”¨playerä¹‹åï¼ŒçŠ¶æ€å¯¹çŠ¶æ€æœºè¿›è¡Œå¼•ç”¨,å› ä¸ºç©¶æç›®æ ‡æ˜¯åœ¨stateé‡Œé¢å¼•ç”¨playerï¼Ÿ
 
-        //¡ı10½Úµ±Ç°½á¹¹
-        //£¡£¡ËùÓĞµÄ¹ØÁªÔÚÕâÒıÓÃÄØ£¬ÕÒ°ëÌì
-        //ÏÖÔÚÂß¼­ÉÏ¡·×´Ì¬»úÒıÓÃÍæ¼Ò£¬×´Ì¬ÒıÓÃ×´Ì¬»ú£¬×´Ì¬Í¨¹ı×´Ì¬»úÒıÓÃÍæ¼Ò£¿
-        //Íæ¼Ò¶¯×÷×´Ì¬Àà¼Ì³Ğ½Ó¿Ú£¬Íæ¼Ò¶¯×÷×´Ì¬ÀàÒıÓÃÍæ¼Ò¶¯×÷×´Ì¬»úÀà£¬µØÃæ×´Ì¬Àà¼Ì³ĞÍæ¼Ò¶¯×÷×´Ì¬Àà
-        //ÆäËû¶¯×÷Ğ¡Àà¼Ì³ĞµØÃæ×´Ì¬Àà£¬µØÃæ×´Ì¬ÀàÓÃÓÚ»Øµ÷ÄÇĞ©Ëõ¼õ´úÂë¡£Íæ¼Ò¶¯×÷×´Ì¬»ú¼Ì³Ğ×´Ì¬»úÀà£¬×´Ì¬»úÀà×°µÄÊÇ·½·¨£¬Íæ¼Ò¶¯×÷×´Ì¬»úÀà×°µÄÊÇÊôĞÔºÍÊµÀı»¯ÄÇĞ©×´Ì¬Ğ¡Àà
+        //â†“10èŠ‚å½“å‰ç»“æ„
+        //ï¼ï¼æ‰€æœ‰çš„å…³è”åœ¨è¿™å¼•ç”¨å‘¢ï¼Œæ‰¾åŠå¤©
+        //ç°åœ¨é€»è¾‘ä¸Šã€‹çŠ¶æ€æœºå¼•ç”¨ç©å®¶ï¼ŒçŠ¶æ€å¼•ç”¨çŠ¶æ€æœºï¼ŒçŠ¶æ€é€šè¿‡çŠ¶æ€æœºå¼•ç”¨ç©å®¶ï¼Ÿ
+        //ç©å®¶åŠ¨ä½œçŠ¶æ€ç±»ç»§æ‰¿æ¥å£ï¼Œç©å®¶åŠ¨ä½œçŠ¶æ€ç±»å¼•ç”¨ç©å®¶åŠ¨ä½œçŠ¶æ€æœºç±»ï¼Œåœ°é¢çŠ¶æ€ç±»ç»§æ‰¿ç©å®¶åŠ¨ä½œçŠ¶æ€ç±»
+        //å…¶ä»–åŠ¨ä½œå°ç±»ç»§æ‰¿åœ°é¢çŠ¶æ€ç±»ï¼Œåœ°é¢çŠ¶æ€ç±»ç”¨äºå›è°ƒé‚£äº›ç¼©å‡ä»£ç ã€‚ç©å®¶åŠ¨ä½œçŠ¶æ€æœºç»§æ‰¿çŠ¶æ€æœºç±»ï¼ŒçŠ¶æ€æœºç±»è£…çš„æ˜¯æ–¹æ³•ï¼Œç©å®¶åŠ¨ä½œçŠ¶æ€æœºç±»è£…çš„æ˜¯å±æ€§å’Œå®ä¾‹åŒ–é‚£äº›çŠ¶æ€å°ç±»
 
 
         protected PlayerMovementStateMachine stateMachine;
 
-        //½«Íæ¼ÒÒÆ¶¯ÊäÈë´æ´¢ÔÚÕâÀï£¬·½±ã¸÷¸ö×´Ì¬Ê¹ÓÃ
+        //å°†ç©å®¶ç§»åŠ¨è¾“å…¥å­˜å‚¨åœ¨è¿™é‡Œï¼Œæ–¹ä¾¿å„ä¸ªçŠ¶æ€ä½¿ç”¨
 
-        //ÏÂÃæÊÇÓÃÌæ»»ÖØÃüÃûµÄ·½Ê½Æ­¹ı Í¨¹ı²»Í¬ÒıÓÃÀ´Ìí¼Óµã.£¬£¬ÊÇÎªÁË°ÑÕâ¸öÃû×ÖÒ»ÏÂ×ÓÈ«²¿¸Ä±ä£¬Ê¡µÄÒ»¸ö¸ö¸Ä£¬²¢È¡ÏûÉùÃ÷Õâ¸öĞÂ±äÁ¿
+        //ä¸‹é¢æ˜¯ç”¨æ›¿æ¢é‡å‘½åçš„æ–¹å¼éª—è¿‡ é€šè¿‡ä¸åŒå¼•ç”¨æ¥æ·»åŠ ç‚¹.ï¼Œï¼Œæ˜¯ä¸ºäº†æŠŠè¿™ä¸ªåå­—ä¸€ä¸‹å­å…¨éƒ¨æ”¹å˜ï¼Œçœçš„ä¸€ä¸ªä¸ªæ”¹ï¼Œå¹¶å–æ¶ˆå£°æ˜è¿™ä¸ªæ–°å˜é‡
         //protected Vector2 stateMachine.ResuableData.MovementInput;
-        //12.3 ½«movementinputÖØÃüÃûÎª¿ÉÖØÓÃÊı¾İ¡ü²¢ÇÒĞŞ¸ÄÁËÆäËûÎ»ÖÃ£¬²¢ÇÒ½«ÆäËûÏàÍ¬ĞÔÖÊ¶¼¸Ä
-        //Ò²¾ÍÊÇºÍplayerstatereusabledataÀïÃæÔçĞ´ºÃµÄÒªÌæ»»µôµÄ±äÁ¿½»»»Ò»ÏÂ
+        //12.3 å°†movementinputé‡å‘½åä¸ºå¯é‡ç”¨æ•°æ®â†‘å¹¶ä¸”ä¿®æ”¹äº†å…¶ä»–ä½ç½®ï¼Œå¹¶ä¸”å°†å…¶ä»–ç›¸åŒæ€§è´¨éƒ½æ”¹
+        //ä¹Ÿå°±æ˜¯å’Œplayerstatereusabledataé‡Œé¢æ—©å†™å¥½çš„è¦æ›¿æ¢æ‰çš„å˜é‡äº¤æ¢ä¸€ä¸‹
         //stateMachine.ResuableData.
 
-        //ÏÖÔÚĞ´Á½¸öËÙ¶È±äÁ¿£¬ÓÃÀ´´æ´¢²»Í¬×´Ì¬ÏÂµÄËÙ¶È
-        //12.3µ±Ç°Ö»ÁôÕâÒ»¸ö
+        //ç°åœ¨å†™ä¸¤ä¸ªé€Ÿåº¦å˜é‡ï¼Œç”¨æ¥å­˜å‚¨ä¸åŒçŠ¶æ€ä¸‹çš„é€Ÿåº¦
+        //12.3å½“å‰åªç•™è¿™ä¸€ä¸ª
         //protected float baseSpeed = 5f;
-        //protected float stateMachine.ResuableData.MovementSpeedModifier = 1f;//µÚ¶ş¸ö±äÁ¿ÓÃÓÚ²»¸Ä±ä»ù´¡ËÙ¶ÈµÄÇ°ÌáÏÂĞŞ¸ÄËÙ¶È£¬±ÈÈçÅÜ²½£¬³å´ÌµÈ
+        //protected float stateMachine.ResuableData.MovementSpeedModifier = 1f;//ç¬¬äºŒä¸ªå˜é‡ç”¨äºä¸æ”¹å˜åŸºç¡€é€Ÿåº¦çš„å‰æä¸‹ä¿®æ”¹é€Ÿåº¦ï¼Œæ¯”å¦‚è·‘æ­¥ï¼Œå†²åˆºç­‰
 
-        //3.Ğı×ªÍæ¼Ò
-        //µ±Ç°Ä¿±ê½Ç¶È
+        //3.æ—‹è½¬ç©å®¶
+        //å½“å‰ç›®æ ‡è§’åº¦
         //protected Vector3 stateMachine.ResuableData.CurrentTargetRotation;
 
-        //Ê±¼ä±äÁ¿£¬ÓÃÓÚÆ½»¬Ğı×ªÍæ¼Ò
+        //æ—¶é—´å˜é‡ï¼Œç”¨äºå¹³æ»‘æ—‹è½¬ç©å®¶
         //protected Vector3 stateMachine.ResuableData.TimeToReachTargetRotation;
 
-        //Æ½»¬Ğı×ªËùĞèµÄ±äÁ¿ËÙ¶È
+        //å¹³æ»‘æ—‹è½¬æ‰€éœ€çš„å˜é‡é€Ÿåº¦
         //protected Vector3 stateMachine.ResuableData.DampedTargetRotationCurrentVelocity;
 
-        //Æ½»¬Ğı×ªËù¾­¹ıµÄÊ±¼ä
+        //å¹³æ»‘æ—‹è½¬æ‰€ç»è¿‡çš„æ—¶é—´
         //protected Vector3 stateMachine.ResuableData.DampedTargetRotationPassedTime;
 
-        //9.4ÎÒÃÇĞèÒªÖªµÀ´¦ÓÚÊ²Ã´±äÁ¿ ¾ÍÉè¶¨Ò»¸öÀıÈç¿ªÆôÁË¾ÍÇĞ»»ÅÜ²½×´Ì¬ÄÇÖÖ
+        //9.4æˆ‘ä»¬éœ€è¦çŸ¥é“å¤„äºä»€ä¹ˆå˜é‡ å°±è®¾å®šä¸€ä¸ªä¾‹å¦‚å¼€å¯äº†å°±åˆ‡æ¢è·‘æ­¥çŠ¶æ€é‚£ç§
         //protected bool stateMachine.ResuableData.ShouldWalk;
 
         //12.4
         protected PlayerGroundedData movementData;
+        protected PlayerAirborneData airborneData;
 
         public PlayerMovementState(PlayerMovementStateMachine playerMovementStateMachine)
         {
             stateMachine = playerMovementStateMachine;
 
-            //¸ß
+
+            //é«˜
             movementData = stateMachine.Player.Data.GroundedData;
+            airborneData = stateMachine.Player.Data.AirborneData;
+
+            SetBaseCameraRecenteringData();
 
             InitializeData();
         }
 
         private void InitializeData()
         {
-            //Õâ¸öÊÇ·¢ÉúÂÖ»»ËùºÄ·ÑµÄÊ±¼ä±äÁ¿
-            stateMachine.ResuableData.TimeToReachTargetRotation = movementData.BaseRotationData.TargetRotationReachTime;
+            SetBaseRotationData();
         }
 
-        #region ½Ó¿ÚÀïÃæµÄ·½·¨ IState Methods
-        //ÒÆ¶¯Âß¼­½«Ğ´ÔÚÕâ¸öÎÄ¼ş
+        #region æ¥å£é‡Œé¢çš„æ–¹æ³• IState Methods
+        //ç§»åŠ¨é€»è¾‘å°†å†™åœ¨è¿™ä¸ªæ–‡ä»¶
 
         public virtual void Enter()
         {
-            //Ã¿µ±½øÈëÕâ¸ö×´Ì¬µÄÊ±ºò£¬´òÓ¡µ±Ç°×´Ì¬Ãû×Ö
+            //æ¯å½“è¿›å…¥è¿™ä¸ªçŠ¶æ€çš„æ—¶å€™ï¼Œæ‰“å°å½“å‰çŠ¶æ€åå­—
             Debug.Log("State:" + this.GetType().Name);
 
-            //9.4Ìí¼ÓÊäÈë»Øµ÷
+            //9.4æ·»åŠ è¾“å…¥å›è°ƒ
             AddInputActionsCallBacks();
         }
 
         
         public virtual void Exit()
         {
-            //9.4É¾³ıÊäÈë»Øµ÷
+            //9.4åˆ é™¤è¾“å…¥å›è°ƒ
             RemoveInputActionsCallBacks();
         }
 
@@ -106,7 +110,7 @@ namespace MovementStstem
 
         }
 
-        //15.8ÏÂÃæÊÇ¶¯»­»ú·½·¨
+        //15.8ä¸‹é¢æ˜¯åŠ¨ç”»æœºæ–¹æ³•
         public virtual void OnAnimationEnterEvent()
         {
            
@@ -122,95 +126,116 @@ namespace MovementStstem
             
         }
 
+        public virtual void OnTriggerEnter(Collider collider)
+        {
+            if(stateMachine.Player.LayerData.IsGroundLayer(collider.gameObject.layer))
+            {
+                OnContactWithGround(collider);
+
+                return;
+            }
+        }
+
+
+        public virtual void OnTriggerExit(Collider collider)
+        {
+            if (stateMachine.Player.LayerData.IsGroundLayer(collider.gameObject.layer))
+            {
+                OnContactWithGroundExited(collider);
+
+                return;
+            }
+        }
+
         #endregion
 
-        #region Ö÷·½·¨Main Methods
+        #region ä¸»æ–¹æ³•Main Methods
 
         /// <summary>
-        /// ¶ÁÈ¡Íæ¼ÒµÄÒÆ¶¯ÊäÈë
+        /// è¯»å–ç©å®¶çš„ç§»åŠ¨è¾“å…¥
         /// </summary>
         private void ReadMovementInput()
         {
-            //¶ÁÈ¡Íæ¼ÒµÄÒÆ¶¯ÊäÈë¡ı
-            //µ÷ÓÃÒıÓÃ³öÀ´µÄ×´Ì¬»úÀà-¡·ÀïÃæµÄÍæ¼Ò½Å±¾-¡·ÀïÃæµÄÊäÈë½Å±¾£¬ÄÇ¸ö×é¼şµÄ
-            //map£¬µ±Ê±ËµÁË±»ÃüÃûÎªplayeractionsµÄ=¡·Õâ¸öÀïÃæµÄÊäÈëµÄvector2µÄÖµ¡£
-            stateMachine.ResuableData.MovementInput = stateMachine.Player.Input.PlayerActions.Movement.ReadValue<Vector2>();
+            //è¯»å–ç©å®¶çš„ç§»åŠ¨è¾“å…¥â†“
+            //è°ƒç”¨å¼•ç”¨å‡ºæ¥çš„çŠ¶æ€æœºç±»-ã€‹é‡Œé¢çš„ç©å®¶è„šæœ¬-ã€‹é‡Œé¢çš„è¾“å…¥è„šæœ¬ï¼Œé‚£ä¸ªç»„ä»¶çš„
+            //mapï¼Œå½“æ—¶è¯´äº†è¢«å‘½åä¸ºplayeractionsçš„=ã€‹è¿™ä¸ªé‡Œé¢çš„è¾“å…¥çš„vector2çš„å€¼ã€‚
+            stateMachine.ReusableData.MovementInput = stateMachine.Player.Input.PlayerActions.Movement.ReadValue<Vector2>();
         }
 
         /// <summary>
-        /// Êµ¼ÊÒÆ¶¯Íæ¼ÒµÄ·½·¨
+        /// å®é™…ç§»åŠ¨ç©å®¶çš„æ–¹æ³•
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
         private void Move()
         {
-            //¿Õ×ªºÍÌøÔ¾²»±»ÊÓÎªÒÆ¶¯ ËùÒÔÖ±½Ó·µ»Ø ²»×öÒÆ¶¯²Ù×÷
-            if (stateMachine.ResuableData.MovementInput == Vector2.zero|| stateMachine.ResuableData.MovementSpeedModifier==0f)
+            //ç©ºè½¬å’Œè·³è·ƒä¸è¢«è§†ä¸ºç§»åŠ¨ æ‰€ä»¥ç›´æ¥è¿”å› ä¸åšç§»åŠ¨æ“ä½œ
+            if (stateMachine.ReusableData.MovementInput == Vector2.zero|| stateMachine.ReusableData.MovementSpeedModifier==0f)
             {
                 return;
             }
-            //»ñÈ¡Íæ¼ÒµÄÒÆ¶¯·½Ïò
+            //è·å–ç©å®¶çš„ç§»åŠ¨æ–¹å‘
             Vector3 movementDirection = GetMovementInputDirection();
 
-            //4.6ËùÒÔÔÚ»ñÈ¡ÒÆ¶¯µÄÊ±ºò£¬µ÷ÓÃĞı×ª·½·¨ºÜºÏÊÊ
+            //4.6æ‰€ä»¥åœ¨è·å–ç§»åŠ¨çš„æ—¶å€™ï¼Œè°ƒç”¨æ—‹è½¬æ–¹æ³•å¾ˆåˆé€‚
             float targetRotationYAngle = Rotate(movementDirection);
-            //½«ÉÏÃæ»ñÈ¡µ½µÄ½Ç¶È×ª»»ÎªÍæ¼ÒÒÆ¶¯µÄ·½Ïò
+            //å°†ä¸Šé¢è·å–åˆ°çš„è§’åº¦è½¬æ¢ä¸ºç©å®¶ç§»åŠ¨çš„æ–¹å‘
             Vector3 targetRotationDirection = GetTargetRotationDirection(targetRotationYAngle);
 
 
-            //»ñÈ¡Íæ¼ÒµÄÒÆ¶¯ËÙ¶È
+            //è·å–ç©å®¶çš„ç§»åŠ¨é€Ÿåº¦
             float movementSpeed = GetMovementSpeed();
 
             Vector3 currentPlayerHorizontalVelocity = GetPlayerHorizontalVelocity();
-            //Ê©¼ÓÁ¦ÒÆ¶¯Íæ¼Ò
-            //×¢Òâ£¬addforceÊÇ¸øÒ»¸öÒÑ¾­´æÔÚµÄÁ¦ÔÙ¼ÓÉÏÒ»¸öÁ¦£¬ÒâÎ¶×ÅÈç¹û£¬²»Í£Ö¹°´¼ü£¬Íæ¼Ò»áÔ½À´Ô½¿ì
-            //¶øvelocitychangeÊÇÖ±½Ó¸Ä±äËÙ¶È
-            //ÎªÁË½â¾öÕâ¸öÎÊÌâ£¬ÎÒÃÇ¿ÉÒÔÔÚÃ¿´ÎÒÆ¶¯Ç°½«Íæ¼ÒµÄËÙ¶ÈÖØÖÃÎª0£¬ÒÆ³ıÏÖÓĞµÄËÙ¶È
+            //æ–½åŠ åŠ›ç§»åŠ¨ç©å®¶
+            //æ³¨æ„ï¼Œaddforceæ˜¯ç»™ä¸€ä¸ªå·²ç»å­˜åœ¨çš„åŠ›å†åŠ ä¸Šä¸€ä¸ªåŠ›ï¼Œæ„å‘³ç€å¦‚æœï¼Œä¸åœæ­¢æŒ‰é”®ï¼Œç©å®¶ä¼šè¶Šæ¥è¶Šå¿«
+            //è€Œvelocitychangeæ˜¯ç›´æ¥æ”¹å˜é€Ÿåº¦
+            //ä¸ºäº†è§£å†³è¿™ä¸ªé—®é¢˜ï¼Œæˆ‘ä»¬å¯ä»¥åœ¨æ¯æ¬¡ç§»åŠ¨å‰å°†ç©å®¶çš„é€Ÿåº¦é‡ç½®ä¸º0ï¼Œç§»é™¤ç°æœ‰çš„é€Ÿåº¦
             stateMachine.Player.Rigidbody.AddForce(targetRotationDirection * movementSpeed- currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
         }
 
 
-        //µÚ8½Ú£ºÈÃÍæ¼Ò¸ù¾İÏà»ú·½ÏòÒÆ¶¯ºÍĞı×ª Õâ¸ö·½·¨·µ»Ø½Ç¶È
+        //ç¬¬8èŠ‚ï¼šè®©ç©å®¶æ ¹æ®ç›¸æœºæ–¹å‘ç§»åŠ¨å’Œæ—‹è½¬ è¿™ä¸ªæ–¹æ³•è¿”å›è§’åº¦
         private float Rotate(Vector3 direction)
         {
             float directionAngle = UpdateTargetRotation(direction);
 
 
-            //3.Æ½»¬Ğı×ªÍæ¼Ò
+            //3.å¹³æ»‘æ—‹è½¬ç©å®¶
             RotateTowardsTargetRotation();
 
             return directionAngle;
-            //4.5×îºóÊÇÌí¼ÓÏà»úĞı×ªµÄµ÷ÓÃ£¬ÎÒÃÇ·¢ÏÖÖ»ÓĞÔÚ×ßÂ·µÄÊ±ºò²Å¸ú×ÅÏà»ú×ß£¬´ı»úºÍÌøÔ¾Ã»ÊÂ
-            //ËùÒÔÔÚÔË¶¯·½·¨ÀïÃæµ÷ÓÃ¾Í¿ÉÒÔÁË È·ÊµºÜñîºÏ ¿ÉÄÜÁÁµã¾ÍÊÇÈçºÎ½â×´Ì¬»úñîºÏ
+            //4.5æœ€åæ˜¯æ·»åŠ ç›¸æœºæ—‹è½¬çš„è°ƒç”¨ï¼Œæˆ‘ä»¬å‘ç°åªæœ‰åœ¨èµ°è·¯çš„æ—¶å€™æ‰è·Ÿç€ç›¸æœºèµ°ï¼Œå¾…æœºå’Œè·³è·ƒæ²¡äº‹
+            //æ‰€ä»¥åœ¨è¿åŠ¨æ–¹æ³•é‡Œé¢è°ƒç”¨å°±å¯ä»¥äº† ç¡®å®å¾ˆè€¦åˆ å¯èƒ½äº®ç‚¹å°±æ˜¯å¦‚ä½•è§£çŠ¶æ€æœºè€¦åˆ
         }
 
         /// <summary>
-        /// ½«¾­¹ıÊ±¼äÇåÁãµÄ·½·¨ ¸üĞÂÄ¿±êĞı×ªÊı¾İ ÖØÖÃ¼ÆÊ±Æ÷
+        /// å°†ç»è¿‡æ—¶é—´æ¸…é›¶çš„æ–¹æ³• æ›´æ–°ç›®æ ‡æ—‹è½¬æ•°æ® é‡ç½®è®¡æ—¶å™¨
         /// </summary>
         /// <param name="directionAngle"></param>
         private void UpdateTargetRotationData(float targetAngle)
         {
-            stateMachine.ResuableData.CurrentTargetRotation.y = targetAngle;
-            stateMachine.ResuableData.DampedTargetRotationPassedTime.y = 0;
+            stateMachine.ReusableData.CurrentTargetRotation.y = targetAngle;
+            stateMachine.ReusableData.DampedTargetRotationPassedTime.y = 0;
         }
 
 
         /// <summary>
-        /// Ìí¼ÓÊäÈë·½Ïò½Ç¶È
+        /// æ·»åŠ è¾“å…¥æ–¹å‘è§’åº¦
         /// </summary>
         /// <param name="direction"></param>
         /// <returns></returns>
         private  float GetDirectionAngle(Vector3 direction)
         {
-            //½Ì³ÌÈÏÎªÊäÈëµÄ½ÇÉ«ÒÆ¶¯µÄ·½Ïò¼ÓÉÏÏà»ú×ª¶¯µÄ¶ÈÊı»áµÃµ½Ò»¸öĞÂµÄÎ»ÒÆ·½Ïò
-            //ËùÒÔÊ×ÏÈÎÒÃÇÒª»ñÈ¡ÔË¶¯ÊäÈëºÍÏà»úµÄ·½Ïò
-            //Õâ¸öÊÇÏà»úµÄ·½Ïò£ºÕâ¸öº¯ÊıÓëunityµÄ²»Í¬£¬½Ç¶ÈÊÇÕëĞı×ª²»Í¬£¬tan2ÀïÃæµÚÒ»¸ö²ÎÊıÊÇy£¬µÚ¶ş¸öÊÇx¡£
-            //È»ºó½«ËûÃÇµ÷×ª·¢ÏÖ³öÀ´µÄ½Ç¶ÈÓëunityµÄ½Ç¶ÈÏàÍ¬ÁË£¬Ô­ÒòÊÇunityÓë±¾À´µÄy=x¶Ô³ÆµÄ
+            //æ•™ç¨‹è®¤ä¸ºè¾“å…¥çš„è§’è‰²ç§»åŠ¨çš„æ–¹å‘åŠ ä¸Šç›¸æœºè½¬åŠ¨çš„åº¦æ•°ä¼šå¾—åˆ°ä¸€ä¸ªæ–°çš„ä½ç§»æ–¹å‘
+            //æ‰€ä»¥é¦–å…ˆæˆ‘ä»¬è¦è·å–è¿åŠ¨è¾“å…¥å’Œç›¸æœºçš„æ–¹å‘
+            //è¿™ä¸ªæ˜¯ç›¸æœºçš„æ–¹å‘ï¼šè¿™ä¸ªå‡½æ•°ä¸unityçš„ä¸åŒï¼Œè§’åº¦æ˜¯é’ˆæ—‹è½¬ä¸åŒï¼Œtan2é‡Œé¢ç¬¬ä¸€ä¸ªå‚æ•°æ˜¯yï¼Œç¬¬äºŒä¸ªæ˜¯xã€‚
+            //ç„¶åå°†ä»–ä»¬è°ƒè½¬å‘ç°å‡ºæ¥çš„è§’åº¦ä¸unityçš„è§’åº¦ç›¸åŒäº†ï¼ŒåŸå› æ˜¯unityä¸æœ¬æ¥çš„y=xå¯¹ç§°çš„
             float directionAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            //Ğı×ªĞèÒª½«tan2µÄ¸º½Ç¶È¸Ä³ÉÕı½Ç¶È,
-            //ÔÚUnityÓÎÏ·¿ª·¢ÖĞ£¬½Ç¶È±ØĞë¿ØÖÆÔÚ0-360¡ã£¬Ô­Òò¾ÍÊÇ¸ºÒ»°Ù°Ë»á³¹µ×ÆÆ»µ·½ÏòÅĞ¶Ï£¡
-            //¶øÊıÑ§ÉÏÊÇÕı¸ºÒ»°Ù°Ë£¬Òò´ËÎÒÃÇÒª°ÑÊıÑ§ÉÏtan2¸ø×ª»»»ØÀ´
-            //Ä¿Ç°»ñµÃÁËÊäÈë·½Ïò½Ç
-            //"°ÑÍæ¼Ò°´¼ü·½Ïò + Ïà»úĞı×ª½Ç¶È = ÕæÕıµÄÒÆ¶¯·½Ïò"
+            //æ—‹è½¬éœ€è¦å°†tan2çš„è´Ÿè§’åº¦æ”¹æˆæ­£è§’åº¦,
+            //åœ¨Unityæ¸¸æˆå¼€å‘ä¸­ï¼Œè§’åº¦å¿…é¡»æ§åˆ¶åœ¨0-360Â°ï¼ŒåŸå› å°±æ˜¯è´Ÿä¸€ç™¾å…«ä¼šå½»åº•ç ´åæ–¹å‘åˆ¤æ–­ï¼
+            //è€Œæ•°å­¦ä¸Šæ˜¯æ­£è´Ÿä¸€ç™¾å…«ï¼Œå› æ­¤æˆ‘ä»¬è¦æŠŠæ•°å­¦ä¸Štan2ç»™è½¬æ¢å›æ¥
+            //ç›®å‰è·å¾—äº†è¾“å…¥æ–¹å‘è§’
+            //"æŠŠç©å®¶æŒ‰é”®æ–¹å‘ + ç›¸æœºæ—‹è½¬è§’åº¦ = çœŸæ­£çš„ç§»åŠ¨æ–¹å‘"
             if (directionAngle < 0f)
             {
                 directionAngle += 360f;
@@ -220,15 +245,15 @@ namespace MovementStstem
         }
 
         /// <summary>
-        /// Ìí¼ÓÏà»ú½Ç¶È
+        /// æ·»åŠ ç›¸æœºè§’åº¦
         /// </summary>
         /// <param name="angle"></param>
         /// <returns></returns>
         private float AddCameraRotationToAngle(float angle)
         {
             angle += stateMachine.Player.MainCameraTransform.eulerAngles.y;
-            //ÓÃÅ·À­½ÇÊÇÒòÎªËüÊÇÊıÖµ£¬ËÄÔªÊıÊÇÎŞ·¨Ö±½ÓÉèÖÃµÄ£¬¶øÇÒÏà»úyÖáĞı×ªÊÇÅ·À­½Ç£¬ÊÇË®Æ½Ğı×ª
-            //ÅĞ¶ÏÊÇ·ñÓĞ´óÓÚ360¶ÈµÄÇé¿ö
+            //ç”¨æ¬§æ‹‰è§’æ˜¯å› ä¸ºå®ƒæ˜¯æ•°å€¼ï¼Œå››å…ƒæ•°æ˜¯æ— æ³•ç›´æ¥è®¾ç½®çš„ï¼Œè€Œä¸”ç›¸æœºyè½´æ—‹è½¬æ˜¯æ¬§æ‹‰è§’ï¼Œæ˜¯æ°´å¹³æ—‹è½¬
+            //åˆ¤æ–­æ˜¯å¦æœ‰å¤§äº360åº¦çš„æƒ…å†µ
             if (angle > 360f)
             {
                 angle -= 360f;
@@ -238,25 +263,93 @@ namespace MovementStstem
         }
 
         #endregion
-        #region reuseable methods¿ÉÖØÓÃ·½·¨
+        #region Reusable methodså¯é‡ç”¨æ–¹æ³•
         /// <summary>
-        /// »ñÈ¡Íæ¼ÒµÄÒÆ¶¯ÊäÈë·½Ïò
+        /// æ·»åŠ å›è°ƒ
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        protected virtual void AddInputActionsCallBacks()
+        {
+            //åé¢è¿™ä¸ªåŠ ç­‰äºè‡ªå®šä¹‰çš„æ–¹æ³•ï¼Œä¹Ÿå°±æ˜¯è¡¨ç¤º æŒ‰æŒ‰é’®çš„ä¸€ç¬é—´åŠ ä¸Šè¿™ä¸ªæ–¹æ³•
+            //ç›¸å½“äºä¸€ä¸ªæŒ‰é’®æœ‰ä¸‰ä¸ªå§”æ‰˜ï¼ŒæŒ‰ä¸‹startï¼Œé•¿æŒ‰pï¼Œæ¾å¼€cancelï¼Œå¯ä»¥é€šè¿‡ç›‘å¬ä¸‰ä¸ªäº‹ä»¶æ·»åŠ ä¸åŒé€»è¾‘
+            stateMachine.Player.Input.PlayerActions.WalkToggle.started += OnWalkToggleStarted;
+
+            stateMachine.Player.Input.PlayerActions.Look.started += OnMouseMovementStarted;
+            stateMachine.Player.Input.PlayerActions.Movement.performed += OnMovementPerformed;
+
+            stateMachine.Player.Input.PlayerActions.Movement.canceled += OnMovementCanceled;
+
+
+        }
+
+        /// <summary>
+        /// åˆ é™¤å›è°ƒ
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        protected virtual void RemoveInputActionsCallBacks()
+        {
+            //åˆ é™¤å›è°ƒ
+            stateMachine.Player.Input.PlayerActions.WalkToggle.started -= OnWalkToggleStarted;
+
+            stateMachine.Player.Input.PlayerActions.Look.started -= OnMouseMovementStarted;
+            stateMachine.Player.Input.PlayerActions.Movement.performed -= OnMovementPerformed;
+
+            stateMachine.Player.Input.PlayerActions.Movement.canceled -= OnMovementCanceled;
+        }
+
+        /// <summary>
+        /// è¿›å…¥æ—¶æ‰§è¡Œ å¼€å§‹åŠ¨ç”» å°±æ˜¯setbool è®¾ä¸ºtrue
+        /// </summary>
+        /// <param name="animationHash"></param>
+        protected void StartAnimation(int animationHash)
+        {
+            stateMachine.Player.Animator.SetBool(animationHash, true);
+        }
+        /// <summary>
+        /// setbool æ˜¯false
+        /// </summary>
+        /// <param name="animationHash"></param>
+        protected void StopAnimation(int animationHash)
+        {
+            stateMachine.Player.Animator.SetBool(animationHash, false);
+        }
+
+        protected void SetBaseCameraRecenteringData()
+        {
+            stateMachine.ReusableData.BackwardsCameraRecenteringData = movementData.BackwardsCameraRecentringData;
+            stateMachine.ReusableData.SidewaysCameraRecenteringData = movementData.SidewaysCameraRecentringData;
+        }
+        protected void SetBaseRotationData()
+        {
+            stateMachine.ReusableData.RotationData = movementData.BaseRotationData;
+            //**
+            //è¿™ä¸ªæ˜¯å‘ç”Ÿè½®æ¢æ‰€è€—è´¹çš„æ—¶é—´å˜é‡
+            stateMachine.ReusableData.TimeToReachTargetRotation = stateMachine.ReusableData.RotationData.TargetRotationReachTime;
+        }
+
+        /// <summary>
+        /// è·å–ç©å®¶çš„ç§»åŠ¨è¾“å…¥æ–¹å‘
         /// </summary>
         /// <returns></returns>
         protected Vector3 GetMovementInputDirection()
         {
-            //½«3d×ª»»Îª2d£¬yÖáÎª0£¬±íÊ¾´¹Ö±·½Ïò²»»áÒÆ¶¯
-            return new Vector3(stateMachine.ResuableData.MovementInput.x, 0f, stateMachine.ResuableData.MovementInput.y);
+            //å°†3dè½¬æ¢ä¸º2dï¼Œyè½´ä¸º0ï¼Œè¡¨ç¤ºå‚ç›´æ–¹å‘ä¸ä¼šç§»åŠ¨
+            return new Vector3(stateMachine.ReusableData.MovementInput.x, 0f, stateMachine.ReusableData.MovementInput.y);
         }
 
         /// <summary>
-        /// »ñÈ¡Íæ¼ÒµÄÒÆ¶¯ËÙ¶È °üº¬ÁË»ù´¡ËÙ¶È ĞŞ¸ÄÆ÷ËÙ¶È±ÈÈç¸÷ÖÖÊÜÉË×´Ì¬ ¿ÉÖØÓÃĞŞ¸ÄÆ÷µÄËÙ¶ÈÒ²¾ÍÊÇÉÏÆÂËÙ¶È 
+        /// è·å–ç©å®¶çš„ç§»åŠ¨é€Ÿåº¦ åŒ…å«äº†åŸºç¡€é€Ÿåº¦ ä¿®æ”¹å™¨é€Ÿåº¦æ¯”å¦‚å„ç§å—ä¼¤çŠ¶æ€ å¯é‡ç”¨ä¿®æ”¹å™¨çš„é€Ÿåº¦ä¹Ÿå°±æ˜¯ä¸Šå¡é€Ÿåº¦ 
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected float GetMovementSpeed()
+        protected float GetMovementSpeed(bool shouldConsiderSlopes = true)
         {
-            return movementData.BaseSpeed * stateMachine.ResuableData.MovementSpeedModifier* stateMachine.ResuableData.MovementOnSlopesSpeedModifier;
+            float movementSpeed = movementData.BaseSpeed * stateMachine.ReusableData.MovementSpeedModifier;
+            if (shouldConsiderSlopes)
+            {
+                movementSpeed *= stateMachine.ReusableData.MovementSpeedModifier;
+            }
+            return movementSpeed;
         }
 
         protected Vector3 GetPlayerHorizontalVelocity()
@@ -267,7 +360,7 @@ namespace MovementStstem
         }
 
         /// <summary>
-        /// µÃµ½Íæ¼Ò´¹Ö±ËÙ¶È
+        /// å¾—åˆ°ç©å®¶å‚ç›´é€Ÿåº¦
         /// </summary>
         /// <returns></returns>
         protected Vector3 GetPlayerVerticalVelocity()
@@ -276,65 +369,65 @@ namespace MovementStstem
         }
 
         /// <summary>
-        /// Ğı×ªÖÁÄ¿±ê³¯Ïò£¬Õâ¸ö·½·¨ººÒë
+        /// æ—‹è½¬è‡³ç›®æ ‡æœå‘ï¼Œè¿™ä¸ªæ–¹æ³•æ±‰è¯‘
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
         protected void RotateTowardsTargetRotation()
         {
-            //3.Õâ¸öÍêÈ«ÊÇ¸ù¾İ·½·¨È»ºóÕÒ²ÎÊı£¬·½·¨ÊÇmathf.smoothdamp£¬Ê¹ÓÃÆ½»¬×èÄáÀ´Ğı×ªÍæ¼Ò
-            //ºÍµÚ¶ş¸öÒ»Ñù£¬ÏÈµÃµ½µ±Ç°y½Ç¶È£¬ÔÙµÃµ½ÊäÈëÄ¿±ê½Ç¶È£¬È»ºóÊ¹ÓÃmathf.smoothdamp·½·¨
+            //3.è¿™ä¸ªå®Œå…¨æ˜¯æ ¹æ®æ–¹æ³•ç„¶åæ‰¾å‚æ•°ï¼Œæ–¹æ³•æ˜¯mathf.smoothdampï¼Œä½¿ç”¨å¹³æ»‘é˜»å°¼æ¥æ—‹è½¬ç©å®¶
+            //å’Œç¬¬äºŒä¸ªä¸€æ ·ï¼Œå…ˆå¾—åˆ°å½“å‰yè§’åº¦ï¼Œå†å¾—åˆ°è¾“å…¥ç›®æ ‡è§’åº¦ï¼Œç„¶åä½¿ç”¨mathf.smoothdampæ–¹æ³•
 
-            //µÃµ½µ±Ç°y½Ç¶È
+            //å¾—åˆ°å½“å‰yè§’åº¦
             float currentYAngle = stateMachine.Player.Rigidbody.rotation.eulerAngles.y;
-            //ÈôÊÇµ±Ç°½Ç¶ÈµÈÓÚÄ¿±ê½Ç¶ÈÔò²»Ğı×ª
-            if (currentYAngle == stateMachine.ResuableData.CurrentTargetRotation.y) return;
-            //ÈôÊÇ²»µÈÓÚÄ¿±ê½Ç¶È£¬ÔòÊ¹ÓÃÆ½»¬×èÄáĞı×ªÍæ¼Ò
-            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, stateMachine.ResuableData.CurrentTargetRotation.y,
-                ref stateMachine.ResuableData.DampedTargetRotationCurrentVelocity.y,//refÊÇÒòÎªÕâ¸ö±äÁ¿»á±»·½·¨¸Ä±ä£¬unity×Ô¶¯´«ÒıÓÃ£¬refÊÇÒªÔÚÍâÃæ³õÊ¼»¯
-                //ÒòÎªÈç¹ûµ¥¶À´«ÈëÊ±¼ä±äÁ¿£¬ÄÇÃ´Ã¿´Îµ÷ÓÃÕâ¸ö·½·¨Ê±¼ä¶¼»á±»ÖØÖÃ£¬´ï²»µ½Æ½»¬Ğ§¹û£¬
-                //Ã¿´Îµ÷ÓÃÆ½»¬·½·¨¶¼ÊÇ0.14f£¬¶ø²»ÊÇĞı×ª»¨·Ñ
-                stateMachine.ResuableData.TimeToReachTargetRotation.y- stateMachine.ResuableData.DampedTargetRotationPassedTime.y//Ä¿±êËùĞèĞı×ªÊ±¼ä=×ÜÊ±¼ä-ÒÑ¾­¾­¹ıµÄÊ±¼ä
+            //è‹¥æ˜¯å½“å‰è§’åº¦ç­‰äºç›®æ ‡è§’åº¦åˆ™ä¸æ—‹è½¬
+            if (currentYAngle == stateMachine.ReusableData.CurrentTargetRotation.y) return;
+            //è‹¥æ˜¯ä¸ç­‰äºç›®æ ‡è§’åº¦ï¼Œåˆ™ä½¿ç”¨å¹³æ»‘é˜»å°¼æ—‹è½¬ç©å®¶
+            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, stateMachine.ReusableData.CurrentTargetRotation.y,
+                ref stateMachine.ReusableData.DampedTargetRotationCurrentVelocity.y,//refæ˜¯å› ä¸ºè¿™ä¸ªå˜é‡ä¼šè¢«æ–¹æ³•æ”¹å˜ï¼Œunityè‡ªåŠ¨ä¼ å¼•ç”¨ï¼Œrefæ˜¯è¦åœ¨å¤–é¢åˆå§‹åŒ–
+                //å› ä¸ºå¦‚æœå•ç‹¬ä¼ å…¥æ—¶é—´å˜é‡ï¼Œé‚£ä¹ˆæ¯æ¬¡è°ƒç”¨è¿™ä¸ªæ–¹æ³•æ—¶é—´éƒ½ä¼šè¢«é‡ç½®ï¼Œè¾¾ä¸åˆ°å¹³æ»‘æ•ˆæœï¼Œ
+                //æ¯æ¬¡è°ƒç”¨å¹³æ»‘æ–¹æ³•éƒ½æ˜¯0.14fï¼Œè€Œä¸æ˜¯æ—‹è½¬èŠ±è´¹
+                stateMachine.ReusableData.TimeToReachTargetRotation.y- stateMachine.ReusableData.DampedTargetRotationPassedTime.y//ç›®æ ‡æ‰€éœ€æ—‹è½¬æ—¶é—´=æ€»æ—¶é—´-å·²ç»ç»è¿‡çš„æ—¶é—´
                 //Mathf.Infinity,
                 //Time.fixedDeltaTime
                 );
 
-            //ÎªÉÏÃæµÄ¾­¹ıÊ±¼ä±äÁ¿Ôö¼ÓÊ±¼ä£¬²»È»Ã¿´Îµ÷ÓÃ¶¼ÊÇ0
-            //ÒòÎªÕâ¸ö·½·¨ÊÇÔÚfixedupdateµ÷ÓÃµÄ£¬ËùÒÔÓÃdeltatime»á·µ»ØfixedeltaTime
-            stateMachine.ResuableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
+            //ä¸ºä¸Šé¢çš„ç»è¿‡æ—¶é—´å˜é‡å¢åŠ æ—¶é—´ï¼Œä¸ç„¶æ¯æ¬¡è°ƒç”¨éƒ½æ˜¯0
+            //å› ä¸ºè¿™ä¸ªæ–¹æ³•æ˜¯åœ¨fixedupdateè°ƒç”¨çš„ï¼Œæ‰€ä»¥ç”¨deltatimeä¼šè¿”å›fixedeltaTime
+            stateMachine.ReusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
 
-            //ÏÖÔÚÓĞÁËÆ½»¬ºóµÄ½Ç¶È£¬½«ÆäÓ¦ÓÃµ½Íæ¼Ò¸ÕÌåÉÏ
-            //ÓÃËÄÔªÊı½ÓÊÕÅ·À­½Ç
+            //ç°åœ¨æœ‰äº†å¹³æ»‘åçš„è§’åº¦ï¼Œå°†å…¶åº”ç”¨åˆ°ç©å®¶åˆšä½“ä¸Š
+            //ç”¨å››å…ƒæ•°æ¥æ”¶æ¬§æ‹‰è§’
             Quaternion targetRotation = Quaternion.Euler(0f, smoothedYAngle, 0f);
-            //Ó¦ÓÃµ½¸ÕÌåÉÏ
+            //åº”ç”¨åˆ°åˆšä½“ä¸Š
             stateMachine.Player.Rigidbody.MoveRotation(targetRotation);
 
-            //ÁíÍâ£¬µ±Æ½»¬Ğı×ªÍê³Éºó£¬ÎÒÃÇĞèÒªÖØÖÃ¾­¹ıÊ±¼ä±äÁ¿dampedTargetRotationPassedTime£¬ÒòÎªÏÂ´ÎĞı×ªÓÖÊÇ´Ó0¿ªÊ¼µÄ£¬¶øÄÇ¸ö±äÁ¿»áÒ»Ö±Ôö¼Ó
+            //å¦å¤–ï¼Œå½“å¹³æ»‘æ—‹è½¬å®Œæˆåï¼Œæˆ‘ä»¬éœ€è¦é‡ç½®ç»è¿‡æ—¶é—´å˜é‡dampedTargetRotationPassedTimeï¼Œå› ä¸ºä¸‹æ¬¡æ—‹è½¬åˆæ˜¯ä»0å¼€å§‹çš„ï¼Œè€Œé‚£ä¸ªå˜é‡ä¼šä¸€ç›´å¢åŠ 
 
         }
 
         /// <summary>
-        /// ¸üĞÂÄ¿±êĞı×ª·½·¨
+        /// æ›´æ–°ç›®æ ‡æ—‹è½¬æ–¹æ³•
         /// </summary>
         /// <param name="direction"></param>
         /// <returns></returns>
         protected float UpdateTargetRotation(Vector3 direction,bool shouldConsiderCameraRotation=true)
         {
-            //1.Ìí¼ÓÊäÈë·½Ïò½Ç¶È
+            //1.æ·»åŠ è¾“å…¥æ–¹å‘è§’åº¦
             float directionAngle = GetDirectionAngle(direction);
 
-            //5.ÉÔºóÓÃÕâ¸öÊµÏÖ³å´Ì×´Ì¬ dashing state
+            //5.ç¨åç”¨è¿™ä¸ªå®ç°å†²åˆºçŠ¶æ€ dashing state
             if (shouldConsiderCameraRotation)
-            {//ÏÂÒ»²½ÊÇ»ñµÃÏà»ú½Ç¶È,Ìí¼Óµ½ÊäÈë½Ç¶ÈÉÏ
-            //Ò²¾ÍÊÇËµ£¬Ï£ÍûÈç¹ûÊäÈëÒ»¸ö½Ç¶ÈµÄÊ±ºò£¬ÓÀÔ¶³¯×ÅÏà»úËùÔÚµÄ·½ÏòÒÆ¶¯
-            //±ÈÈçËµ²»¼ÓµÄÊ±ºò£¬Ïà»úÔõÃ´×ª£¬ÎïÌå¶¼ÊÇ³¯×ÅÊÀ½ç×ø±êÏµµÄÄÇ¸ö·½ÏòÒÆ¶¯£¬¼ÓÁËÉãÏñ»ú¶ÈÊıÖ®ºó»á±ä³ÉÔÚÏà»ú³¯Ïò»ù´¡ÉÏÒÆ¶¯
-            //2.Ìí¼ÓÏà»ú½Ç¶È
+            {//ä¸‹ä¸€æ­¥æ˜¯è·å¾—ç›¸æœºè§’åº¦,æ·»åŠ åˆ°è¾“å…¥è§’åº¦ä¸Š
+            //ä¹Ÿå°±æ˜¯è¯´ï¼Œå¸Œæœ›å¦‚æœè¾“å…¥ä¸€ä¸ªè§’åº¦çš„æ—¶å€™ï¼Œæ°¸è¿œæœç€ç›¸æœºæ‰€åœ¨çš„æ–¹å‘ç§»åŠ¨
+            //æ¯”å¦‚è¯´ä¸åŠ çš„æ—¶å€™ï¼Œç›¸æœºæ€ä¹ˆè½¬ï¼Œç‰©ä½“éƒ½æ˜¯æœç€ä¸–ç•Œåæ ‡ç³»çš„é‚£ä¸ªæ–¹å‘ç§»åŠ¨ï¼ŒåŠ äº†æ‘„åƒæœºåº¦æ•°ä¹‹åä¼šå˜æˆåœ¨ç›¸æœºæœå‘åŸºç¡€ä¸Šç§»åŠ¨
+            //2.æ·»åŠ ç›¸æœºè§’åº¦
             directionAngle = AddCameraRotationToAngle(directionAngle);
 
             }
             
 
-            //4.Èç¹ûÏà»ú½Ç¶È²»µÈÓÚµ±Ç°Ä¿±ê½Ç¶È£¬Ö´ĞĞÊ±¼äÖØÖÃ·½·¨
-            if (directionAngle != stateMachine.ResuableData.CurrentTargetRotation.y)
+            //4.å¦‚æœç›¸æœºè§’åº¦ä¸ç­‰äºå½“å‰ç›®æ ‡è§’åº¦ï¼Œæ‰§è¡Œæ—¶é—´é‡ç½®æ–¹æ³•
+            if (directionAngle != stateMachine.ReusableData.CurrentTargetRotation.y)
             {
                 UpdateTargetRotationData(directionAngle);
             }
@@ -343,60 +436,169 @@ namespace MovementStstem
         }
 
         /// <summary>
-        /// ÕâÊÇÒ»¸ö°Ñ½Ç¶È×ª·½ÏòµÄ·½·¨
+        /// è¿™æ˜¯ä¸€ä¸ªæŠŠè§’åº¦è½¬æ–¹å‘çš„æ–¹æ³•
         /// </summary>
         /// <param name="targetAngle"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         protected Vector3 GetTargetRotationDirection(float targetAngle)
         {
-            //ÕâÊÇÒ»¸öËãÊı ½Ç¶È×ª·½Ïò Ó¦¸ÃÓĞĞı×ª¾ØÕóµÄËã·¨ ÊäÈë¶ÈÊı ¾ÍÄÜµÃµ½Ğı×ªÖ®ºóµÄ·½Ïò**
-            //Ò²¾ÍÊÇËµ ËÄÔªÊıÆäÊµÊÇÒ»¸ö¸´Êı,Ò»¸öÏòÁ¿³ËÒÔÒ»¸ö¸´Êı,±íÊ¾Õâ¸öÏòÁ¿°´ÕÕÕâ¸ö¸´Êı±íÊ¾µÄ½Ç¶ÈĞı×ªÒ»¸ö½Ç¶ÈÖµ
-            //zÖáÊÇÒòÎªÕâÊÇÍæ¼ÒÏòÇ°µÄÖá
-            //¾ØÕó³Ë·¨²»Âú×ã½»»»ÂÉ ²»¿ÉÒÔ»»Î»
+            //è¿™æ˜¯ä¸€ä¸ªç®—æ•° è§’åº¦è½¬æ–¹å‘ åº”è¯¥æœ‰æ—‹è½¬çŸ©é˜µçš„ç®—æ³• è¾“å…¥åº¦æ•° å°±èƒ½å¾—åˆ°æ—‹è½¬ä¹‹åçš„æ–¹å‘**
+            //ä¹Ÿå°±æ˜¯è¯´ å››å…ƒæ•°å…¶å®æ˜¯ä¸€ä¸ªå¤æ•°,ä¸€ä¸ªå‘é‡ä¹˜ä»¥ä¸€ä¸ªå¤æ•°,è¡¨ç¤ºè¿™ä¸ªå‘é‡æŒ‰ç…§è¿™ä¸ªå¤æ•°è¡¨ç¤ºçš„è§’åº¦æ—‹è½¬ä¸€ä¸ªè§’åº¦å€¼
+            //zè½´æ˜¯å› ä¸ºè¿™æ˜¯ç©å®¶å‘å‰çš„è½´
+            //çŸ©é˜µä¹˜æ³•ä¸æ»¡è¶³äº¤æ¢å¾‹ ä¸å¯ä»¥æ¢ä½
             return Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         }
 
         /// <summary>
-        /// 9.2Ê¹ËÙ¶ÈÖØÖÃ Ë²Ê±ÇåÁã
+        /// 9.2ä½¿é€Ÿåº¦é‡ç½® ç¬æ—¶æ¸…é›¶
         /// </summary>
         protected void ResetVelocity()
         {
             stateMachine.Player.Rigidbody.velocity = Vector3.zero;
         }
-        /// <summary>
-        /// Ìí¼Ó»Øµ÷
-        /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
-        protected virtual void AddInputActionsCallBacks()
+        protected void ResetVerticalVelocity()
         {
-            //ºóÃæÕâ¸ö¼ÓµÈÓÚ×Ô¶¨ÒåµÄ·½·¨£¬Ò²¾ÍÊÇ±íÊ¾ °´°´Å¥µÄÒ»Ë²¼ä¼ÓÉÏÕâ¸ö·½·¨
-            //Ïàµ±ÓÚÒ»¸ö°´Å¥ÓĞÈı¸öÎ¯ÍĞ£¬°´ÏÂstart£¬³¤°´p£¬ËÉ¿ªcancel£¬¿ÉÒÔÍ¨¹ı¼àÌıÈı¸öÊÂ¼şÌí¼Ó²»Í¬Âß¼­
-            stateMachine.Player.Input.PlayerActions.WalkToggle.started += OnWalkToggleStarted;
+            Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
+
+            stateMachine.Player.Rigidbody.velocity = playerHorizontalVelocity;
+        }
+        protected void DecelerateHorizontally()
+        {
+            //åœ¨æ°´å¹³è½´ä¸Šå‡é€Ÿç©å®¶ å› ä¸ºå¸Œæœ›ç©å®¶ç¼“æ…¢å‡é€Ÿ
+            Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
+            stateMachine.Player.Rigidbody.AddForce(-playerHorizontalVelocity*stateMachine.ReusableData.MovementDecelerationForce,ForceMode.Acceleration);
+        }
+        protected void DecelerateVertically()
+        {
+            //åœ¨æ°´å¹³è½´ä¸Šå‡é€Ÿç©å®¶ å› ä¸ºå¸Œæœ›ç©å®¶ç¼“æ…¢å‡é€Ÿ
+            Vector3 playerVerticalVelocity = GetPlayerVerticalVelocity();
+            stateMachine.Player.Rigidbody.AddForce(-playerVerticalVelocity * stateMachine.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
+        }
+        /// <summary>
+        /// æ£€æŸ¥ç©å®¶æ˜¯å¦æ°´å¹³ç§»åŠ¨
+        /// </summary>
+        /// <param name="minimumMagnitude"></param>
+        /// <returns></returns>
+        protected bool IsMovingHorizontally(float minimumMagnitude = 0.1f)
+        {
+            Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
+
+            Vector2 playerHorizontalMovement = new Vector2(playerHorizontalVelocity.x, playerHorizontalVelocity.z);
+
+            return playerHorizontalMovement.magnitude > minimumMagnitude;
+        }
+        protected bool IsMovingUp(float minimumVelocity=0.1f)
+        {
+            return GetPlayerVerticalVelocity().y > minimumVelocity;
+        }
+        protected bool IsMovingDown(float minimumVelocity=0.1f)
+        {
+            return GetPlayerVerticalVelocity().y < -minimumVelocity;
+        }
+        protected virtual void OnContactWithGround(Collider collider)
+        {
+            
+        }
+        protected virtual void OnContactWithGroundExited(Collider collider)
+        {
+            
+        }
+        protected void UpdateCameraRecenteringState(Vector2 movementInput)
+        {
+            //æ²¡æœ‰ç§»åŠ¨è¾“å…¥å°±è¿”å› ä¸æ‰§è¡Œæ­¤ç›¸æœºå±…ä¸­æ–¹æ³•
+            if(movementInput == Vector2.zero) return;
+            //å‘å‰ç§»åŠ¨çš„æ—¶å€™ç¦ç”¨ å› ä¸ºçœ‹èµ·æ¥å¾ˆå¥‡æ€ª
+            if (movementInput == Vector2.up)
+            {
+                DisableCameraRecentering();
+                return;
+            }
+            //xæ˜¯ç›¸æœºå‚ç›´è§’åº¦ éœ€è¦åˆ¤æ–­æ˜¯å¦åœ¨-90å’Œ90ä¹‹é—´
+            float cameraVerticalAngle = stateMachine.Player.MainCameraTransform.eulerAngles.x;
+            if(cameraVerticalAngle >= 270f )
+            {
+                cameraVerticalAngle -= 360f;
+            }
+            //å¾—åˆ°-90å’Œ90ä¹‹é—´çš„è§’åº¦
+            cameraVerticalAngle = Mathf.Abs(cameraVerticalAngle);
+            if(movementInput == Vector2.down)
+            {
+                SetCameraRecenteringState(cameraVerticalAngle,stateMachine.ReusableData.BackwardsCameraRecenteringData);
+                return;
+            }
+            SetCameraRecenteringState(cameraVerticalAngle, stateMachine.ReusableData.SidewaysCameraRecenteringData);
+        }
+
+        protected void SetCameraRecenteringState(float cameraVerticalAngle, List<PlayerCameraRecenteringData> cameraRecenteringData)
+        {
+            foreach (PlayerCameraRecenteringData recemteringData in cameraRecenteringData)
+            {
+                if (!recemteringData.IsWithinRange(cameraVerticalAngle))
+                {
+                    continue;
+                }
+                EnableCameraRecentering(recemteringData.WaitTime, recemteringData.RecenteringTime);
+
+                return;
+            }
+            DisableCameraRecentering();
         }
 
         /// <summary>
-        /// É¾³ı»Øµ÷
+        /// ä½¿ç›¸æœºå±…ä¸­
         /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
-        protected virtual void RemoveInputActionsCallBacks()
+        /// <param name="waitTime"></param>
+        /// <param name="recenteringTime"></param>
+        protected void EnableCameraRecentering(float waitTime = -1f,float recenteringTime = -1f)
         {
-            //É¾³ı»Øµ÷
-            stateMachine.Player.Input.PlayerActions.WalkToggle.started -= OnWalkToggleStarted;
+            float movementSpeed = GetMovementSpeed();
+            if(movementSpeed == 0f)
+            {
+                movementSpeed = movementData.BaseSpeed;
+            }
+
+            stateMachine.Player.CameraUtility.EnableRecentering(waitTime, recenteringTime,movementData.BaseSpeed,movementSpeed);
+        }
+        protected void DisableCameraRecentering(float waitTime = -1f,float recenteringTime = -1f)
+        {
+            stateMachine.Player.CameraUtility.DisableRecentering();
         }
         #endregion
 
-        #region ÊäÈë·½·¨ Input Methods
+        #region è¾“å…¥æ–¹æ³• Input Methods
 
-        //Õâ¸öÀïÃæ²ÎÊıunity»á×Ô¼º½â¾ö£¬²»ÓÃ´«
+        //è¿™ä¸ªé‡Œé¢å‚æ•°unityä¼šè‡ªå·±è§£å†³ï¼Œä¸ç”¨ä¼ 
         protected virtual void OnWalkToggleStarted(InputAction.CallbackContext context)
         {
-            //ÕâÀïÃæµÄÂß¼­ÊÇ Ã¿´Î°´ÏÂtoggleµÄÊ±ºò ¶¼»á°Ñshouldwalk±ä³ÉÏà·´µÄÖµ
-            stateMachine.ResuableData.ShouldWalk = !stateMachine.ResuableData.ShouldWalk;
-            //ÎÒÃÇÃ¿´Î½øÈëÒ»¸ö×´Ì¬¾Í»áÌí¼ÓÒ»¸ö»Øµ÷ ÕâÒâÎ¶×ÅÈç¹ûÎÒÃÇ½øÈëÏàÍ¬µÄ»Øµ÷£¬Ê®´Î£¬ËùÓĞÎÒÃÇÒ²Ó¦¸Ã½«ËûÉ¾³ı
-            //Íê³É²½ĞĞÇĞ»»»Øµ÷
+            //è¿™é‡Œé¢çš„é€»è¾‘æ˜¯ æ¯æ¬¡æŒ‰ä¸‹toggleçš„æ—¶å€™ éƒ½ä¼šæŠŠshouldwalkå˜æˆç›¸åçš„å€¼
+            stateMachine.ReusableData.ShouldWalk = !stateMachine.ReusableData.ShouldWalk;
+            //æˆ‘ä»¬æ¯æ¬¡è¿›å…¥ä¸€ä¸ªçŠ¶æ€å°±ä¼šæ·»åŠ ä¸€ä¸ªå›è°ƒ è¿™æ„å‘³ç€å¦‚æœæˆ‘ä»¬è¿›å…¥ç›¸åŒçš„å›è°ƒï¼Œåæ¬¡ï¼Œæ‰€æœ‰æˆ‘ä»¬ä¹Ÿåº”è¯¥å°†ä»–åˆ é™¤
+            //å®Œæˆæ­¥è¡Œåˆ‡æ¢å›è°ƒ
+        }
+        protected virtual void OnMovementCanceled(InputAction.CallbackContext context)
+        {
+            DisableCameraRecentering();
         }
 
+        /// <summary>
+        /// performed æ¯æ¬¡æŒ‰é”®æ—¶éƒ½è°ƒç”¨
+        /// </summary>
+        /// <param name="context"></param>
+        private void OnMovementPerformed(InputAction.CallbackContext context)
+        {
+            UpdateCameraRecenteringState(context.ReadValue<Vector2>());
+        }
+        /// <summary>
+        /// start åªåœ¨æŒ‰é”®ç¬¬ä¸€æ¬¡ä½¿ç”¨
+        /// </summary>
+        /// <param name="context"></param>
+        private void OnMouseMovementStarted(InputAction.CallbackContext context)
+        {
+            UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
+        }
+
+   
         #endregion
     }
 }

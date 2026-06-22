@@ -49,7 +49,6 @@ namespace MovementStstem
         //重写动画过渡事件方法 这里是写从停止状态过渡到其他状态的逻辑 因为现在是从停止状态进入待机状态 这个过渡事件就是在动画机里写的 从停止动画过渡到待机动画的事件
         public override void OnAnimationTransitionEvent()
         {
-
             stateMachine.ChangeState(stateMachine.IdlingState);
         }
         #endregion

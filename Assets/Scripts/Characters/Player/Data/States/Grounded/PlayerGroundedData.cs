@@ -5,29 +5,37 @@ using UnityEngine;
 
 namespace MovementStstem
 {
-    //Õâ¸öÀàÊÇ±»PlayerGroundedStateSOÒıÓÃµÄ£¬ÒªÏëĞòÁĞ»¯±ØĞë¼ÓÉÏÕâ¸öÊôĞÔ
-    //ËüºÍSOµÄ¹ØÏµÊÇ£ºµ±ÄãÏëÈÃÄãµÄ×Ô¶¨ÒåÀà£¨ÈçPlayerGroundedData£©×÷ÎªÒ»¸ö×Ö¶Î£¬
-    //ÔÚSO£¨»òMonoBehaviour¡¢»òÆäËû¿ÉĞòÁĞ»¯Àà£©µÄInspectorÃæ°åÖĞÏÔÊ¾ºÍ±à¼­Ê±£¬Õâ¸ö×Ô¶¨ÒåÀà¾Í±ØĞë¼Ó [Serializable]¡£
+    //è¿™ä¸ªç±»æ˜¯è¢«PlayerGroundedStateSOå¼•ç”¨çš„ï¼Œè¦æƒ³åºåˆ—åŒ–å¿…é¡»åŠ ä¸Šè¿™ä¸ªå±æ€§
+    //å®ƒå’ŒSOçš„å…³ç³»æ˜¯ï¼šå½“ä½ æƒ³è®©ä½ çš„è‡ªå®šä¹‰ç±»ï¼ˆå¦‚PlayerGroundedDataï¼‰ä½œä¸ºä¸€ä¸ªå­—æ®µï¼Œ
+    //åœ¨SOï¼ˆæˆ–MonoBehaviourã€æˆ–å…¶ä»–å¯åºåˆ—åŒ–ç±»ï¼‰çš„Inspectoré¢æ¿ä¸­æ˜¾ç¤ºå’Œç¼–è¾‘æ—¶ï¼Œè¿™ä¸ªè‡ªå®šä¹‰ç±»å°±å¿…é¡»åŠ  [Serializable]ã€‚
     [Serializable]
     /// <summary>
-    /// ±»soÒıÓÃµÄ µØÃæÊı¾İ
+    /// è¢«soå¼•ç”¨çš„ åœ°é¢æ•°æ®
     /// </summary>
     public class PlayerGroundedData 
     {
-        //¸ù±¾Ä¿µÄ£º[SerializeField] ºÍ [Serializable] µÄ¸ù±¾Ä¿µÄÊÇ ¡°ÄÉÈëUnityĞòÁĞ»¯ÏµÍ³¡±¡£
-        //Ö±½Ó±íÏÖ£ºÒòÎª±»UnityĞòÁĞ»¯ÏµÍ³¹ÜÀíÁË£¬ËùÒÔËü²ÅÄÜÔÚInspector´°¿ÚÖĞ±»¿´¼û¡¢±»±à¼­¡£
-        //ËùÒÔ£¬ÈÃ´°¿Ú¿´¼û ÊÇ ±»ĞòÁĞ»¯ µÄÒ»¸ö±ØÈ»½á¹ûºÍ¿ÉÊÓ»¯±íÏÖ£¬¶ø²»ÊÇ×îÖÕÄ¿µÄ¡£×îÖÕÄ¿µÄÊÇÊı¾İµÄ³Ö¾Ã»¯¡£
+        //æ ¹æœ¬ç›®çš„ï¼š[SerializeField] å’Œ [Serializable] çš„æ ¹æœ¬ç›®çš„æ˜¯ â€œçº³å…¥Unityåºåˆ—åŒ–ç³»ç»Ÿâ€ã€‚
+        //ç›´æ¥è¡¨ç°ï¼šå› ä¸ºè¢«Unityåºåˆ—åŒ–ç³»ç»Ÿç®¡ç†äº†ï¼Œæ‰€ä»¥å®ƒæ‰èƒ½åœ¨Inspectorçª—å£ä¸­è¢«çœ‹è§ã€è¢«ç¼–è¾‘ã€‚
+        //æ‰€ä»¥ï¼Œè®©çª—å£çœ‹è§ æ˜¯ è¢«åºåˆ—åŒ– çš„ä¸€ä¸ªå¿…ç„¶ç»“æœå’Œå¯è§†åŒ–è¡¨ç°ï¼Œè€Œä¸æ˜¯æœ€ç»ˆç›®çš„ã€‚æœ€ç»ˆç›®çš„æ˜¯æ•°æ®çš„æŒä¹…åŒ–ã€‚
 
-        //»ù´¡ÒÆ¶¯ËÙ¶È
+        //åŸºç¡€ç§»åŠ¨é€Ÿåº¦
         [field: SerializeField][field:Range(0f,25f)] public float BaseSpeed { get; private set; } = 5f;
-        //Ğ±ÆÂËÙ¶ÈÇúÏß
+        //16
+        [field: SerializeField][field: Range(0f, 5f)] public float GroundToFallRayDistance { get; private set; } = 1f;
+        //æ–œå¡é€Ÿåº¦æ›²çº¿
+        [field:SerializeField]public List<PlayerCameraRecenteringData> SidewaysCameraRecentringData {  get; private set; }
+        [field:SerializeField]public List<PlayerCameraRecenteringData> BackwardsCameraRecentringData {  get; private set; }
         [field: SerializeField] public AnimationCurve SlopeSpeedAngles { get; private set; }
-        //»ù´¡Ğı×ªÊı¾İ½Å±¾
+        //åŸºç¡€æ—‹è½¬æ•°æ®è„šæœ¬
         [field: SerializeField] public PlayerRotationData BaseRotationData { get; private set; }
-        //ĞĞ×ßÊı¾İ½Å±¾
+        [field: SerializeField] public PlayerIdleData IdleData { get; private set; }
+        //è¡Œèµ°æ•°æ®è„šæœ¬
         [field: SerializeField] public PlayerWalkData WalkData { get; private set; }
-        //±¼ÅÜÊı¾İ½Å±¾
+        //å¥”è·‘æ•°æ®è„šæœ¬
         [field: SerializeField] public PlayerRunData RunData { get; private set; }
+        [field: SerializeField] public PlayerSprintData SprintData { get; private set; }
         [field: SerializeField] public PlayerDashData DashData { get; private set; }
+        [field: SerializeField] public PlayerStopData StopData { get; private set; }
+        [field: SerializeField] public PlayerRollData RollData { get; private set; }
     }
 }

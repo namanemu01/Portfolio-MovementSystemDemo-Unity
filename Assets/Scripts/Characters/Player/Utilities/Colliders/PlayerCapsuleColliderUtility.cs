@@ -6,13 +6,13 @@ using UnityEngine;
 namespace MovementStstem
 {
     /// <summary>
-    /// 16.3这个类用于显示玩家的胶囊体碰撞器工具类，
+    /// 16.3杩欎釜绫荤敤浜庢樉绀虹帺瀹剁殑鑳跺泭浣撶鎾炲櫒宸ュ叿绫伙紝
     /// 
     /// </summary>
     [Serializable]
     public class PlayerCapsuleColliderUtility : CapsuleColliderUtility
     {
-        //触发器碰撞器数据
+        //瑙﹀彂鍣ㄧ鎾炲櫒鏁版嵁
         [field: SerializeField] public PlayerTriggerColliderData TriggerColliderData { get; private set; }
         //19.4
         protected override void OnInitialize()

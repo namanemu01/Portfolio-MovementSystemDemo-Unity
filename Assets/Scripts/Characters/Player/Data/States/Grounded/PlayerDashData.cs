@@ -10,6 +10,9 @@ namespace MovementStstem
     {
         //15.3添加速度修改器 并将此数据表存入对应的 地面状态数据表中
         [field: SerializeField][field:Range(1f,3f)]public float SpeedModifier { get; private set; } = 2f;
+
+        [field:SerializeField]public PlayerRotationData RotationData { get; private set; }
+
         //被视为连续的时间
         [field: SerializeField][field: Range(0f, 2f)] public float TimeToBeConsideredConsecutive { get; private set; } = 1f;
         //连续冲刺限制数量

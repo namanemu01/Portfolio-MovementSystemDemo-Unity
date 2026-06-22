@@ -8,38 +8,38 @@ using UnityEngine;
 namespace MovementStstem
 {
     /// <summary>
-    /// Ë¼Â·ÊÇÏÈÉèÖÃÖµ È»ºóÔÙÊ¹ÓÃ·½·¨ ÉèÖÃÄ¬ÈÏÖµ
+    /// æ€è·¯æ˜¯å…ˆè®¾ç½®å€¼ ç„¶åå†ä½¿ç”¨æ–¹æ³• è®¾ç½®é»˜è®¤å€¼
     /// </summary>
     [Serializable]
     public class PlayerCameraUtility 
     {
-        //18»ñÈ¡¶ÔĞéÄâÏà»úµÄÒıÓÃ
+        //18è·å–å¯¹è™šæ‹Ÿç›¸æœºçš„å¼•ç”¨
         [field: SerializeField] public CinemachineVirtualCamera VirtualCamera { get; private set; }
-        //¶ÔÄ¬ÈÏÖµµÄÒıÓÃ Ä¬ÈÏË®Æ½µÈ´ıÊ±¼äºÍÄ¬ÈÏË®Æ½¾ÓÖĞÊ±¼ä
+        //å¯¹é»˜è®¤å€¼çš„å¼•ç”¨ é»˜è®¤æ°´å¹³ç­‰å¾…æ—¶é—´å’Œé»˜è®¤æ°´å¹³å±…ä¸­æ—¶é—´
         [field: SerializeField] public float DefaultHorizontalWaitTime { get; private set; } = 0f;
         //
         [field: SerializeField] public float DefaultHorizontalRecenteringTime { get; private set; } = 4f;
 
-        //»ñµÃ¶ÔË®Æ½¾ÓÖĞÑ¡ÏîµÄ²Î¿¼
+        //è·å¾—å¯¹æ°´å¹³å±…ä¸­é€‰é¡¹çš„å‚è€ƒ
         private CinemachinePOV cinemachinePOV;
 
         /// <summary>
-        /// »ñµÃpov×é¼şµÄÒıÓÃ
+        /// è·å¾—povç»„ä»¶çš„å¼•ç”¨
         /// </summary>
         public void Initialize()
         {
             cinemachinePOV = VirtualCamera.GetCinemachineComponent<CinemachinePOV>();
         }
         /// <summary>
-        /// ´´½¨Ò»¸öÆôÓÃºÍ½ûÓÃ ÖØĞÂ¾ÓÖĞ Ñ¡ÏîµÄ·½·¨
+        /// åˆ›å»ºä¸€ä¸ªå¯ç”¨å’Œç¦ç”¨ é‡æ–°å±…ä¸­ é€‰é¡¹çš„æ–¹æ³•
         /// </summary>
-        public void EnableRectentering(float waitTime = -1f,float recenteringTime = -1f,float baseMovementSpeed = 1f,float movementSpeed = 1f)
+        public void EnableRecentering(float waitTime = -1f,float recenteringTime = -1f,float baseMovementSpeed = 1f,float movementSpeed = 1f)
         {
             cinemachinePOV.m_HorizontalRecentering.m_enabled = true;
 
             //18.2
 
-            //È¡ÏûÏà»úÏÖÓĞµÄ¾ÓÖĞÉèÖÃ ÕâÊÇ×Ô´øµÄ·½·¨
+            //å–æ¶ˆç›¸æœºç°æœ‰çš„å±…ä¸­è®¾ç½® è¿™æ˜¯è‡ªå¸¦çš„æ–¹æ³•
             cinemachinePOV.m_HorizontalRecentering.CancelRecentering();
 
             if(waitTime == -1f)
@@ -52,10 +52,10 @@ namespace MovementStstem
                 recenteringTime = DefaultHorizontalRecenteringTime;
             }
 
-            //18.2Ê¹ËÙ¶ÈÔ½¿ì ¾ÓÖĞÊ±¼äÔ½¶Ì
+            //18.2ä½¿é€Ÿåº¦è¶Šå¿« å±…ä¸­æ—¶é—´è¶ŠçŸ­
             recenteringTime = recenteringTime * baseMovementSpeed / movementSpeed;
 
-            //ÉèÖÃË®Æ½¾ÓÖĞ Ñ¡ÏîÖµ
+            //è®¾ç½®æ°´å¹³å±…ä¸­ é€‰é¡¹å€¼
             cinemachinePOV.m_HorizontalRecentering.m_WaitTime = waitTime;
             cinemachinePOV.m_HorizontalRecentering.m_RecenteringTime = recenteringTime;
 
@@ -64,6 +64,6 @@ namespace MovementStstem
         {
             cinemachinePOV.m_HorizontalRecentering.m_enabled = false;
         }
-        //18È»ºó°ÑÕâ¸ö±ä³ÉÍæ¼ÒµÄÊôĞÔ
+        //18ç„¶åæŠŠè¿™ä¸ªå˜æˆç©å®¶çš„å±æ€§
     }
 }

@@ -49,7 +49,9 @@ namespace MovementStstem
         public int HardLandParemeterHash { get; private set; }
 
         public int FallParemeterHash { get; private set; }
-
+        /// <summary>
+        /// 初始化 使标签变成hash值
+        /// </summary>
         public void Initialize()
         {
             GroundedParemeterHash = Animator.StringToHash(groundedParameterName);
