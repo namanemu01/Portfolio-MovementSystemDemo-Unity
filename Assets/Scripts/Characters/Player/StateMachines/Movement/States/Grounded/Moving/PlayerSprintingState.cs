@@ -116,6 +116,13 @@ namespace MovementStstem
 
             stateMachine.ReusableData.ShouldSprint = true;
         }
+
+        protected override void OnSprintCanceled(InputAction.CallbackContext context)
+        {
+            keepSprinting = false;
+
+            stateMachine.ReusableData.ShouldSprint = false;
+        }
         #endregion
 
     }
