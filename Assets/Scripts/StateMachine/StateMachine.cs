@@ -44,11 +44,11 @@ namespace MovementStstem
         }
         public void OnAnimationExitEvent()
         {
-            currentState?.OnAnimationEnterEvent();
+            currentState?.OnAnimationExitEvent();
         }
         public void OnAnimationTransitionEvent()
         {
-            currentState?.OnAnimationEnterEvent();
+            currentState?.OnAnimationTransitionEvent();
         }
         public void OnTriggerEnter(Collider collider)
         {

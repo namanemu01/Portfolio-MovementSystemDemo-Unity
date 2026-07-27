@@ -192,13 +192,13 @@ namespace MovementStstem
         {
             if(stateMachine.ReusableData.ShouldWalk)
             {
-                stateMachine.ChangeState(stateMachine.SprintingState);
+                stateMachine.ChangeState(stateMachine.WalkingState);
 
                 return;
             }
-            if (stateMachine.ReusableData.ShouldWalk)
+            if (stateMachine.ReusableData.ShouldSprint)
             {
-                stateMachine.ChangeState(stateMachine.WalkingState);
+                stateMachine.ChangeState(stateMachine.SprintingState);
                 
                 return;
             }

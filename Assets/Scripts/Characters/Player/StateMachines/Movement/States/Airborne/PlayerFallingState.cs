@@ -37,16 +37,7 @@ namespace MovementStstem
             StopAnimation(stateMachine.Player.AnimationData.FallParemeterHash);
 
         }
-        public override void Update()
-        {
-            base.Update();
-            if(GetPlayerVerticalVelocity().y > 0)
-            {
-                return;
-            }
-            stateMachine.ChangeState(stateMachine.FallingState);
-
-        }
+        
         /// <summary>
         /// 添加垂直力 防止速度特别高碰撞器穿透地面 无法检测到玩家落地 这个方法是让玩家在下落状态时保持一定的垂直速度，避免因为重力加速度过大导致玩家穿透地面无法检测到落地事件。
         /// </summary>
