@@ -98,11 +98,12 @@ namespace MovementStstem
         /// <param name="context"></param>
         protected override void OnWalkToggleStarted(InputAction.CallbackContext context)
         {
-            //我觉得调用这个代表是先修改shouldwalk的状态，如果已经是walk了，取消，然后进入跑步状态
-            //这个调用了shouldwalk
             base.OnWalkToggleStarted(context);
-            //过渡状态,唯一修改的就是这里 从跑步切换到走路
-            stateMachine.ChangeState(stateMachine.WalkingState);
+
+            if (stateMachine.ReusableData.ShouldWalk)
+            {
+                stateMachine.ChangeState(stateMachine.WalkingState);
+            }
         }
 
         ///// <summary>

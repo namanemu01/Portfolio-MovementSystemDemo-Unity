@@ -61,9 +61,8 @@ namespace MovementStstem
             base.PhysicsUpdate();
             if (shouldKeepRotating)
             {
-                return;
+                RotateTowardsTargetRotation();
             }
-            RotateTowardsTargetRotation();
         }
         /// <summary>
         /// 15.8复用基类的动画过渡事件方法 也就是现在先写方法 做动画机的时候里再添加事件

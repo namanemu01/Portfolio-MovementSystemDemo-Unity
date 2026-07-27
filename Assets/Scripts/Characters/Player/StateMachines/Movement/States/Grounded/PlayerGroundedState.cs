@@ -168,7 +168,10 @@ namespace MovementStstem
 
             //15.6添加冲刺开始回调
             stateMachine.Player.Input.PlayerActions.Dash.started += OnDashStarted;
-           
+
+            stateMachine.Player.Input.PlayerActions.Sprint.performed += OnSprintPerformed;
+            stateMachine.Player.Input.PlayerActions.Sprint.canceled += OnSprintCanceled;
+
             stateMachine.Player.Input.PlayerActions.Jump.started += OnJumpStarted;
         }
 
@@ -178,9 +181,10 @@ namespace MovementStstem
         {
             base.RemoveInputActionsCallBacks();
 
-           // stateMachine.Player.Input.PlayerActions.Movement.canceled -= OnMovementCanceled;
-
             stateMachine.Player.Input.PlayerActions.Dash.started -= OnDashStarted;
+
+            stateMachine.Player.Input.PlayerActions.Sprint.performed -= OnSprintPerformed;
+            stateMachine.Player.Input.PlayerActions.Sprint.canceled -= OnSprintCanceled;
 
             stateMachine.Player.Input.PlayerActions.Jump.started -= OnJumpStarted;
         }
@@ -255,9 +259,25 @@ namespace MovementStstem
             //15.6 输入方法 冲刺开始时 切换到冲刺状态
             stateMachine.ChangeState(stateMachine.DashingState);
         }
+
+        protected virtual void OnSprintPerformed(InputAction.CallbackContext context)
+        {
+            stateMachine.ReusableData.ShouldSprint = true;
+
+            if (stateMachine.ReusableData.MovementInput != Vector2.zero)
+            {
+                stateMachine.ChangeState(stateMachine.SprintingState);
+            }
+        }
+
+        protected virtual void OnSprintCanceled(InputAction.CallbackContext context)
+        {
+            stateMachine.ReusableData.ShouldSprint = false;
+        }
+
         protected virtual void OnJumpStarted(InputAction.CallbackContext context)
         {
-           
+
             stateMachine.ChangeState(stateMachine.JumpingState);
         }
         #endregion

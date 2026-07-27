@@ -12,17 +12,17 @@ namespace MovementStstem
         {
         }
 
-        //1.╫ЬхКй╠ бъ╪╜
+        //1.О©╫О©╫О©╫О©╫й╠ О©╫ъ╪О©╫
         #region IState Methods
-        //╫ЬхКж╝╨Ср╩яЫ ╡╩дэрф╤╞ ╡╒гржьжцтзвеб╫ж╝г╟╣дкы╤х
+        //О©╫О©╫О©╫О©╫ж╝О©╫О©╫р╩О©╫О©╫ О©╫О©╫О©╫О©╫О©╫ф╤О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫б╫ж╝г╟О©╫О©╫О©╫ы╤О©╫
         public override void Enter()
         {
             stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
             base.Enter();
             StartAnimation(stateMachine.Player.AnimationData.HardLandParemeterHash);
-            //╫ЬхКуБ╦Жв╢л╛й╠ ╡╩дэрф╤╞ ж╩дэ╣хвебД╣ь╤╞╩╜╡╔мЙ╡едэгп╩╩╣╫обр╩╦Жв╢л╛
-            //оЮ╤т╣д юК©╙в╢л╛©иртрф╤╞
+            //О©╫О©╫О©╫О©╫О©╫О©╫О©╫в╢л╛й╠ О©╫О©╫О©╫О©╫О©╫ф╤О©╫ ж╩О©╫э╣О©╫О©╫О©╫О©╫О©╫ь╤О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╩О©╫О©╫О©╫О©╫О©╫р╩О©╫О©╫в╢л╛
+            //О©╫О©╫т╣О©╫ О©╫К©╙в╢л╛О©╫О©╫О©╫О©╫О©╫ф╤О©╫
             stateMachine.Player.Input.PlayerActions.Movement.Disable();
 
 
@@ -34,7 +34,7 @@ namespace MovementStstem
             base.Exit();
             StopAnimation(stateMachine.Player.AnimationData.HardLandParemeterHash);
 
-            //юК©╙в╢л╛й╠ ©иртрф╤╞ак
+            //О©╫К©╙в╢л╛й╠ О©╫О©╫О©╫О©╫О©╫ф╤О©╫О©╫О©╫
             stateMachine.Player.Input.PlayerActions.Movement.Enable();
         }
 
@@ -51,14 +51,14 @@ namespace MovementStstem
 
         public override void OnAnimationExitEvent()
         {
-            //╤╞╩╜╫АйЬй╠ р╡╬мйгвеб╫╤╞╩╜╡╔мЙй╠ ©иртрф╤╞ак
+            //О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫й╠ р╡О©╫О©╫О©╫О©╫О©╫О©╫б╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫й╠ О©╫О©╫О©╫О©╫О©╫ф╤О©╫О©╫О©╫
             stateMachine.Player.Input.PlayerActions.Movement.Enable();
         }
 
-        //2.нРак ц©╦Жв╢л╛╬мп╢гп╩╩╣╫обр╩╦Жв╢л╛╣дбъ╪╜ ╡╩сц╧эиор╩╦Ж╧Щю╢╣дв╢л╛йгй╡ц╢ак
-        //ж╩спв╧бДв╢л╛╡е╩А╫ЬхКуБ╦Жв╢л╛ 
-        //йвохр╙ак╫Бр╙иХ╪фй╡ц╢яЫ╣длУ╪Чю╢гп╩╩╣╫уБ╦Жв╢л╛ рт╪╟╢суБ╦Жв╢л╛гп╩╩╣╫й╡ц╢в╢л╛
-        //с╡веб╫©иртЁЕ╢л ╡╩дэбЩвъ
+        //2.О©╫О©╫О©╫О©╫ ц©О©╫О©╫в╢л╛О©╫О©╫п╢О©╫п╩О©╫О©╫О©╫О©╫О©╫р╩О©╫О©╫в╢л╛О©╫О©╫О©╫ъ╪О©╫ О©╫О©╫О©╫ц╧О©╫О©╫О©╫р╩О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫в╢л╛О©╫О©╫й╡ц╢О©╫О©╫
+        //ж╩О©╫О©╫в╧О©╫О©╫в╢л╛О©╫е╩О©╫О©╫О©╫О©╫О©╫О©╫О©╫в╢л╛ 
+        //О©╫О©╫О©╫О©╫р╙О©╫к╫О©╫р╙О©╫О©╫О©╫й╡ц╢О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╩О©╫О©╫О©╫О©╫О©╫О©╫в╢л╛ О©╫т╪О©╫О©╫О©╫О©╫О©╫О©╫в╢л╛О©╫п╩О©╫О©╫О©╫й╡ц╢в╢л╛
+        //с╡О©╫О©╫б╫О©╫О©╫О©╫тЁО©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
         public override void OnAnimationTransitionEvent()
         {
             stateMachine.ChangeState(stateMachine.IdlingState);
@@ -67,9 +67,9 @@ namespace MovementStstem
 
         #endregion
         #region Reusable Methods
-        //рРн╙спочжфлУ╪Ч кЫртпХр╙жьп╢уБ╦Ж╥╫╥╗ хцкЭтзс╡веб╫в╢л╛й╠╡╩дэй╧сцбЩвъ ж╩дэй╧сцЁЕ╢л╨м╪╡еэ╣х ╪╦ж║╡╩дэрф╤╞
+        //О©╫О©╫н╙О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫р╙О©╫О©╫п╢О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫с╡О©╫О©╫б╫в╢л╛й╠О©╫О©╫О©╫О©╫й╧О©╫О©╫О©╫О©╫О©╫О©╫ ж╩О©╫О©╫й╧О©╫цЁО©╫л╨м╪О©╫О©╫э╣О©╫ О©╫О©╫ж║О©╫О©╫О©╫О©╫О©╫ф╤О©╫
 
-        //╦╢о╟р╩об╩ь╣Вйг╬ълЕ╡ывВакй╡ц╢
+        //О©╫О©╫о╟р╩О©╫б╩ь╣О©╫О©╫г╬О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫й╡ц╢
         protected override void AddInputActionsCallBacks()
         {
             base.AddInputActionsCallBacks();
@@ -87,7 +87,7 @@ namespace MovementStstem
         
         protected override void OnMove()
         {
-            //хГ╧ШбЗвЦбЩвълУ╪Ч ╬мж╠╫с╥╣╩ь ╡╩ж╢ппобцФ╣дгп╩╩в╢л╛бъ╪╜
+            //О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫ж╠О©╫с╥О©╫О©╫О©╫ О©╫О©╫ж╢О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╩О©╫в╢л╛О©╫ъ╪О©╫
             if (stateMachine.ReusableData.ShouldWalk)
             {
                 return;
@@ -99,11 +99,17 @@ namespace MovementStstem
         #region Input Methods
         protected override void OnJumpStarted(InputAction.CallbackContext context)
         {
-            //с╡веб╫в╢л╛╡╩дэлЬт╬ аТ©урБн╤╡╩╩Аж╢пплЬт╬
+            //Г║╛Г²─И≥├Г┼╤Ф─│Д╦█Х┐╫Х╥ЁХ╥┐ Х©≥И┤▄Г∙≥Г╘╨Ф└▐Е▒ЁГ²─Д╦█Ф┴╖Х║▄Х╥ЁХ╥┐
         }
+
+        protected override void OnDashStarted(InputAction.CallbackContext context)
+        {
+            //Г║╛Г²─И≥├Г┼╤Ф─│Д╦█Х┐╫Е├╡Е┬╨
+        }
+
         private void OnMovementStarted(InputAction.CallbackContext context)
         {
-            //©иртрф╤╞ ╪╡въ ЁЕ╢л
+            //О©╫О©╫О©╫О©╫О©╫ф╤О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫
             OnMove();
         }
         #endregion

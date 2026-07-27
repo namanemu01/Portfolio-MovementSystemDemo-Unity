@@ -347,7 +347,7 @@ namespace MovementStstem
             float movementSpeed = movementData.BaseSpeed * stateMachine.ReusableData.MovementSpeedModifier;
             if (shouldConsiderSlopes)
             {
-                movementSpeed *= stateMachine.ReusableData.MovementSpeedModifier;
+                movementSpeed *= stateMachine.ReusableData.MovementOnSlopesSpeedModifier;
             }
             return movementSpeed;
         }
