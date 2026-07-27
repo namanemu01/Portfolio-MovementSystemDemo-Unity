@@ -78,13 +78,13 @@ namespace MovementStstem
         {
             base.AddInputActionsCallBacks();
 
-            stateMachine.Player.Input.PlayerActions.Sprint.performed += OnSprintPerformed;
+            // Sprint.performed 已在 PlayerGroundedState 中订阅，这里不需要重复订阅
         }
         protected override void RemoveInputActionsCallBacks()
         {
             base.RemoveInputActionsCallBacks();
 
-            stateMachine.Player.Input.PlayerActions.Sprint.performed -= OnSprintPerformed;
+            // 对应上面的空实现，无需额外移除
         }
         protected override void OnFall()
         {
@@ -107,10 +107,10 @@ namespace MovementStstem
             base.OnJumpStarted(context);
         }
         /// <summary>
-        /// ��ס�㹻��ʱ��Ż����״̬
+        /// ��ס�㹻��ʱ��Ż����״̬
         /// </summary>
         /// <param name="contect"></param>
-        private void OnSprintPerformed(InputAction.CallbackContext contect)
+        protected override void OnSprintPerformed(InputAction.CallbackContext contect)
         {
             keepSprinting = true;
 
