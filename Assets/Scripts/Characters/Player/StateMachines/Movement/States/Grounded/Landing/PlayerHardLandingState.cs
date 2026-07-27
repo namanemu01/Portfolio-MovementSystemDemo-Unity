@@ -8,6 +8,8 @@ namespace MovementStstem
 {
     public class PlayerHardLandingState : PlayerLandingState
     {
+        private float startTime;
+
         public PlayerHardLandingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
         }
@@ -21,12 +23,25 @@ namespace MovementStstem
 
             base.Enter();
             StartAnimation(stateMachine.Player.AnimationData.HardLandParemeterHash);
-            //�������״̬ʱ �����ƶ� ֻ�ܵ�����ض�����������л�����һ��״̬
-            //��Ե� �뿪״̬�����ƶ�
+            //硬着陆状态禁用移动输入，只能等待动画结束
             stateMachine.Player.Input.PlayerActions.Movement.Disable();
 
 
             ResetVelocity();
+
+            startTime = Time.time;
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            // 保险：如果动画事件没有触发，1.2 秒后强制恢复并退出
+            if (Time.time > startTime + 1.2f)
+            {
+                stateMachine.Player.Input.PlayerActions.Movement.Enable();
+                stateMachine.ChangeState(stateMachine.IdlingState);
+            }
         }
 
         public override void Exit()

@@ -10,6 +10,11 @@ namespace MovementStstem
     public class PlayerStoppingState : PlayerGroundedState
     {
         //Ҫ���� ֹͣ����֮�� �����������ֹͣ ��״̬
+
+        // ���ﱣ��ֹ����¼�δ����ʱ��ʱ�˳�
+        private float enterTime;
+        protected virtual float AnimationEventFallbackTimeout => 1.5f;
+
         public PlayerStoppingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
         }
@@ -24,11 +29,23 @@ namespace MovementStstem
             base.Enter();
             StartAnimation(stateMachine.Player.AnimationData.StoppingParemeterHash);
 
+            enterTime = Time.time;
+
         }
         public override void Exit()
         {
             base.Exit();
             StopAnimation(stateMachine.Player.AnimationData.StoppingParemeterHash);
+        }
+        public override void Update()
+        {
+            base.Update();
+
+            // ���ﱣ�ϣ����� AnimationEvent û�д�������ʱ�˳�ֹͣ״̬
+            if (Time.time > enterTime + AnimationEventFallbackTimeout)
+            {
+                stateMachine.ChangeState(stateMachine.IdlingState);
+            }
         }
         public override void PhysicsUpdate()
         {

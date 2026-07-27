@@ -7,6 +7,8 @@ namespace MovementStstem
     {
         private PlayerRollData rollData;
 
+        private float startTime;
+
         public PlayerRollingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
             rollData = movementData.RollData;
@@ -15,26 +17,45 @@ namespace MovementStstem
         #region IState Methods
         public override void Enter()
         {
-            //Í£Ö¹°´ÒÆ¶¯¼ü Ò²»á±£³Ö¹ö¶¯
+            //Í£Ö¹ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ Ò²ï¿½á±£ï¿½Ö¹ï¿½ï¿½ï¿½
             stateMachine.ReusableData.MovementSpeedModifier = rollData.SpeedModifier;
 
             base.Enter();
             StartAnimation(stateMachine.Player.AnimationData.RollParemeterHash);
 
-            //¹ö¶¯Ö®ºó ²»ÄÜ³å´Ì
-            stateMachine.ReusableData.ShouldSprint = false; 
+            //ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ ï¿½ï¿½ï¿½Ü³ï¿½ï¿½
+            stateMachine.ReusableData.ShouldSprint = false;
+
+            startTime = Time.time;
         }
         public override void Exit()
         {
             base.Exit();
             StopAnimation(stateMachine.Player.AnimationData.RollParemeterHash);
         }
+        public override void Update()
+        {
+            base.Update();
+
+            // ï¿½ï¿½ï¿½Õ±ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ AnimationEvent Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1.0ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½
+            if (Time.time > startTime + 1.0f)
+            {
+                if (stateMachine.ReusableData.MovementInput == Vector2.zero)
+                {
+                    stateMachine.ChangeState(stateMachine.MediumStoppingState);
+                }
+                else
+                {
+                    OnMove();
+                }
+            }
+        }
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
 
-            //Èç¹ûÓÐÊäÈë ¾Í·µ»Ø  Ã»ÊäÈë ¼ÌÐøÐý×ª
-            //È·±£ÔÚ²»µ÷ÓÃMoveµÄÊ±ºò ½øÐÐÐý×ª
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í·ï¿½ï¿½ï¿½  Ã»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ª
+            //È·ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Moveï¿½ï¿½Ê±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ª
             if(stateMachine.ReusableData.MovementInput != Vector2.zero)
             {
                 return;
@@ -42,18 +63,18 @@ namespace MovementStstem
             RotateTowardsTargetRotation();
         }
         /// <summary>
-        /// ÉèÖÃ¶¯»­×ª»»ÊÂ¼þ
+        /// ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Â¼ï¿½
         /// </summary>
         public override void OnAnimationTransitionEvent()
         {
-            //ÏÂÀ´ÁËÈç¹ûÃ»ÓÐÒÆ¶¯ ÖÐÍ£Ö¹£¬ÒÆ¶¯ÁË ÔÙ¿¼ÂÇ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Æ¶ï¿½ ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½
             if(stateMachine.ReusableData.MovementInput == Vector2.zero)
             {
                 stateMachine.ChangeState(stateMachine.MediumStoppingState);
 
                 return;
             }
-            //Èç¹ûÒÆ¶¯ ³å´ÌÒÑ¾­falseÁË ËùÒÔ²»ÓÃ¸²¸Çmove
+            //ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½falseï¿½ï¿½ ï¿½ï¿½ï¿½Ô²ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½move
             OnMove();
         }
         #endregion
@@ -61,7 +82,7 @@ namespace MovementStstem
         #region Input Methods
         protected override void OnJumpStarted(InputAction.CallbackContext context)
         {
-           //Áô¿ÕÊÇ²»Ï£ÍûÄÜÌø
+           //ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
         #endregion
     }

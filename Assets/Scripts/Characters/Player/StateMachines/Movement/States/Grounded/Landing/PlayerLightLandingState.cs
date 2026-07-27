@@ -4,11 +4,13 @@ namespace MovementStstem
 {
     public class PlayerLightLandingState : PlayerLandingState
     {
+        private float startTime;
+
         public PlayerLightLandingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
         }
 
-        //2.½øÈëÊ± Âß¼­
+        //2.ï¿½ï¿½ï¿½ï¿½Ê± ï¿½ß¼ï¿½
         #region IState Methods
         public override void Enter()
         {
@@ -16,18 +18,27 @@ namespace MovementStstem
             stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
             base.Enter();
-           
-            //17 ÉèÖÃÔÚÇá×ÅÂ½×´Ì¬ÏÂ ¿ÉÒÔÊ¹ÓÃÌøÔ¾ ½«ÌøÔ¾Á¦ÉèÎª¹Ì¶¨Á¦
+
+            //17 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½×´Ì¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Ô¾ ï¿½ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½Îªï¿½Ì¶ï¿½ï¿½ï¿½
             stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StationaryForce;
 
             ResetVelocity();
+
+            startTime = Time.time;
         }
 
-        //4.ÇÐ»»ÒÆ¶¯×´Ì¬ ÒªÔÚ¸üÐÂ·½·¨Éè¼Æ ÓÃÀ´ÇÐ»»µ½ÒÆ¶¯×´Ì¬
+        //4.ï¿½Ð»ï¿½ï¿½Æ¶ï¿½×´Ì¬ Òªï¿½Ú¸ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½×´Ì¬
         public override void Update()
         {
-            //ÒòÎªÍ¨¹ýÌøÔ¾ »¬Ïè¹ýÀ´µÄ
+            //ï¿½ï¿½ÎªÍ¨ï¿½ï¿½ï¿½ï¿½Ô¾ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             base.Update();
+
+            // ï¿½ï¿½ï¿½Õ±ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ AnimationEvent Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0.6ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Ë³ï¿½
+            if (Time.time > startTime + 0.6f)
+            {
+                stateMachine.ChangeState(stateMachine.IdlingState);
+                return;
+            }
 
             if (stateMachine.ReusableData.MovementInput == Vector2.zero)
             {
@@ -48,7 +59,7 @@ namespace MovementStstem
             ResetVelocity();
         }
 
-        //3.ÇÐ»»²»ÒÆ¶¯µÄ×´Ì¬ ÓÃ¶¯»­ ¹ý¶ÉÊÂ¼þ ¿ÉÒÔ´Ó×ÅÂ½×ªµ½´ý»ú×´Ì¬
+        //3.ï¿½Ð»ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½×´Ì¬ ï¿½Ã¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½Â½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
         public override void OnAnimationTransitionEvent()
         {
             stateMachine.ChangeState(stateMachine.IdlingState);

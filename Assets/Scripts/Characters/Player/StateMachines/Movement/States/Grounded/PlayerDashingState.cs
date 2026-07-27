@@ -48,6 +48,23 @@ namespace MovementStstem
             //15.6记录开始时间
             startTime = Time.time;
         }
+        public override void Update()
+        {
+            base.Update();
+
+            // 保险：如果动画事件没有触发，0.8 秒后强制退出冲刺
+            if (Time.time > startTime + 0.8f)
+            {
+                if (stateMachine.ReusableData.MovementInput == Vector2.zero)
+                {
+                    stateMachine.ChangeState(stateMachine.HardStoppingState);
+                }
+                else
+                {
+                    stateMachine.ChangeState(stateMachine.SprintingState);
+                }
+            }
+        }
         public override void Exit()
         {
             base.Exit();
