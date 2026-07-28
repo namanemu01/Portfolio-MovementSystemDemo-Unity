@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,83 +9,104 @@ namespace MovementStstem
     public class Player : MonoBehaviour
     {
         [field:Header("References")]
-        //12.3 ÉèÖÃ²Î¿¼ÔÚplayer½Å±¾Àï ²¢²Î¿¼ÀàĞÍÎªplayerso
+        //12.3 ï¿½ï¿½ï¿½Ã²Î¿ï¿½ï¿½ï¿½playerï¿½Å±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½Îªplayerso
         [field:SerializeField] public PlayerSO Data {  get; private set; }
 
         [field: Header("Collisions")]
-        //13.6½«Ğ´ºÃµÄ½ºÄÒÌåÅö×²Æ÷¹¤¾ßÀà·ÅÔÚÕâÀï
-        //16.2 Õâ¸ö¹¤¾ßÀàÊÇÎªÁËÈÃÎÒÃÇ¸ü·½±ãµØ¹ÜÀíÍæ¼ÒµÄÅö×²Æ÷£¬ÓÈÆäÊÇµ±Íæ¼ÒĞèÒª¸ù¾İ×´Ì¬¸Ä±äÅö×²Æ÷³ß´çÊ±£¬Õâ¸ö¹¤¾ßÀà¿ÉÒÔ°ïÖúÎÒÃÇ¼ÆËãºÍ¸üĞÂÅö×²Æ÷µÄ³ß´ç£¬±ÜÃâÁËÔÚ¶à¸ö×´Ì¬ÀàÖĞÖØ¸´±àĞ´ÏàÍ¬µÄ´úÂë¡£
+        //13.6ï¿½ï¿½Ğ´ï¿½ÃµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         [field:SerializeField]public PlayerCapsuleColliderUtility ColliderUtility { get; private set; }
         [field: SerializeField] public PlayerLayerData LayerData { get; private set; }
 
-        //18
-        [field: Header("Cameras")]
-        [field: SerializeField] public PlayerCameraUtility CameraUtility { get; private set; }
+        [field:Header("Cameras")]
+        [field:SerializeField]public PlayerCameraUtility CameraUtility { get;private set; }
 
+        [field:Header("Animations")]
+        [field:SerializeField]public  PlayerAnimationData AnimationData { get; private set; }
 
-        //2.Õâ½Ú¿ÎĞ´µÄÊÇÈÃÍæ¼Ò¸ù¾İÏà»úµÄ·½Ïò×ªÏòÏà»ú£¬²¢ÇÒ³¯´Ë·½ÏòÒÆ¶¯£¬ËùÒÔÎÒÃÇĞèÒªÒ»¸öÉãÏñ»úµÄtransform±äÁ¿
+        //2.ï¿½ï¿½Ú¿ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÒ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½transformï¿½ï¿½ï¿½ï¿½
         public Transform MainCameraTransform { get; private set; }
 
-        //20.2
-        [field:Header("Animations")]
-        [field:SerializeField]public PlayerAnimationData AnimationData { get; private set; }
-
-        //1.ÎÒÃÇĞèÒªÒ»¸ö¸ÕÌå±äÁ¿ÓÃÀ´½ÓÊÕÍæ¼ÒµÄ¸ÕÌå×é¼ş,ÓĞÁË¸ÕÌåÎÒÃÇ²ÅÄÜÓÃÎïÀí·½·¨ÒÆ¶¯Íæ¼Ò
+        //1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÒ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Ë¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½
         public Rigidbody Rigidbody { get; private set; }
-        //1.ÎÒÃÇĞèÒªÉùÃ÷Ò»¸öÍæ¼ÒÊäÈëÀàµÄ±äÁ¿£¬ÓÃÀ´½ÓÊÕÍæ¼ÒµÄÊäÈë
-        //1.ÒòÎªÕâ¸öÕâ¸ö½Å±¾¹ÒÔØÍæ¼ÒÉíÉÏ£¬È»ºóÓÃgetcomponent»ñÈ¡Íæ¼ÒÊäÈë×é¼ş
+        //1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
+        //1.ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½È»ï¿½ï¿½ï¿½ï¿½getcomponentï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         
-        //¶ÔanimatorµÄÒıÓÃ
         public Animator Animator { get; private set; }
-
         public PlayerInput Input { get; private set; }
-
+        
         private PlayerMovementStateMachine movementStateMachine;
         private void Awake()
         {
 
             Rigidbody = GetComponent<Rigidbody>();
-            //Ê×ÏÈÔÚ¸¸¼¶ËÑË÷ Æä´ÎÔÚ×Ó¼¶ËÑË÷
+            //è·å–å­ç‰©ä½“ä¸Šçš„ Animatorï¼ˆY Botï¼‰
             Animator = GetComponentInChildren<Animator>();
 
-            //»ñÈ¡Íæ¼ÒÊäÈë×é¼ş
+            //è·å–è¾“å…¥è„šæœ¬
             Input = GetComponent<PlayerInput>();
 
-            //µ÷ÓÃ³õÊ¼»¯
+            //å…³é”®å¼•ç”¨åˆ¤ç©ºæ£€æŸ¥
+            if (Data == null)
+            {
+                Debug.LogError("[Player] PlayerSO (Data) æœªåœ¨ Inspector ä¸­èµ‹å€¼ï¼", this);
+                return;
+            }
+            if (ColliderUtility == null)
+            {
+                Debug.LogError("[Player] ColliderUtility æœªåœ¨ Inspector ä¸­èµ‹å€¼ï¼", this);
+                return;
+            }
+            if (CameraUtility == null)
+            {
+                Debug.LogError("[Player] CameraUtility æœªåœ¨ Inspector ä¸­èµ‹å€¼ï¼", this);
+                return;
+            }
+            if (AnimationData == null)
+            {
+                Debug.LogError("[Player] AnimationData æœªåœ¨ Inspector ä¸­èµ‹å€¼ï¼", this);
+                return;
+            }
+
+            //ç¢°æ’ä½“åˆå§‹åŒ–
             ColliderUtility.Initialize(gameObject);
-            //È·±£Åö×²Æ÷³ß´ç ¸üĞÂ
+            //ç¡®å®šç¢°æ’ä½“å°ºå¯¸
             ColliderUtility.CalculateCapsuleColliderDimensions();
-
-            //18.awakeÊÇÔÚÊµÀı»¯µÄÊ±ºòµ÷ÓÃ
             CameraUtility.Initialize();
-
-            //20
             AnimationData.Initialize();
-            //»ñÈ¡Ö÷ÉãÏñ»úµÄtransform£¬ÒòÎªcinemachineĞéÄâÉãÏñ»úÊÇ¸úËæÖ÷ÉãÏñ»úÒÆ¶¯µÄ
-            //ÕâÊÇÒ»¸ö½«Ëü»º´æÆğÀ´µÄºÃ·½·¨£¬±ÜÃâÃ¿´ÎÊ¹ÓÃÊ±¶¼µ÷ÓÃCamera.main£¬ÌáÉıĞÔÄÜ
-            //ÃæÊÔ£ºcameraÖ®Ç°°æ±¾mainµÄĞÔÄÜÎÊÌâºÍ½â¾ö·½°¸
-            //²¢ÇÒÎÒÃÇÔÚÍæ¼Ò×´Ì¬ÀàÀïÃæ¼ÓÉÏÍæ¼ÒĞı×ª·½·¨
+            //è·å–ä¸»ç›¸æœºçš„transformï¼Œå› ä¸ºcinemachineç›¸æœºæ˜¯è¿™ä¸ªç›¸æœºçš„å­ç‰©ä½“ï¼Œè·Ÿéšç§»åŠ¨
+            //è¿™æ ·åšçš„å¥½å¤„æ˜¯ä¸ç”¨æ¯æ¬¡ä½¿ç”¨æ—¶éƒ½è°ƒç”¨Camera.mainï¼Œæ€§èƒ½æ›´å¥½
+            //æ³¨æ„ï¼šcameraä¹‹å‰ç‰ˆæœ¬mainè¿”å›çš„æ˜¯æ´»è·ƒç›¸æœº
+            //æ‰€ä»¥ï¼Œè¿™é‡Œè·å–ä¸»ç›¸æœºçš„transformç”¨äºè§’è‰²æœå‘è®¡ç®—
+            if (Camera.main == null)
+            {
+                Debug.LogError("[Player] åœºæ™¯ä¸­æ²¡æœ‰ tag ä¸º MainCamera çš„ç›¸æœºï¼", this);
+                return;
+            }
             MainCameraTransform = Camera.main.transform;
 
-            //´´½¨Íæ¼Ò×´Ì¬»úÊµÀı
+            //åˆ›å»ºç§»åŠ¨çŠ¶æ€æœºå®ä¾‹
             movementStateMachine = new PlayerMovementStateMachine(this);
 
         }
         /// <summary>
-        /// ÒòÎªÖ»ÓĞawakeÓĞµÄ»°Ö»»áÒ»¿ªÊ¼µ÷ÓÃÒ»´Î 
-        /// Õâ¸ö·½·¨ÊÇÊ¹¼ì²é´°¿ÚÊı¾İ¸ü¸ÄÊ±Í¬Ê±µ÷ÓÃ Ä¿Ç°´°¿Ú»áµ¯³ö¾¯¸æ Ö®ºóÔÙ¸Ä
+        /// ï¿½ï¿½ÎªÖ»ï¿½ï¿½awakeï¿½ĞµÄ»ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ 
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½é´°ï¿½ï¿½ï¿½ï¿½ï¿½İ¸ï¿½ï¿½ï¿½Ê±Í¬Ê±ï¿½ï¿½ï¿½ï¿½ Ä¿Ç°ï¿½ï¿½ï¿½Ú»áµ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ö®ï¿½ï¿½ï¿½Ù¸ï¿½
         /// </summary>
         private void OnValidate()
         {
-            //µ÷ÓÃ³õÊ¼»¯
+            //åªåœ¨ç¼–è¾‘å™¨ä¸­åˆå§‹åŒ–ç¢°æ’ä½“
+            if (ColliderUtility == null)
+            {
+                return;
+            }
+
             ColliderUtility.Initialize(gameObject);
-            //È·±£Åö×²Æ÷³ß´ç ¸üĞÂ
             ColliderUtility.CalculateCapsuleColliderDimensions();
         }
         private void Start()
         {
            
-            //³õÊ¼»¯×´Ì¬»ú£¬ÈÃÍæ¼Ò½øÈëÓÎÏ·Ä¬ÈÏ×´Ì¬ÉèÖÃ³É´ı»ú×´Ì¬
+            //ï¿½ï¿½Ê¼ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·Ä¬ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½Ã³É´ï¿½ï¿½ï¿½×´Ì¬
             movementStateMachine.ChangeState(movementStateMachine.IdlingState);
 
         }
@@ -93,20 +115,20 @@ namespace MovementStstem
         {
             movementStateMachine.OnTriggerEnter(collider);
         }
-
         private void OnTriggerExit(Collider collider)
         {
             movementStateMachine.OnTriggerExit(collider);
         }
+
         private void Update()
         {
-            movementStateMachine.HandleInput();//ÏÈ´¦ÀíÊäÈë
-            movementStateMachine.Update();//ÔÙ½øĞĞ·ÇÎïÀí¸üĞÂ
+            movementStateMachine.HandleInput();//ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            movementStateMachine.Update();//ï¿½Ù½ï¿½ï¿½Ğ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         }
         private void FixedUpdate()
         {
-            movementStateMachine.PhysicsUpdate();//½øĞĞÎïÀí¸üĞÂ
+            movementStateMachine.PhysicsUpdate();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         }
     }

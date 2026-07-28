@@ -15,7 +15,7 @@ MonoBehaviour:
   <GroundedData>k__BackingField:
     <BaseSpeed>k__BackingField: 5
     <GroundToFallRayDistance>k__BackingField: 1
-    <SidewaysCameraRecenteringData>k__BackingField:
+    <SidewaysCameraRecentringData>k__BackingField:
     - <MinimumAngle>k__BackingField: 0
       <MaximumAngle>k__BackingField: 80
       <WaitTime>k__BackingField: -1
@@ -24,7 +24,7 @@ MonoBehaviour:
       <MaximumAngle>k__BackingField: 90
       <WaitTime>k__BackingField: 0
       <RecenteringTime>k__BackingField: 0.3
-    <BackwardsCameraRecenteringData>k__BackingField:
+    <BackwardsCameraRecentringData>k__BackingField:
     - <MinimumAngle>k__BackingField: 80
       <MaximumAngle>k__BackingField: 90
       <WaitTime>k__BackingField: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
     <DashData>k__BackingField:
       <SpeedModifier>k__BackingField: 2
       <RotationData>k__BackingField:
-        <TargetRotationReachTime>k__BackingField: {x: 0, y: 0.02, z: 0}
+        <TargetRotationReachTime>k__BackingField: {x: 0, y: 0, z: 0}
       <TimeToBeConsideredConsecutive>k__BackingField: 1
       <ConsecutiveDashesLimitAmount>k__BackingField: 2
       <DashLimitReachedCooldown>k__BackingField: 1.75
@@ -176,11 +176,20 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: -0.007499999
-          outSlope: -0.007499999
+          inSlope: 0
+          outSlope: 0
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 15.27907
+          value: 1
+          inSlope: Infinity
+          outSlope: Infinity
+          tangentMode: 103
+          weightedMode: 0
+          inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 20
@@ -216,7 +225,7 @@ MonoBehaviour:
       <WeakForce>k__BackingField: {x: 1, y: 5, z: 1}
       <MediumForce>k__BackingField: {x: 3.5, y: 5, z: 3.5}
       <StrongForce>k__BackingField: {x: 5, y: 5, z: 5}
-      <DecelerationForce>k__BackingField: 1.59
+      <DecelerationForce>k__BackingField: 1.5
     <FallData>k__BackingField:
-      <FallSpeedLimit>k__BackingField: 3.5
+      <FallSpeedLimit>k__BackingField: 15
       <MinimumDistanceToBeConsideredHardFall>k__BackingField: 3

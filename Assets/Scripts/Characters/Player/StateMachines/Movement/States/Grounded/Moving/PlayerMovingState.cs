@@ -12,8 +12,8 @@ namespace MovementStstem
         public PlayerMovingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
         }
-        #region Istate Method
-        public override void Enter()
+        #region IState Methods
+        public override void Enter()//36¸öÒýÓÃ
         {
             base.Enter();
             StartAnimation(stateMachine.Player.AnimationData.MovingParemeterHash);

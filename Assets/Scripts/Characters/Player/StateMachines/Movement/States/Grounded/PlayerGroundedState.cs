@@ -7,43 +7,38 @@ using UnityEngine.InputSystem;
 namespace MovementStstem
 {
     /// <summary>
-    /// 11.1 ½«ËùÓĞµØÃæ×´Ì¬µÄ¹²ÓÃÂß¼­ÌáÈ¡µ½Õâ¸öÀàÀï
+    /// 11.1 å°†æ‰€æœ‰åœ°é¢çŠ¶æ€çš„å…±ç”¨é€»è¾‘æå–åˆ°è¿™ä¸ªç±»é‡Œ
     /// </summary>
     public class PlayerGroundedState : PlayerMovementState
     {
-        //ĞèÒªÔÚĞ±ÂÊÊı¾İÄÇÀàÀïÄÃµ½¸¡¶¯ÉäÏß¾àÀë ÕâÑùĞ´¾Í²»ĞèÒªºÜ³¤Ò»ĞĞÁË
+        //éœ€è¦åœ¨æ–œç‡æ•°æ®é‚£ç±»é‡Œæ‹¿åˆ°æµ®åŠ¨å°„çº¿è·ç¦» è¿™æ ·å†™å°±ä¸éœ€è¦å¾ˆé•¿ä¸€è¡Œäº†
         private SlopeData slopeData;
 
         public PlayerGroundedState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
-            //ÎªÁË¹²ÏíÊµÀı ÕâÑù¸ÄÁËÒ»¸öÁíÒ»¸öÒ²ÄÜ¸Ä »òÕß½ÚÊ¡×ÊÔ´ 
+            //çŒœæµ‹æ˜¯ä¸ºäº†å…±äº«å®ä¾‹ è¿™æ ·æ”¹äº†ä¸€ä¸ªå¦ä¸€ä¸ªä¹Ÿèƒ½æ”¹ æˆ–è€…èŠ‚çœèµ„æº 
             slopeData = stateMachine.Player.ColliderUtility.SlopeData;
         }
 
-        #region IState Methods ½Ó¿Ú×´Ì¬·½·¨ ÒòÎª×°Õâ¸öµÄÀàÊÇ¼Ì³Ğ½Ó¿Ú·½·¨µÄ
+        #region IState Methods æ¥å£çŠ¶æ€æ–¹æ³• å› ä¸ºè£…è¿™ä¸ªçš„ç±»æ˜¯ç»§æ‰¿æ¥å£æ–¹æ³•çš„
         public override void Enter()
         {
             base.Enter();
-            //µÃµ½»ùÀàµÄhash
+
             StartAnimation(stateMachine.Player.AnimationData.GroundedParemeterHash);
 
             UpdateShouldSprintState();
 
-            //18.2Ê¹Ã¿´Î½øÈë½ÓµØ×´Ì¬ ¶¼ÖØĞÂ
             UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
         }
 
         public override void Exit()
         {
             base.Exit();
-
-            //Í£Ö¹»ùÀàµÄhash
             StopAnimation(stateMachine.Player.AnimationData.GroundedParemeterHash);
         }
-    
-
         /// <summary>
-        /// 14.1 ÖØĞ´ÎïÀí¸üĞÂ·½·¨ ÊÇÎªÁËĞ´¸¡¶¯½ºÄÒÌå ÊÇÖ»ÓĞµØÃæ×´Ì¬²ÅÓĞµÄÂß¼­
+        /// 14.1 é‡å†™ç‰©ç†æ›´æ–°æ–¹æ³• æ˜¯ä¸ºäº†å†™æµ®åŠ¨èƒ¶å›Šä½“ æ˜¯åªæœ‰åœ°é¢çŠ¶æ€æ‰æœ‰çš„é€»è¾‘
         /// </summary>
         public override void PhysicsUpdate()
         {
@@ -53,115 +48,7 @@ namespace MovementStstem
         }
         #endregion
 
-        #region Main Methods Ö÷Òª·½·¨
-        /// <summary>
-        /// ¸¡¶¯½ºÄÒÌå ·½·¨
-        /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
-        private void Float()
-        {
-            //»ñÈ¡½ºÄÒÌåÅö×²Æ÷ÔÚÊÀ½ç¿Õ¼äµÄÎ»ÖÃ
-            Vector3 capsuleColliderCenterInWorldSpace = stateMachine.Player.ColliderUtility.CapsuleColliderData.Collider.bounds.center;
-
-            //¼ÆËã½ºÄÒÌåµ×²¿Î»ÖÃ ´Ó½ºÄÒÌåÖĞĞÄÎ»ÖÃ·¢ÉäÏòÏÂÉäÏß
-            Ray downWardsRayFromCapsuleCenter = new Ray(
-                capsuleColliderCenterInWorldSpace,//Æğµã
-                Vector3.down//·½Ïò
-                );
-            //µÚ¶ş¸ö²ÎÊıÊÇ·µ»Ø´¢´æĞÅÏ¢µÄ½á¹¹Ìå
-            //µÚËÄ¸ö²ÎÊıÊÇĞèÒª·¢ÉúÅö×²µÄÒ»¸ö»ò¶à¸ö²ã ½¨Á¢µ¥¶ÀµÄ½Å±¾À´±£´æ
-            //µÚÎå¸ö²ÎÊıÊÇ²éÑ¯´¥·¢Æ÷½»»¥µÄÃ¶¾ÙÀàĞÍ ºöÂÔ´¥·¢Æ÷ ÒâË¼ÊÇÉäÏß²»»áÓë´¥·¢Æ÷Åö×² »áºöÂÔ¸Ã²ãÖĞÅö×²Æ÷ÊÇ´¥·¢Æ÷µÄÎïÌå
-            if (Physics.Raycast(downWardsRayFromCapsuleCenter,out RaycastHit hit,slopeData.FloatRayDistance,stateMachine.Player.LayerData.GroundLayer,QueryTriggerInteraction.Ignore))
-            {
-                //Òª´¦ÀíÉÏÆÂ½Ç¶ÈÔ½´óËÙ¶ÈÔ½ÂıµÄ Âß¼­ µÚÒ»¸ö²ÎÊıÊÇÉäÏß¼ì²âµ½ÎïÌåµÄ·¨ÏßÏòÁ¿ µÚ¶ş¸ö²ÎÊıÊÇÍæ¼ÒÏòÏÂµÄ·½ÏòÏòÁ¿µÄ·´·½Ïò
-                //ÕâÑùµÃµ½Õâ¸ö½ÇµÄ¶Ô½ÇµÄÓà½Ç¸ÕºÃÊÇµØÃæºÍĞ±ÆÂÖ®¼äµÄ¼Ğ½Ç
-                float groundAngle = Vector3.Angle(hit.normal,-downWardsRayFromCapsuleCenter.direction);
-
-                //ÉèÖÃ¸Ä±äËÙ¶ÈµÄ·½·¨
-                float slopeSpeedModifier =  SetSlopeSpeedModifierOnAngle(groundAngle);
-                //Èç¹ûĞ±ÆÂËÙ¶ÈĞŞ¸ÄÆ÷ÊÇ0 ËµÃ÷²»ÄÜÒÆ¶¯ ÕâÈÃÎÒÃÇ²»ÄÜÔÚĞ±ÆÂÉÏ¸¡¶¯
-                if (slopeSpeedModifier == 0) return;
-
-                //¼ÆËã½ºÄÒÌåµ×²¿µ½µØÃæ£¨ÈçÌ¨½×£©µÄ¾àÀë Ëõ·ÅÄ£ĞÍÊ±ÎªÁËÈ·±£¸¡¶¯¾àÀëÕıÈ· ĞèÒª³ËÒÔËõ·ÅÖµ ²»È»½ºÄÒÌå¸ú×Å±ä´óÁË ¸¡¶¯¾àÀë»¹ÊÇÔ­À´µÄ¾Í²»¶ÔÁË
-                //Õâ¸öËõ·ÅÖµÊÇ±¾µØËõ·ÅÖµ ÒòÎª½ºÄÒÌåÅö×²Æ÷µÄ³ß´çÊÇ¸ù¾İ±¾µØËõ·Å¼ÆËãµÄ 
-                //ÏÂÒ»²½ÊÇĞèÒª´ÓÉäÏßÃüÖĞÖĞ¼õÈ¥Õâ¸ö¾àÀë ±£Ö¤±¾µØºÍÊÀ½ç¿Õ¼äÒ»ÖÂ
-
-                //ÊÇ¼ÆËã½ºÄÒÌåµ×²¿µ½µØÃæµÄ¾àÀë ËùÒÔÓÃÖĞĞÄµã ¼õÈ¥ µ×²¿µ½µØÃæµÄ ¾àÀë
-                float distanceToFloatPoint = stateMachine.Player.ColliderUtility.CapsuleColliderData.ColliderCenterInLoaclSpace.y*stateMachine.Player.transform.localScale.y-hit.distance;
-                if (distanceToFloatPoint == 0f) return;
-
-                //ĞèÒªÒ»¸öÉıÁ¦ ±äÁ¿Ãû×Ö½ĞĞèÌáÉıÖØÁ¦ ÏÂÃæÊÇ¼ÆËãÉÏÌ§Á¦µÄËãÊ½
-                float amountToLift = distanceToFloatPoint*slopeData.StepReachForce-GetPlayerVerticalVelocity().y;
-                //È»ºóĞèÒªÕâ¸öÖµÓë¶îÍâÁ¦Ïà³Ë ²¢É¾³ıµ±Ç°µÄ´¹Ö±ËÙ¶È¡ü
-                //È»ºó¼õÈ¥µ±Ç°µÄ´¹Ö±ËÙ¶È
-
-
-                //×ÜÉÏÌ§Á¦ = µ¯»ÉÁ¦ - ×èÄáÁ¦
-                //        = (Î»ÒÆ ¡Á µ¯»ÉÏµÊı) -µ±Ç°ËÙ¶È
-
-                //µÃµ½Ò»¸öÏòÉÏµÄÁ¦µÄÏòÁ¿ ´¹Ö±Á¦
-                Vector3 liftForce = new Vector3(0f, amountToLift, 0f);
-                //Ó¦ÓÃÕâ¸öÁ¦
-                stateMachine.Player.Rigidbody.AddForce(liftForce,ForceMode.VelocityChange);
-
-                //ÕâÒ»²½ÅªÍêÖ®ºó Õâ¸ö½ºÄÒÌå¾Í¸¡¶¯ÁË Ã»¼ÓµÄÊ±ºò »áÔÚÃ»ÓĞ½ºÄÒÌåµÄµØ·½µôÏÂµØÃæ
-                //Ä£ĞÍ½Å²¿´©Ä£ÁË¿ÉÒÔ³¢ÊÔikÀ´½â¾öÒ»ÏÂ ÕâÀïÃ»ÓĞÊ¹ÓÃ
-            }
-        }
-        /// <summary>
-        /// Ğ±ÆÂËÙ¶ÈĞŞ¸ÄÆ÷
-        /// </summary>
-        /// <param name="angle"></param>
-        /// <returns></returns>
-        private float SetSlopeSpeedModifierOnAngle(float angle)
-        {
-            //Ê¹ÓÃ¶¯»­ÇúÏßÀ´ÉèÖÃĞ±ÆÂËÙ¶ÈĞŞ¸ÄÆ÷ ¶ø·ÇifÓï¾ä
-            //ÕâÊ¹ÎÒÃÇ¿ÉÒÔ ¸üÖ±¹ÛµØÇáËÉµÄµ÷Õû Ğ±ÆÂËÙ¶ÈĞŞ¸ÄÆ÷ ÔÚµØÃæÊı¾İ½Å±¾Àï£¬Õâ¸ö½Å±¾ÊÇÏÔÊ¾ÔÚ´°¿ÚÀïµÄ
-            //14.2 ´ËÊ±¼ì²é´°¿ÚÀïÃæµÄ¶¯»­ÇúÏßÒÑ¾­ÉèÖÃÍê³É
-            //»ñÈ¡¸ø¶¨Ê±¼äµÄÖµ
-            float slopeSpeedModifier = movementData.SlopeSpeedAngles.Evaluate(angle);
-
-            //18.2
-            if(stateMachine.ReusableData.MovementOnSlopesSpeedModifier != slopeSpeedModifier)
-            {
-                //Èç¹ûÆÂ¶ÈËÙ¶ÈĞŞ¸ÄÆ÷·¢Éú¸ü¸Ä ÖµÒ²»á¸üĞÂ
-                stateMachine.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
-
-                UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
-            }
-
-            //½«Öµ¸³¸øÖØÓÃÊı¾İÀïµÄĞ±ÆÂËÙ¶ÈĞŞ¸ÄÆ÷
-            stateMachine.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
-
-            return slopeSpeedModifier;
-        }
-
-        //16.3ÓÃÀ´ÅĞ¶ÏÍæ¼ÒÀë¿ªµØÃæÊ±ÏÂÃæÊÇ·ñ»¹ÓĞµØÃæ Õâ¸ö·½·¨ÊÇÎªÁËÔÚÍæ¼ÒÀë¿ªµØÃæÊ±¼ì²éÏÂÃæÊÇ·ñ»¹ÓĞµØÃæ£¬Èç¹ûÓĞµØÃæ£¬¿ÉÄÜÊÇÌ¨½×»òĞ±ÆÂµÈ
-        private bool IsThereGroundUnderneath()
-        {
-            BoxCollider groundCheckCollider = stateMachine.Player.ColliderUtility.TriggerColliderData.GroundCheckCollider;
-
-            //ÓÃµ½checkbox·½·¨£¬ĞèÒªÊÀ½ç¿Õ¼äÓĞÒ»¸öÖĞĞÄ£¬Ò²¾ÍÊÇºĞ×ÓµÄÎ»ÖÃ
-            Vector3 groundColliderCenterInWorldSpace = groundCheckCollider.bounds.center;
-
-            //´æ´¢´úÂë¼ì²âµ½µÄËùÓĞµØÃæÎïÌå
-
-            //* ´´½¨Ò»¸öÊı×é£¬ÓÃÀ´´æ ¼ì²âµ½µÄËùÓĞµØÃæÅö×²Æ÷
-            // ÔÚ¡¾Ö¸¶¨ÖĞĞÄµã¡¿Éú³ÉÒ»¸öÒşĞÎºĞ×Ó£¬ºĞ×Ó´óĞ¡ = ½ÇÉ«µØÃæ¼ì²âÆ÷µÄÒ»°ë³ß´ç
-            // °ÑºĞ×ÓÀïÅöµ½µÄËùÓĞµØÃæÎïÌå£¬´æµ½Êı×éÀï
-
-            //19.4ĞŞ¸Ä¹ıÁË
-            //Õâ¼¸¸ö²ÎÊı·Ö±ğÊÇ£ºÖĞĞÄµã ºĞ×Ó³ß´ç Ğı×ª ĞèÒª¼ì²âµÄ²ã ÒÔ¼°²éÑ¯´¥·¢Æ÷½»»¥µÄÑ¡Ïî
-            Collider[] overlappedGroundColliders = Physics.OverlapBox(groundColliderCenterInWorldSpace, stateMachine.Player.ColliderUtility.TriggerColliderData.GroundCheckColliderExtents,groundCheckCollider.transform.rotation,stateMachine.Player.LayerData.GroundLayer,QueryTriggerInteraction.Ignore);
-
-            return overlappedGroundColliders.Length > 0;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Õâ¸ö·½·¨ÊÇÎªÁËÔÚ½øÈëµØÃæ×´Ì¬Ê±¼ì²éÊÇ·ñÂú×ã¼ÌĞø³å´ÌµÄÌõ¼ş£¬Èç¹û²»Âú×ã¾Í°ÑÕâ¸ö×´Ì¬¸Ä»Øfalse
-        /// </summary>
+        #region Main Methods ä¸»è¦æ–¹æ³•
         private void UpdateShouldSprintState()
         {
             if (!stateMachine.ReusableData.ShouldSprint)
@@ -172,124 +59,225 @@ namespace MovementStstem
             {
                 return;
             }
-            //Èç¹ûÉÏÃæÁ½¸öÌõ¼ş¶¼²»Âú×ã ÄÇÃ´¾Í°ÑÕâ¸ö×´Ì¬¸Ä»Øfalse
             stateMachine.ReusableData.ShouldSprint = false;
         }
-
-        //»Øµ÷ÊÇÓÃÀ´¼àÌıÊäÈëµÄ£¬¿´Íæ¼ÒÊ²Ã´Ê±ºòËÉ¿ª°´¼ü
-        //Õâ¸öÀàµÄ²Ù×÷ÊÇÎªÁË½ÚÊ¡×ÊÔ´£¬ÒòÎª×ßÂ·ºÍÅÜ²½×´Ì¬¶¼ĞèÒª¼àÌıËÉ¿ª°´¼üÊÂ¼ş
-        //ËùÒÔ°ÑÕâ¸ö¼àÌı·ÅÔÚËüÃÇµÄ¸¸ÀàÀï
-        //ÀûÓÃ¶àÌ¬»¹ÊÇ¿ÉÒÔÈÃËûÃÇ¸÷×ÔÓµÓĞ×Ô¼ºµÄ»Øµ÷·½·¨
-        #region Reusable Methods ¿ÉÖØÓÃ·½·¨
         /// <summary>
-        /// 9.5¸øÁíÒ»¸ö×´Ì¬Ìí¼ÓÒ»¸ö»Øµ÷ ÏÖÔÚÔÚ»ùÀàÀïÌí¼ÓÊÇÎªÁË½ÚÊ¡»Øµ÷¼àÌı×ÊÔ´
+        /// æµ®åŠ¨èƒ¶å›Šä½“ æ–¹æ³•
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private void Float()
+        {
+            //è·å–èƒ¶å›Šä½“ç¢°æ’å™¨åœ¨ä¸–ç•Œç©ºé—´çš„ä½ç½®
+            Vector3 capsuleColliderCenterInWorldSpace = stateMachine.Player.ColliderUtility.CapsuleColliderData.Collider.bounds.center;
+
+            //è®¡ç®—èƒ¶å›Šä½“åº•éƒ¨ä½ç½® ä»èƒ¶å›Šä½“ä¸­å¿ƒä½ç½®å‘å°„å‘ä¸‹å°„çº¿
+            Ray downWardsRayFromCapsuleCenter = new Ray(
+                capsuleColliderCenterInWorldSpace,//èµ·ç‚¹
+                Vector3.down//æ–¹å‘
+                );
+            //ç¬¬äºŒä¸ªå‚æ•°æ˜¯è¿”å›å‚¨å­˜ä¿¡æ¯çš„ç»“æ„ä½“
+            //ç¬¬å››ä¸ªå‚æ•°æ˜¯éœ€è¦å‘ç”Ÿç¢°æ’çš„ä¸€ä¸ªæˆ–å¤šä¸ªå±‚ å»ºç«‹å•ç‹¬çš„è„šæœ¬æ¥ä¿å­˜
+            //ç¬¬äº”ä¸ªå‚æ•°æ˜¯æŸ¥è¯¢è§¦å‘å™¨äº¤äº’çš„æšä¸¾ç±»å‹ å¿½ç•¥è§¦å‘å™¨ æ„æ€æ˜¯å°„çº¿ä¸ä¼šä¸è§¦å‘å™¨ç¢°æ’ ä¼šå¿½ç•¥è¯¥å±‚ä¸­ç¢°æ’å™¨æ˜¯è§¦å‘å™¨çš„ç‰©ä½“
+            if (Physics.Raycast(downWardsRayFromCapsuleCenter,out RaycastHit hit,slopeData.FloatRayDistance,stateMachine.Player.LayerData.GroundLayer,QueryTriggerInteraction.Ignore))
+            {
+                //è¦å¤„ç†ä¸Šå¡è§’åº¦è¶Šå¤§é€Ÿåº¦è¶Šæ…¢çš„ é€»è¾‘ ç¬¬ä¸€ä¸ªå‚æ•°æ˜¯å°„çº¿æ£€æµ‹åˆ°ç‰©ä½“çš„æ³•çº¿å‘é‡ ç¬¬äºŒä¸ªå‚æ•°æ˜¯ç©å®¶å‘ä¸‹çš„æ–¹å‘å‘é‡çš„åæ–¹å‘
+                //è¿™æ ·å¾—åˆ°è¿™ä¸ªè§’çš„å¯¹è§’çš„ä½™è§’åˆšå¥½æ˜¯åœ°é¢å’Œæ–œå¡ä¹‹é—´çš„å¤¹è§’
+                float groundAngle = Vector3.Angle(hit.normal,-downWardsRayFromCapsuleCenter.direction);
+
+                //è®¾ç½®æ”¹å˜é€Ÿåº¦çš„æ–¹æ³•
+                float slopeSpeedModifier =  SetSlopeSpeedModifierOnAngle(groundAngle);
+                //å¦‚æœæ–œå¡é€Ÿåº¦ä¿®æ”¹å™¨æ˜¯0 è¯´æ˜ä¸èƒ½ç§»åŠ¨ è¿™è®©æˆ‘ä»¬ä¸èƒ½åœ¨æ–œå¡ä¸Šæµ®åŠ¨
+                if (slopeSpeedModifier == 0) return;
+
+                //è®¡ç®—èƒ¶å›Šä½“åº•éƒ¨åˆ°åœ°é¢ï¼ˆå¦‚å°é˜¶ï¼‰çš„è·ç¦» ç¼©æ”¾æ¨¡å‹æ—¶ä¸ºäº†ç¡®ä¿æµ®åŠ¨è·ç¦»æ­£ç¡® éœ€è¦ä¹˜ä»¥ç¼©æ”¾å€¼ ä¸ç„¶èƒ¶å›Šä½“è·Ÿç€å˜å¤§äº† æµ®åŠ¨è·ç¦»è¿˜æ˜¯åŸæ¥çš„å°±ä¸å¯¹äº†
+                //è¿™ä¸ªç¼©æ”¾å€¼æ˜¯æœ¬åœ°ç¼©æ”¾å€¼ å› ä¸ºèƒ¶å›Šä½“ç¢°æ’å™¨çš„å°ºå¯¸æ˜¯æ ¹æ®æœ¬åœ°ç¼©æ”¾è®¡ç®—çš„ 
+                //ä¸‹ä¸€æ­¥æ˜¯éœ€è¦ä»å°„çº¿å‘½ä¸­ä¸­å‡å»è¿™ä¸ªè·ç¦» ä¿è¯æœ¬åœ°å’Œä¸–ç•Œç©ºé—´ä¸€è‡´
+
+                //æ˜¯è®¡ç®—èƒ¶å›Šä½“åº•éƒ¨åˆ°åœ°é¢çš„è·ç¦» æ‰€ä»¥ç”¨ä¸­å¿ƒç‚¹ å‡å» åº•éƒ¨åˆ°åœ°é¢çš„ è·ç¦»
+                float distanceToFloatPoint = stateMachine.Player.ColliderUtility.CapsuleColliderData.ColliderCenterInLoaclSpace.y*stateMachine.Player.transform.localScale.y-hit.distance;
+                if (distanceToFloatPoint == 0f) return;
+
+                //éœ€è¦ä¸€ä¸ªå‡åŠ› å˜é‡åå­—å«éœ€æå‡é‡åŠ› ä¸‹é¢æ˜¯è®¡ç®—ä¸ŠæŠ¬åŠ›çš„ç®—å¼
+                float amountToLift = distanceToFloatPoint*slopeData.StepReachForce-GetPlayerVerticalVelocity().y;
+                //ç„¶åéœ€è¦è¿™ä¸ªå€¼ä¸é¢å¤–åŠ›ç›¸ä¹˜ å¹¶åˆ é™¤å½“å‰çš„å‚ç›´é€Ÿåº¦â†‘
+                //ç„¶åå‡å»å½“å‰çš„å‚ç›´é€Ÿåº¦
+
+
+                //æ€»ä¸ŠæŠ¬åŠ› = å¼¹ç°§åŠ› - é˜»å°¼åŠ›
+                //        = (ä½ç§» Ã— å¼¹ç°§ç³»æ•°) -å½“å‰é€Ÿåº¦
+
+                //å¾—åˆ°ä¸€ä¸ªå‘ä¸Šçš„åŠ›çš„å‘é‡ å‚ç›´åŠ›
+                Vector3 liftForce = new Vector3(0f, amountToLift, 0f);
+                //åº”ç”¨è¿™ä¸ªåŠ›
+                stateMachine.Player.Rigidbody.AddForce(liftForce,ForceMode.VelocityChange);
+
+                //è¿™ä¸€æ­¥å¼„å®Œä¹‹å è¿™ä¸ªèƒ¶å›Šä½“å°±æµ®åŠ¨äº† æ²¡åŠ çš„æ—¶å€™ ä¼šåœ¨æ²¡æœ‰èƒ¶å›Šä½“çš„åœ°æ–¹æ‰ä¸‹åœ°é¢
+                //æ¨¡å‹è„šéƒ¨ç©¿æ¨¡äº†å¯ä»¥å°è¯•ikæ¥è§£å†³ä¸€ä¸‹ è¿™é‡Œæ²¡æœ‰ä½¿ç”¨
+            }
+        }
+
+        private float SetSlopeSpeedModifierOnAngle(float angle)
+        {
+            //ä½¿ç”¨åŠ¨ç”»æ›²çº¿æ¥è®¾ç½®æ–œå¡é€Ÿåº¦ä¿®æ”¹å™¨ è€Œéifè¯­å¥
+            //è¿™ä½¿æˆ‘ä»¬å¯ä»¥ æ›´ç›´è§‚åœ°è½»æ¾çš„è°ƒæ•´ æ–œå¡é€Ÿåº¦ä¿®æ”¹å™¨ åœ¨åœ°é¢æ•°æ®è„šæœ¬é‡Œï¼Œè¿™ä¸ªè„šæœ¬æ˜¯æ˜¾ç¤ºåœ¨çª—å£é‡Œçš„
+            //14.2 æ­¤æ—¶æ£€æŸ¥çª—å£é‡Œé¢çš„åŠ¨ç”»æ›²çº¿å·²ç»è®¾ç½®å®Œæˆ
+            //è·å–ç»™å®šæ—¶é—´çš„å€¼
+            float slopeSpeedModifier = movementData.SlopeSpeedAngles.Evaluate(angle);
+
+            if(stateMachine.ReusableData.MovementOnSlopesSpeedModifier!=slopeSpeedModifier)
+            {
+
+                //å°†å€¼èµ‹ç»™é‡ç”¨æ•°æ®é‡Œçš„æ–œå¡é€Ÿåº¦ä¿®æ”¹å™¨
+                stateMachine.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
+
+                UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
+            }
+
+
+            return slopeSpeedModifier;
+        }
+        /// <summary>
+        /// åˆ¤æ–­æ˜¯å¦ç¦»åœ°å¤ªè¿‘ å°±ä¸è¿›å…¥å è½çŠ¶æ€
+        /// </summary>
+        /// <returns></returns>
+        private bool IsThereGroundUnderneath()
+        {
+            BoxCollider groundCheckCollider = stateMachine.Player.ColliderUtility.TriggerColliderData.GroundCheckCollider;
+            Vector3 groundColliderCenterInWorldSpace = groundCheckCollider.bounds.center;
+            Collider[] overlappedGroundColliders = Physics.OverlapBox(groundColliderCenterInWorldSpace,stateMachine.Player.ColliderUtility.TriggerColliderData.GroundCheckColliderExtents,groundCheckCollider.transform.rotation,stateMachine.Player.LayerData.GroundLayer,QueryTriggerInteraction.Ignore);
+            
+            return overlappedGroundColliders.Length > 0;
+        }
+        #endregion
+
+
+        //å›è°ƒæ˜¯ç”¨æ¥ç›‘å¬è¾“å…¥çš„ï¼Œçœ‹ç©å®¶ä»€ä¹ˆæ—¶å€™æ¾å¼€æŒ‰é”®
+        //è¿™ä¸ªç±»çš„æ“ä½œæ˜¯ä¸ºäº†èŠ‚çœèµ„æºï¼Œå› ä¸ºèµ°è·¯å’Œè·‘æ­¥çŠ¶æ€éƒ½éœ€è¦ç›‘å¬æ¾å¼€æŒ‰é”®äº‹ä»¶
+        //æ‰€ä»¥æŠŠè¿™ä¸ªç›‘å¬æ”¾åœ¨å®ƒä»¬çš„çˆ¶ç±»é‡Œ
+        //åˆ©ç”¨å¤šæ€è¿˜æ˜¯å¯ä»¥è®©ä»–ä»¬å„è‡ªæ‹¥æœ‰è‡ªå·±çš„å›è°ƒæ–¹æ³•
+        #region Reusable Methods å¯é‡ç”¨æ–¹æ³•
+        /// <summary>
+        /// 9.5ç»™å¦ä¸€ä¸ªçŠ¶æ€æ·»åŠ ä¸€ä¸ªå›è°ƒ ç°åœ¨åœ¨åŸºç±»é‡Œæ·»åŠ æ˜¯ä¸ºäº†èŠ‚çœå›è°ƒç›‘å¬èµ„æº
         /// </summary>
         protected override void AddInputActionsCallBacks()
         {
-            //9.5Ìí¼ÓÒÆ¶¯ºÍÈ¡Ïû²Ù×÷
+            //9.5æ·»åŠ ç§»åŠ¨å’Œå–æ¶ˆæ“ä½œ
             base.AddInputActionsCallBacks();
 
-           
+            //stateMachine.Player.Input.PlayerActions.Movement.canceled += OnMovementCanceled;
 
-            //15.6Ìí¼Ó³å´Ì¿ªÊ¼»Øµ÷
+            //15.6æ·»åŠ å†²åˆºå¼€å§‹å›è°ƒ
             stateMachine.Player.Input.PlayerActions.Dash.started += OnDashStarted;
 
-            //15Ìí¼ÓÌøÔ¾»Øµ÷
+            stateMachine.Player.Input.PlayerActions.Sprint.performed += OnSprintPerformed;
+            stateMachine.Player.Input.PlayerActions.Sprint.canceled += OnSprintCanceled;
+
             stateMachine.Player.Input.PlayerActions.Jump.started += OnJumpStarted;
         }
 
-     
+    
 
-
-        //Õâ¸ö·½·¨ÊÇ
         protected override void RemoveInputActionsCallBacks()
         {
             base.RemoveInputActionsCallBacks();
 
-
             stateMachine.Player.Input.PlayerActions.Dash.started -= OnDashStarted;
 
+            stateMachine.Player.Input.PlayerActions.Sprint.performed -= OnSprintPerformed;
+            stateMachine.Player.Input.PlayerActions.Sprint.canceled -= OnSprintCanceled;
 
             stateMachine.Player.Input.PlayerActions.Jump.started -= OnJumpStarted;
         }
 
         /// <summary>
-        /// 11.2ÕâÒ»²½ÊÇ½«°´¼ü¿ØÖÆ×ßÂ·ºÍÅÜ²½±ä³É¹«¹²shouldWalk±äÁ¿¿ØÖÆ£¬Ö®Ç°ÊÇÃ¿¸ö×´Ì¬ÓĞ¶ÀÁ¢µÄ¿ØÖÆ
-        /// ÕâÀïÃæ°üº¬ÇĞ»»µ½ ×ßÂ· ³å´Ì ×´Ì¬
+        /// 11.2è¿™ä¸€æ­¥æ˜¯å°†æŒ‰é”®æ§åˆ¶èµ°è·¯å’Œè·‘æ­¥å˜æˆå…¬å…±shouldWalkå˜é‡æ§åˆ¶ï¼Œä¹‹å‰æ˜¯æ¯ä¸ªçŠ¶æ€æœ‰ç‹¬ç«‹çš„æ§åˆ¶
         /// </summary>
         protected virtual void OnMove()
         {
-            //15.7
-            if(stateMachine.ReusableData.ShouldSprint)
-            {
-                stateMachine.ChangeState(stateMachine.SprintingState);
-                return;
-            }
-
-            if (stateMachine.ReusableData.ShouldWalk)
+            if(stateMachine.ReusableData.ShouldWalk)
             {
                 stateMachine.ChangeState(stateMachine.WalkingState);
+
+                return;
+            }
+            if (stateMachine.ReusableData.ShouldSprint)
+            {
+                stateMachine.ChangeState(stateMachine.SprintingState);
+                
                 return;
             }
 
 
-            //µ±Ç°Èç¹û²»ÊÇÓ¦¸Ã×ßÂ·×´Ì¬ ÄÇÓ¦¸ÃÊÇÅÜ²½×´Ì¬
+            //å½“å‰å¦‚æœä¸æ˜¯åº”è¯¥èµ°è·¯çŠ¶æ€ é‚£åº”è¯¥æ˜¯è·‘æ­¥çŠ¶æ€
             stateMachine.ChangeState(stateMachine.RunningState);
 
-            //ÎÒÃÇÏÖÔÚ¿ÉÒÔ´Ó´ı»ú¿ÕÏĞ×´Ì¬ÇĞ»»µ½ÆäËû×´Ì¬ÁË ^-^
-            //ÏÂÒ»²½ÊÇÌí¼ÓÆäËû×´Ì¬ÀïµÄ Âß¼­
+            //æˆ‘ä»¬ç°åœ¨å¯ä»¥ä»å¾…æœºç©ºé—²çŠ¶æ€åˆ‡æ¢åˆ°å…¶ä»–çŠ¶æ€äº† ^-^
+            //ä¸‹ä¸€æ­¥æ˜¯æ·»åŠ å…¶ä»–çŠ¶æ€é‡Œçš„ é€»è¾‘
         }
-
         /// <summary>
-        /// 
-        /// Àë¿ªµØÃæÊ± ÇĞ»»µ½¿Õ½µ×´Ì¬ Õâ¸ö·½·¨ÊÇÎªÁËÔÚÍæ¼ÒÀë¿ªµØÃæÊ±ÇĞ»»µ½½µÂä×´Ì¬
+        /// æ¥è¿‘åœ°é¢é€€å‡º
         /// </summary>
         /// <param name="collider"></param>
         protected override void OnContactWithGroundExited(Collider collider)
         {
             base.OnContactWithGroundExited(collider);
 
-            //ººÓï×¢ÊÍ£ºµ±Íæ¼ÒÀë¿ªµØÃæÊ±£¬Ê×ÏÈ¼ì²éÏÂÃæÊÇ·ñ»¹ÓĞµØÃæ¡£Èç¹ûÓĞµØÃæ£¬¿ÉÄÜÊÇÌ¨½×»òĞ±ÆÂµÈ£¬ÕâÖÖÇé¿öÏÂ²»ÇĞ»»×´Ì¬¡£Ö»ÓĞµ±ÏÂÃæÃ»ÓĞµØÃæÊ±£¬²ÅÇĞ»»µ½¿Õ½µ×´Ì¬¡£
-            if (IsThereGroundUnderneath())
+            //ä¸‹é¢ä¸¾ä¾‹è¿‡è¿‘ ä¸å è½çŠ¶æ€ è¿”å›
+            if(IsThereGroundUnderneath())
             {
-                //ÕâÖÖÇé¿öÊÇÍæ¼ÒÀë¿ªÁËµØÃæ µ«ÊÇÏÂÃæ»¹ÓĞµØÃæ ¿ÉÄÜÊÇÌ¨½×»òÕßĞ±ÆÂµÈ ÕâÖÖÇé¿ö²»ÇĞ»»×´Ì¬
                 return;
             }
 
             Vector3 capsuleColliderCenterInWorldSpace = stateMachine.Player.ColliderUtility.CapsuleColliderData.Collider.bounds.center;
-            //´Ó½ºÄÒÌåµ×²¿·¢ÉäÉäÏß
-            Ray downwardsRayFormCapsuleBottom = new Ray(capsuleColliderCenterInWorldSpace-stateMachine.Player.ColliderUtility.CapsuleColliderData.ColliderVerticalExtents, Vector3.down);//Æğµã ·½Ïò
-
-            //Èç¹û¼ì²â²»µ½µØÃæ ¾ÍÇĞ»»µ½¿Õ½µ×´Ì¬ ÕâÀïµÄ¼ì²â¾àÀëÊÇ´Ó½ºÄÒÌåµ×²¿µ½µØÃæµÄ¾àÀë ¼ÓÉÏÒ»¸ö¶îÍâµÄ¾àÀë Õâ¸ö¶îÍâµÄ¾àÀëÊÇÎªÁËÈÃÍæ¼ÒÔÚÀë¿ªµØÃæÊ±ÓĞÒ»¸ö¶ÌÔİµÄÊ±¼äÀ´µ÷ÕûÎ»ÖÃ»òÕßÌøÔ¾µÈ²Ù×÷
-            if (Physics.Raycast(downwardsRayFormCapsuleBottom,out _,movementData.GroundToFallRayDistance,stateMachine.Player.LayerData.GroundLayer,QueryTriggerInteraction.Ignore))
+            //ä»èƒ¶å›Šåº•éƒ¨æŠ•å‡ºå°„çº¿
+            Ray downwardsRayFormCapsuleButtom = new Ray(capsuleColliderCenterInWorldSpace - stateMachine.Player.ColliderUtility.CapsuleColliderData.ColliderVerticalExtents,Vector3.down);
+            if(!Physics.Raycast(downwardsRayFormCapsuleButtom,out _,movementData.GroundToFallRayDistance,stateMachine.Player.LayerData.GroundLayer,QueryTriggerInteraction.Ignore))
             {
                 OnFall();
             }
-                
-             
 
-            
         }
 
-     
+
         protected virtual void OnFall()
         {
             stateMachine.ChangeState(stateMachine.FallingState);
         }
         #endregion
 
-        #region ÊäÈë·½·¨ Input Methods
+        #region è¾“å…¥æ–¹æ³• Input Methods
 
-      
+        //protected virtual void OnMovementCanceled(InputAction.CallbackContext context)
+        //{
+        //    //æ¾å¼€æŒ‰é”®åˆ‡æ¢åˆ°å¾…æœºçŠ¶æ€ï¼Œè®©walkå’Œrunéƒ½ç»§æ‰¿è¿™ä¸ªæ–¹æ³•ï¼Œä»–ä»¬ä¿©æ˜¯ä¸€æ ·çš„å› ä¸ºä¸€æ¾æ‰‹å°±è¦åˆ‡æ¢åˆ°å¾…æœºçŠ¶æ€
+        //    //ä¸éœ€è¦ä¸ºäº†ç‹¬ç«‹æ€§é‡æ–°walkå’Œrunå„è‡ªå†™ä¸€ä¸ªâ†‘
+        //    stateMachine.ChangeState(stateMachine.IdlingState);
+        //}
 
         protected virtual void OnDashStarted(InputAction.CallbackContext context)
         {
-            //15.6 ÊäÈë·½·¨ ³å´Ì¿ªÊ¼Ê± ÇĞ»»µ½³å´Ì×´Ì¬
+            //15.6 è¾“å…¥æ–¹æ³• å†²åˆºå¼€å§‹æ—¶ åˆ‡æ¢åˆ°å†²åˆºçŠ¶æ€
             stateMachine.ChangeState(stateMachine.DashingState);
+        }
+
+        protected virtual void OnSprintPerformed(InputAction.CallbackContext context)
+        {
+            stateMachine.ReusableData.ShouldSprint = true;
+
+            if (stateMachine.ReusableData.MovementInput != Vector2.zero)
+            {
+                stateMachine.ChangeState(stateMachine.SprintingState);
+            }
+        }
+
+        protected virtual void OnSprintCanceled(InputAction.CallbackContext context)
+        {
+            stateMachine.ReusableData.ShouldSprint = false;
         }
 
         protected virtual void OnJumpStarted(InputAction.CallbackContext context)
         {
+
             stateMachine.ChangeState(stateMachine.JumpingState);
         }
         #endregion

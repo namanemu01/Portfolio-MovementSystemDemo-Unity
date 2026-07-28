@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace MovementStstem
 {
-    /// <summary>
-    /// 里面装的是所有提前缓存的状态 状态机用来缓存状态
-    /// </summary>
     public class PlayerMovementStateMachine : StateMachine
     {
         //在状态机中持有对玩家的引用，以便各个状态可以访问玩家的数据和方法
@@ -17,25 +14,25 @@ namespace MovementStstem
 
         public PlayerIdlingState IdlingState { get; }
         public PlayerDashingState DashingState { get; }
+
         public PlayerWalkingState WalkingState { get; }
         public PlayerRunningState RunningState { get; }
         public PlayerSprintingState SprintingState { get; }
 
-        //13.4 停止状态
+        //23stop后补的
         public PlayerLightStoppingState LightStoppingState { get; }
         public PlayerMediumStoppingState MediumStoppingState { get; }
         public PlayerHardStoppingState HardStoppingState { get; }
 
-        //17 着陆状态
+        //23land
         public PlayerLightLandingState LightLandingState { get; }
-        public PlayerHardLandingState HardLandingState { get; }
         public PlayerRollingState RollingState { get; }
+        public PlayerHardLandingState HardLandingState { get; }
 
-        //15 跳跃状态
+
+        //23
         public PlayerJumpingState JumpingState { get; }
-        //16 坠落状态
         public PlayerFallingState FallingState { get; }
-
         public PlayerMovementStateMachine(Player player)
         {
             //将玩家引用传递给状态机
@@ -58,8 +55,8 @@ namespace MovementStstem
             HardStoppingState = new PlayerHardStoppingState(this);
 
             LightLandingState = new PlayerLightLandingState(this);
-            HardLandingState = new PlayerHardLandingState(this);
             RollingState = new PlayerRollingState(this);
+            HardLandingState = new PlayerHardLandingState(this);
 
             JumpingState = new PlayerJumpingState(this);
             FallingState = new PlayerFallingState(this);

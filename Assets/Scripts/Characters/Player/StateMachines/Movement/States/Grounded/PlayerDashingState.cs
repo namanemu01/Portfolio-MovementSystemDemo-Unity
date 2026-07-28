@@ -6,89 +6,94 @@ using UnityEngine.InputSystem;
 
 namespace MovementStstem
 {
-    //15.1 ´´½¨³å´Ì×´Ì¬ ²¢¼ÓÈëµ½ÔË¶¯×´Ì¬×´Ì¬»úÖĞ´¢´æ
+    //15.1 åˆ›å»ºå†²åˆºçŠ¶æ€ å¹¶åŠ å…¥åˆ°è¿åŠ¨çŠ¶æ€çŠ¶æ€æœºä¸­å‚¨å­˜
     public class PlayerDashingState : PlayerGroundedState
     {
         private PlayerDashData dashData;
 
-        //15.6 ÏŞÖÆ³å´ÌÎÊÌâ
+        //15.6 é™åˆ¶å†²åˆºé—®é¢˜
         private float startTime;
-        private int ContinuousDashesUsed;
+        private int continuousDashesUsed;
 
-        //14´¦ÀíĞı×ª
         private bool shouldKeepRotating;
-        //15.2Á½ÖÖÇé¿ö£º
-        //ÒÆ¶¯Ê±³å´Ì ³¯ÏòÒÆ¶¯·½Ïò³å´Ì ËÙ¶Èµ÷½ÚÆ÷Ìá¸ß¼´¿É £¨Ìí¼ÓĞŞ¸ÄÖµ ÓÚÊÇĞèÒªĞ´Ò»¸ö³å´ÌÊı¾İ½Å±¾
-        //¾²Ö¹Ê±³å´Ì ³¯Ïò³¯Ïò·½Ïò³å´Ì Ìí¼ÓÒ»¸öÁ¦ £¨ÒòÎªÃ»ÓĞÒÆ¶¯ÊäÈë ËùÒÔËÙ¶Èµ÷½ÚÆ÷ÎŞĞ§
+        //15.2ä¸¤ç§æƒ…å†µï¼š
+        //ç§»åŠ¨æ—¶å†²åˆº æœå‘ç§»åŠ¨æ–¹å‘å†²åˆº é€Ÿåº¦è°ƒèŠ‚å™¨æé«˜å³å¯ ï¼ˆæ·»åŠ ä¿®æ”¹å€¼ äºæ˜¯éœ€è¦å†™ä¸€ä¸ªå†²åˆºæ•°æ®è„šæœ¬
+        //é™æ­¢æ—¶å†²åˆº æœå‘æœå‘æ–¹å‘å†²åˆº æ·»åŠ ä¸€ä¸ªåŠ› ï¼ˆå› ä¸ºæ²¡æœ‰ç§»åŠ¨è¾“å…¥ æ‰€ä»¥é€Ÿåº¦è°ƒèŠ‚å™¨æ— æ•ˆ
         public PlayerDashingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
             dashData = movementData.DashData;
         }
         #region IState Methods
         public override void Enter()
-        {
-            //15.4½øÈëµÄÊ±ºò Èç¹ûÊÇÒÆ¶¯×´Ì¬ ½«ËÙ¶ÈĞŞ¸ÄÎª ¾­¹ıËÙ¶Èµ÷½ÚÆ÷ĞŞ¸ÄµÄ Í¨¹ı×ÜÀàÔË¶¯×´Ì¬Á´½ÓµØÃæÊı¾İ½Å±¾
+        {            
+            //15.4è¿›å…¥çš„æ—¶å€™ å¦‚æœæ˜¯ç§»åŠ¨çŠ¶æ€ å°†é€Ÿåº¦ä¿®æ”¹ä¸º ç»è¿‡é€Ÿåº¦è°ƒèŠ‚å™¨ä¿®æ”¹çš„ é€šè¿‡æ€»ç±»è¿åŠ¨çŠ¶æ€é“¾æ¥åœ°é¢æ•°æ®è„šæœ¬
             stateMachine.ReusableData.MovementSpeedModifier = dashData.SpeedModifier;
 
             base.Enter();
             StartAnimation(stateMachine.Player.AnimationData.DashParemeterHash);
 
-            //15
             stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StrongForce;
 
-            //14
-            stateMachine.ReusableData.RotationData=dashData.RotationData;
-            //15.5 ´ı»ú×´Ì¬µÄ»°
+            stateMachine.ReusableData.RotationData = dashData.RotationData;
+
+           // Dash();
+
+            shouldKeepRotating = stateMachine.ReusableData.MovementInput != Vector2.zero;
+            //15.5 å¾…æœºçŠ¶æ€çš„è¯
             Dash();
 
             //15.6
             UpdateConsecutiveDashes();
 
-            //14.1 ´¦ÀíĞı×ªÎÊÌâ ÏÈĞ´Ò»¸ö±äÁ¿À´¿ØÖÆÊÇ·ñĞèÒªĞı×ª
-            //°´ÏÂÒÆ¶¯¼ü ¸ÃÖµÎªtrue
-            shouldKeepRotating = stateMachine.ReusableData.MovementInput != Vector2.zero;
-
-            //15.6¼ÇÂ¼¿ªÊ¼Ê±¼ä
+            //15.6è®°å½•å¼€å§‹æ—¶é—´
             startTime = Time.time;
         }
+        public override void Update()
+        {
+            base.Update();
 
+            // ä¿é™©ï¼šå¦‚æœåŠ¨ç”»äº‹ä»¶æ²¡æœ‰è§¦å‘ï¼Œ0.8 ç§’åå¼ºåˆ¶é€€å‡ºå†²åˆº
+            if (Time.time > startTime + 0.8f)
+            {
+                if (stateMachine.ReusableData.MovementInput == Vector2.zero)
+                {
+                    stateMachine.ChangeState(stateMachine.HardStoppingState);
+                }
+                else
+                {
+                    stateMachine.ChangeState(stateMachine.SprintingState);
+                }
+            }
+        }
         public override void Exit()
         {
             base.Exit();
             StopAnimation(stateMachine.Player.AnimationData.DashParemeterHash);
 
-            //15.4ÍË³öµÄÊ±ºò ĞèÒª°ÑËÙ¶ÈĞŞ¸ÄÆ÷¸Ä»Ø³õÊ¼Öµ Õâ¸öÊÇai×Ô¶¯²¹µÄ£¬ÏÈ·Å×Å
-            //stateMachine.ResuableData.MovementSpeedModifier = 1f;
-            //14.2 ÍË³ö×´Ì¬Ê± °ÑĞı×ªÊı¾İÖØÖÃÎª³õÊ¼Öµ
             SetBaseRotationData();
         }
 
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-
-            if(shouldKeepRotating)
+            if (shouldKeepRotating)
             {
-                return;
+                RotateTowardsTargetRotation();
             }
-            RotateTowardsTargetRotation();
-
         }
         /// <summary>
-        /// 15.8¸´ÓÃ»ùÀàµÄ¶¯»­¹ı¶ÉÊÂ¼ş·½·¨ Ò²¾ÍÊÇÏÖÔÚÏÈĞ´·½·¨ ×ö¶¯»­»úµÄÊ±ºòÀïÔÙÌí¼ÓÊÂ¼ş
+        /// 15.8å¤ç”¨åŸºç±»çš„åŠ¨ç”»è¿‡æ¸¡äº‹ä»¶æ–¹æ³• ä¹Ÿå°±æ˜¯ç°åœ¨å…ˆå†™æ–¹æ³• åšåŠ¨ç”»æœºçš„æ—¶å€™é‡Œå†æ·»åŠ äº‹ä»¶
         /// </summary>
         public override void OnAnimationTransitionEvent()
         {
-            
             if(stateMachine.ReusableData.MovementInput==Vector2.zero)
             {
-                //Èç¹ûÊÇ¾²Ö¹×´Ì¬ ½øÈëÓ²Í£Ö¹×´Ì¬£¨ÒòÎªÃ»ÓĞĞ´Ó²Í£Ö¹×´Ì¬ ËùÒÔÏÈ½øÈë´ı»ú×´Ì¬
-                //13ÏÖÔÚÓĞÁË£¬¾Í¸ÄÁË
+                //å¦‚æœæ˜¯é™æ­¢çŠ¶æ€ è¿›å…¥ç¡¬åœæ­¢çŠ¶æ€ï¼ˆå› ä¸ºæ²¡æœ‰å†™ç¡¬åœæ­¢çŠ¶æ€ æ‰€ä»¥å…ˆè¿›å…¥å¾…æœºçŠ¶æ€
                 stateMachine.ChangeState(stateMachine.HardStoppingState);
                 return;
             }
  
-             //·ñÔò½øÈë¼²ÅÜ×´Ì¬
+             //å¦åˆ™è¿›å…¥ç–¾è·‘çŠ¶æ€
              stateMachine.ChangeState(stateMachine.SprintingState);
             
         }
@@ -99,17 +104,17 @@ namespace MovementStstem
         private void Dash()
         {
 
-            //Íæ¼ÒÃæ³¯Ïò Ö»ĞèÒªË®Æ½·½Ïò
+            //ç©å®¶é¢æœå‘ åªéœ€è¦æ°´å¹³æ–¹å‘
             Vector3 dashDirection = stateMachine.Player.transform.forward;
             dashDirection.y = 0f;
 
-            //14ĞŞ¸´ÒÑÖªÎÊÌâ
             UpdateTargetRotation(dashDirection, false);
 
-            //Çø·ÖÒÆ¶¯»¹ÊÇ¾²Ö¹×´Ì¬ ¿ÉÒÔÍ¨¹ıÅĞ¶ÏÊäÈë
+            //åŒºåˆ†ç§»åŠ¨è¿˜æ˜¯é™æ­¢çŠ¶æ€ å¯ä»¥é€šè¿‡åˆ¤æ–­è¾“å…¥
             if (stateMachine.ReusableData.MovementInput!=Vector2.zero)
             {
                 UpdateTargetRotation(GetMovementInputDirection());
+                //æä¾›è¾“å…¥ç›¸å¯¹äºç›¸æœºçš„æ–¹å‘
                 dashDirection = GetTargetRotationDirection(stateMachine.ReusableData.CurrentTargetRotation.y);
             }
 
@@ -117,34 +122,34 @@ namespace MovementStstem
         }
 
         /// <summary>
-        /// 15.6 ¸üĞÂÁ¬Ğø³å´Ì·½·¨
+        /// 15.6 æ›´æ–°è¿ç»­å†²åˆºæ–¹æ³•
         /// </summary>
         private void UpdateConsecutiveDashes()
         {
-            //15.7¼ì²éÊÇ·ñÊÇÁ¬Ğø³å´Ì £¨´ÎÊıÃ»´ïµ½ ²»ĞèÒªµÈ´ıÊ±¼ä/Ê±¼ä´ïµ½ÁË ´ÎÊı¹éÁã
+            //15.7æ£€æŸ¥æ˜¯å¦æ˜¯è¿ç»­å†²åˆº ï¼ˆæ¬¡æ•°æ²¡è¾¾åˆ° ä¸éœ€è¦ç­‰å¾…æ—¶é—´/æ—¶é—´è¾¾åˆ°äº† æ¬¡æ•°å½’é›¶
 
-            //ifÀïÃæÒÀ¾ÉÊÇtrue²Å½øÈë ËùÒÔĞèÒªÀïÃæµÄ·½·¨·µ»Øfalse ±íÊ¾²»ÊÇÁ¬Ğø°´³å´Ì
+            //ifé‡Œé¢ä¾æ—§æ˜¯trueæ‰è¿›å…¥ æ‰€ä»¥éœ€è¦é‡Œé¢çš„æ–¹æ³•è¿”å›false è¡¨ç¤ºä¸æ˜¯è¿ç»­æŒ‰å†²åˆº
             if (!IsConsecutive())
             {
-                //Èç¹ûÒÑ¾­¹ıÁËÏŞÖÆÊ±¼ä ÖØÖÃ¿ÉÒÔÁ¬Ğø³å´ÌµÄ´ÎÊı
-                ContinuousDashesUsed = 0;
+                //å¦‚æœå·²ç»è¿‡äº†é™åˆ¶æ—¶é—´ é‡ç½®å¯ä»¥è¿ç»­å†²åˆºçš„æ¬¡æ•°
+                continuousDashesUsed = 0;
             }
-            //Èç¹û·µ»Øtrue ¿ÉÒÔ³å´Ì Ôö¼ÓÒ»´Î¼ÆÊı
-            ++ContinuousDashesUsed;
+            //å¦‚æœè¿”å›true å¯ä»¥å†²åˆº å¢åŠ ä¸€æ¬¡è®¡æ•°
+            ++continuousDashesUsed;
 
-            //¼ì²éÒÑÊ¹ÓÃµÄ³å´Ì¼ÆÊıÊÇ·ñµÈÓÚ³å´ÌÏŞÖÆÊı
-            if(ContinuousDashesUsed== dashData.ConsecutiveDashesLimitAmount)
+            //æ£€æŸ¥å·²ä½¿ç”¨çš„å†²åˆºè®¡æ•°æ˜¯å¦ç­‰äºå†²åˆºé™åˆ¶æ•°
+            if(continuousDashesUsed== dashData.ConsecutiveDashesLimitAmount)
             {
-                ContinuousDashesUsed = 0;
-                //²¢ÇÒ½ûÓÃÊäÈë¼¸ÃëÖÓ ÓÚÊÇµ¥¶ÀĞ´½Å±¾
+                continuousDashesUsed = 0;
+                //å¹¶ä¸”ç¦ç”¨è¾“å…¥å‡ ç§’é’Ÿ äºæ˜¯å•ç‹¬å†™è„šæœ¬
                 stateMachine.Player.Input.DisableActionFor(stateMachine.Player.Input.PlayerActions.Dash,dashData.DashLimitReachedCooldown);
             }
         }
 
         private bool IsConsecutive()
         {
-            //µ±Ç°ÓÎÏ·Ê±¼ä Ğ¡ÓÚÊäÈëµÄÉÏÒ»¸ö³å´ÌÊ±¼ä ¼ÓÉÏ ±»ÈÏÎªÊÇÁ¬Ğø³å´ÌµÄÊ±¼ä
-            //´Ë´¦Èç¹ûÊÇtrue ËµÃ÷µ±Ç°Ê±¼äÉè¶¨Ğ¡ÓÚÁ¬ĞøÊ±¼ä Ò²¾ÍÊÇ²»ÄÜÔÙ³å´Ì
+            //å½“å‰æ¸¸æˆæ—¶é—´ å°äºè¾“å…¥çš„ä¸Šä¸€ä¸ªå†²åˆºæ—¶é—´ åŠ ä¸Š è¢«è®¤ä¸ºæ˜¯è¿ç»­å†²åˆºçš„æ—¶é—´
+            //æ­¤å¤„å¦‚æœæ˜¯true è¯´æ˜å½“å‰æ—¶é—´è®¾å®šå°äºè¿ç»­æ—¶é—´ ä¹Ÿå°±æ˜¯ä¸èƒ½å†å†²åˆº
             return Time.time < startTime + dashData.TimeToBeConsideredConsecutive;
         }
         #endregion
@@ -153,12 +158,8 @@ namespace MovementStstem
         protected override void AddInputActionsCallBacks()
         {
             base.AddInputActionsCallBacks();
-
-            //Öµ²Ù×÷ÀàĞÍµÄperformedÔÚstratºÍÃ¿´Î°´ÏÂĞÂ¼üµÄÊ±ºòµ÷ÓÃ
             stateMachine.Player.Input.PlayerActions.Movement.performed += OnMovementPerformed;
         }
-
-       
 
         protected override void RemoveInputActionsCallBacks()
         {
@@ -167,26 +168,27 @@ namespace MovementStstem
         }
         #endregion
 
-        #region Input Methods ÊäÈë»Øµ÷
-        //15.8 ÖØĞ´ÒÆ¶¯È¡Ïû»Øµ÷//18.2ÒÑÉ¾³ı
-    
-            //ĞèÒªÔÚ³å´Ì×´Ì¬ÏÂËÉ¿ªÒÆ¶¯¼ü ½øÈëÓ²Í£Ö¹×´Ì¬
-            //ËùÒÔÕâÀïÖØĞ´»ùÀàµÄ·½·¨
-            //ÒòÎªÔ­À´Õâ¸ö·½·¨ÊÇ½øÈë×ßÂ·»òÅÜ²½×´Ì¬ ËÉ¿ª°´¼ü¾ÍÊÇ´ı»ú×´Ì¬ Ä¬ÈÏ ÏÖÔÚĞèÒªÔÚÕâ¸öÀàÀï¸ÄĞ´
-      
-        protected override void OnDashStarted(InputAction.CallbackContext context)
-        {
-            //ÕâÀïÒªÍê³ÉµÄÂß¼­ÊÇ ³ÖĞø³å´Ì Í£ÏÂÖ®ºó½ÓµÃÊÇÓ²Í£Ö¹×´Ì¬
-            //Ê¹ÓÃ¶¯»­ÊÂ¼şÔÚ¹Ø¼üÖ¡ Ìí¼ÓÊÂ¼ş ²¢ÇÒ¿ÉÒÔÔÚ¶¯»­½øÈë¸ÃÖ¡Ê±µ÷ÓÃÌØ¶¨·½·¨
-            //µ«ÊÇĞèÒª´´½¨¶¯»­Ö®ºó²ÅÄÜ²âÊÔ ÏÖÔÚ×î¶à¾ÍÊÇĞ´·½·¨
-        }
-
+        #region Input Methods è¾“å…¥å›è°ƒ
+        //15.8 é‡å†™ç§»åŠ¨å–æ¶ˆå›è°ƒ
+   
+        /// <summary>
+        /// ä¼šåœ¨startedå’Œæ¯æ¬¡æŒ‰ä¸‹æ–°é”®ä¹‹åä½¿ç”¨
+        /// </summary>
+        /// <param name="context"></param>
+        /// <exception cref="NotImplementedException"></exception>
         private void OnMovementPerformed(InputAction.CallbackContext context)
         {
             shouldKeepRotating = true;
         }
+
+        protected override void OnDashStarted(InputAction.CallbackContext context)
+        {
+            //è¿™é‡Œè¦å®Œæˆçš„é€»è¾‘æ˜¯ æŒç»­å†²åˆº åœä¸‹ä¹‹åæ¥å¾—æ˜¯ç¡¬åœæ­¢çŠ¶æ€
+            //ä½¿ç”¨åŠ¨ç”»äº‹ä»¶åœ¨å…³é”®å¸§ æ·»åŠ äº‹ä»¶ å¹¶ä¸”å¯ä»¥åœ¨åŠ¨ç”»è¿›å…¥è¯¥å¸§æ—¶è°ƒç”¨ç‰¹å®šæ–¹æ³•
+            //ä½†æ˜¯éœ€è¦åˆ›å»ºåŠ¨ç”»ä¹‹åæ‰èƒ½æµ‹è¯• ç°åœ¨æœ€å¤šå°±æ˜¯å†™æ–¹æ³•
+        }
         #endregion
 
-        //Ä¿Ç°³å´Ì×´Ì¬¾ÍÕâĞ©¹¦ÄÜ Ö®ºóĞèÒª¶¯»­»úºÍ¶¯»­À´ÅäºÏÍê³ÉÊ£ÏÂµÄ¹¦ÄÜ
+        //ç›®å‰å†²åˆºçŠ¶æ€å°±è¿™äº›åŠŸèƒ½ ä¹‹åéœ€è¦åŠ¨ç”»æœºå’ŒåŠ¨ç”»æ¥é…åˆå®Œæˆå‰©ä¸‹çš„åŠŸèƒ½
     }
 }

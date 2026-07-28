@@ -5,42 +5,40 @@ using UnityEngine;
 namespace MovementStstem
 {
     /// <summary>
-    /// ±£´æĞèÒªÔÚ¶à¸ö×´Ì¬¼äÖØÓÃµÄÊı¾İ£¬ÈçÊÇ·ñÓ¦¸Ã×ßÂ·shouldWalk£¬movementInputÍæ¼ÒÒÆ¶¯ÊäÈëµÈ
+    /// ä¿å­˜éœ€è¦åœ¨å¤šä¸ªçŠ¶æ€é—´é‡ç”¨çš„æ•°æ®ï¼Œå¦‚æ˜¯å¦åº”è¯¥èµ°è·¯shouldWalkï¼ŒmovementInputç©å®¶ç§»åŠ¨è¾“å…¥ç­‰
     /// </summary>
     public class PlayerStateReuseableData
     {
-        //12.2Îª´Ë´¦ËùÓĞµÄÊôĞÔÌá¹©Ò»¸ö¹«¹²¼¯ºÏÒÔ±ãÓÚĞŞ¸ÄÊı¾İ
+        //12.2ä¸ºæ­¤å¤„æ‰€æœ‰çš„å±æ€§æä¾›ä¸€ä¸ªå…¬å…±é›†åˆä»¥ä¾¿äºä¿®æ”¹æ•°æ®
 
-        //Íæ¼ÒÔË¶¯ÊäÈë£¬Ö®Ç°²»ÊÇÔÚmovementstateÀïÃæµ¥¶ÀÉùÃ÷ÁËÒ»¸ö±äÁ¿Âğ£¬ÏÖÔÚ¸øÌæ»»ÁË
+        //ç©å®¶è¿åŠ¨è¾“å…¥ï¼Œä¹‹å‰ä¸æ˜¯åœ¨movementstateé‡Œé¢å•ç‹¬å£°æ˜äº†ä¸€ä¸ªå˜é‡å—ï¼Œç°åœ¨ç»™æ›¿æ¢äº†
         public Vector2 MovementInput { get; set; }
-        //ÔË¶¯ËÙ¶ÈĞŞ¸ÄÆ÷
+        //è¿åŠ¨é€Ÿåº¦ä¿®æ”¹å™¨
         public float MovementSpeedModifier { get; set; } = 1f;
-        //Ğ±ÆÂÉÏÔË¶¯ËÙ¶ÈĞŞ¸ÄÆ÷ ÒòÎªÄ¬ÈÏÊÇ1 ËùÒÔÖ±½Ó¸³Öµ1
+        //æ–œå¡ä¸Šè¿åŠ¨é€Ÿåº¦ä¿®æ”¹å™¨ å› ä¸ºé»˜è®¤æ˜¯1 æ‰€ä»¥ç›´æ¥èµ‹å€¼1
         public float MovementOnSlopesSpeedModifier { get; set; } = 1f;
-
+        //è¿åŠ¨å‡é€ŸåŠ›
         public float MovementDecelerationForce { get; set; } = 1f;
 
-        public List<PlayerCameraRecenteringData> SidewaysCameraRecenteringData { get;  set; }
-        public List<PlayerCameraRecenteringData> BackwardsCameraRecenteringData { get;  set; }
-        
-        //½øÈë×ßÂ·×´Ì¬µÄ±êÖ¾
+         public List<PlayerCameraRecenteringData> SidewaysCameraRecenteringData { get;  set; }
+         public List<PlayerCameraRecenteringData> BackwardsCameraRecenteringData { get;  set; }
+
+        //è¿›å…¥èµ°è·¯çŠ¶æ€çš„æ ‡å¿—
         public bool ShouldWalk { get; set; }
-
-        //15.7ÅĞ¶ÏÍæ¼ÒÊÇ·ñÌøÔ¾ºó½øÈë¼²ÅÜ×´Ì¬µÄ±äÁ¿
         public bool ShouldSprint { get; set; }
-        //?
-        public Vector3 PublicProperty { get;set; }
 
-        //*µ±ÊôĞÔÀàĞÍÎªÒıÓÃÀàĞÍÊ±£¨ÈçÀà¡¢½Ó¿Ú¡¢Êı×é¡¢Î¯ÍĞµÈ£©£¬ÊôĞÔ´æ´¢µÄÊÇ¶ÔÊµ¼ÊÊı¾İµÄÒıÓÃ£¬¶ø²»ÊÇÊı¾İ±¾Éí¡£
-        //*µ±ÊôĞÔÀàĞÍÎªÖµÀàĞÍÊ±£¨Èçint¡¢float¡¢structµÈ£©£¬ÊôĞÔ´æ´¢µÄÊÇÊµ¼ÊµÄÊı¾İÖµ£¬Èç¹û´ÓÊôĞÔ»ñÈ¡Öµ£¬»áµÃµ½Êı¾İµÄ¸±±¾¡£
-        //ËùÒÔÎÒÃÇÒª»»Ò»ÖÖĞ´·¨:(×îºÃµÄĞ´·¨¾ÍÊÇset£©
+        public Vector3 PublicProperty {  get; set; }
+
+        //*å½“å±æ€§ç±»å‹ä¸ºå¼•ç”¨ç±»å‹æ—¶ï¼ˆå¦‚ç±»ã€æ¥å£ã€æ•°ç»„ã€å§”æ‰˜ç­‰ï¼‰ï¼Œå±æ€§å­˜å‚¨çš„æ˜¯å¯¹å®é™…æ•°æ®çš„å¼•ç”¨ï¼Œè€Œä¸æ˜¯æ•°æ®æœ¬èº«ã€‚
+        //*å½“å±æ€§ç±»å‹ä¸ºå€¼ç±»å‹æ—¶ï¼ˆå¦‚intã€floatã€structç­‰ï¼‰ï¼Œå±æ€§å­˜å‚¨çš„æ˜¯å®é™…çš„æ•°æ®å€¼ï¼Œå¦‚æœä»å±æ€§è·å–å€¼ï¼Œä¼šå¾—åˆ°æ•°æ®çš„å‰¯æœ¬ã€‚
+        //æ‰€ä»¥æˆ‘ä»¬è¦æ¢ä¸€ç§å†™æ³•:(æœ€å¥½çš„å†™æ³•å°±æ˜¯setï¼‰
         private Vector3 currentTargrtRotation;
         private Vector3 timeToReachTargetRotation;
         private Vector3 dampedTargetRotationCurrentVelocity;
         private Vector3 dampedTargetRotationPassedTime;
 
         /// <summary>
-        /// ÎÒÃÇĞèÒª×Ô¼ºÉèÖÃÒ»¸öÒıÓÃÀàĞÍµÄÊôĞÔ£¬ »ñÈ¡ ²¢ ·µ»Ø ÒÔ±ãÔÚ¶à¸ö×´Ì¬Ö®¼ä¹²ÏíºÍĞŞ¸Ä µ±Ç°Ä¿±êĞı×ªÊı¾İ
+        /// æˆ‘ä»¬éœ€è¦è‡ªå·±è®¾ç½®ä¸€ä¸ªå¼•ç”¨ç±»å‹çš„å±æ€§ï¼Œ è·å– å¹¶ è¿”å› ä»¥ä¾¿åœ¨å¤šä¸ªçŠ¶æ€ä¹‹é—´å…±äº«å’Œä¿®æ”¹ å½“å‰ç›®æ ‡æ—‹è½¬æ•°æ®
         /// </summary>
         public ref Vector3 CurrentTargetRotation
         {
@@ -72,7 +70,6 @@ namespace MovementStstem
         }
 
         public Vector3 CurrentJumpForce { get; set; }
-
         public PlayerRotationData RotationData { get;  set; }
     }
 }

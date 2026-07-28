@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,28 +22,20 @@ namespace MovementStstem
         [field: SerializeField][field:Range(0f,25f)] public float BaseSpeed { get; private set; } = 5f;
         //16
         [field: SerializeField][field: Range(0f, 5f)] public float GroundToFallRayDistance { get; private set; } = 1f;
-
-        //18 为侧着和向后单独设置两个 可调节
-        [field: SerializeField] public List<PlayerCameraRecenteringData> SidewaysCameraRecenteringData  { get; private set; }
-        [field: SerializeField] public List<PlayerCameraRecenteringData> BackwardsCameraRecenteringData { get; private set; }
-
         //斜坡速度曲线
+        [field:SerializeField]public List<PlayerCameraRecenteringData> SidewaysCameraRecentringData {  get; private set; }
+        [field:SerializeField]public List<PlayerCameraRecenteringData> BackwardsCameraRecentringData {  get; private set; }
         [field: SerializeField] public AnimationCurve SlopeSpeedAngles { get; private set; }
         //基础旋转数据脚本
         [field: SerializeField] public PlayerRotationData BaseRotationData { get; private set; }
-        //行走数据脚本
         [field: SerializeField] public PlayerIdleData IdleData { get; private set; }
+        //行走数据脚本
         [field: SerializeField] public PlayerWalkData WalkData { get; private set; }
         //奔跑数据脚本
         [field: SerializeField] public PlayerRunData RunData { get; private set; }
         [field: SerializeField] public PlayerSprintData SprintData { get; private set; }
         [field: SerializeField] public PlayerDashData DashData { get; private set; }
-
         [field: SerializeField] public PlayerStopData StopData { get; private set; }
-
-        //17
         [field: SerializeField] public PlayerRollData RollData { get; private set; }
-
-        
     }
 }

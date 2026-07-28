@@ -6,77 +6,72 @@ using UnityEngine;
 namespace MovementStstem
 {
     /// <summary>
-    /// 13½ºÄÒÌåÅö×²Æ÷¹¤¾ß ÓÃÀ´×ö¸¡¶¯½ºÄÒÌå ÓÃÀ´ÉÏÂ¥Ìİ ´ËÀàÖ÷ÒªÓÃÍ¾ÊÇÑ°ÕÒ¸Ä±äÖ®ºóµÄÖĞĞÄ×ø±ê
+    /// 13èƒ¶å›Šä½“ç¢°æ’å™¨å·¥å…· ç”¨æ¥åšæµ®åŠ¨èƒ¶å›Šä½“ ç”¨æ¥ä¸Šæ¥¼æ¢¯ æ­¤ç±»ä¸»è¦ç”¨é€”æ˜¯å¯»æ‰¾æ”¹å˜ä¹‹åçš„ä¸­å¿ƒåæ ‡
     /// </summary>
-    [Serializable]//ĞèÒªÔÚ´°¿ÚÏÔÊ¾»¬¿é
+    [Serializable]//éœ€è¦åœ¨çª—å£æ˜¾ç¤ºæ»‘å—
     public class CapsuleColliderUtility 
     {
-        //ÁíÒ»ÖÖ·½·¨ÊÇ·¨Ïß£¬²éÑ¯ÎªÊ²Ã´²»ÓÃÒÔ¼°ÆäËû·½·¨ÓÃÊ²Ã´ÉÏÂ¥Ìİ
-        //ÎÒÃÇĞèÒªµÄ¶«Î÷ÓĞ ½ºÄÒÌåÅö×²Æ÷µÄÒıÓÃ Ä¬ÈÏÅö×²Æ÷Êı¾İ Ğ±ÂÊÊı¾İ£¬ÀıÈç°Ù·Ö±È»¬¿é
-        //Êı¾İºÍÂß¼­ÊÇ·Ö¿ªµÄ ËùÒÔĞèÒª´´½¨Êı¾İdata½Å±¾
+        //å¦ä¸€ç§æ–¹æ³•æ˜¯æ³•çº¿ï¼ŒæŸ¥è¯¢ä¸ºä»€ä¹ˆä¸ç”¨ä»¥åŠå…¶ä»–æ–¹æ³•ç”¨ä»€ä¹ˆä¸Šæ¥¼æ¢¯
+        //æˆ‘ä»¬éœ€è¦çš„ä¸œè¥¿æœ‰ èƒ¶å›Šä½“ç¢°æ’å™¨çš„å¼•ç”¨ é»˜è®¤ç¢°æ’å™¨æ•°æ® æ–œç‡æ•°æ®ï¼Œä¾‹å¦‚ç™¾åˆ†æ¯”æ»‘å—
+        //æ•°æ®å’Œé€»è¾‘æ˜¯åˆ†å¼€çš„ æ‰€ä»¥éœ€è¦åˆ›å»ºæ•°æ®dataè„šæœ¬
 
-        //13.5ÎªÃ¿¸öÊı¾İÀà´´½¨Ò»¸ö±äÁ¿
+        //13.5ä¸ºæ¯ä¸ªæ•°æ®ç±»åˆ›å»ºä¸€ä¸ªå˜é‡
         [field:SerializeField] public CapsuleColliderData CapsuleColliderData {  get; private set; }
         [field: SerializeField] public DefaultColliderData DefaultColliderData { get; private set; }
         [field: SerializeField] public SlopeData SlopeData { get; private set; }
 
         /// <summary>
-        /// ³õÊ¼»¯·½·¨
+        /// åˆå§‹åŒ–æ–¹æ³•
         /// </summary>
         /// <param name="gameObject"></param>
         public void Initialize(GameObject gameObject)
         {
-            //ÔËĞĞÊ±¶¯Ì¬´´½¨µÄ·½·¨ĞèÒªÊµÀı»¯ ÌáÇ°×¼±¸ºÃµÄ·½·¨²»ÓÃÊµÀı»¯
-            if (CapsuleColliderData != null)
-            {
-                return;
-            }
+            //è¿è¡Œæ—¶åŠ¨æ€åˆ›å»ºçš„æ–¹æ³•éœ€è¦å®ä¾‹åŒ– æå‰å‡†å¤‡å¥½çš„æ–¹æ³•ä¸ç”¨å®ä¾‹åŒ–
+            if (CapsuleColliderData != null) return;
             CapsuleColliderData = new CapsuleColliderData();
             CapsuleColliderData.Initialize(gameObject);
-
             OnInitialize();
         }
-        //19.4
         protected virtual void OnInitialize()
         {
 
         }
         /// <summary>
-        /// 13.5Ã¿´Î¸üĞÂ¼ì²éÆ÷Ê±¶¼»áµ÷ÓÃÕâ¸ö·½·¨ ¼ÆËã½ºÄÒÌåÅö×²Æ÷³ß´ç ·½·¨ ÎªÁËµÃµ½ÖĞĞÄ×ø±ê
+        /// 13.5æ¯æ¬¡æ›´æ–°æ£€æŸ¥å™¨æ—¶éƒ½ä¼šè°ƒç”¨è¿™ä¸ªæ–¹æ³• è®¡ç®—èƒ¶å›Šä½“ç¢°æ’å™¨å°ºå¯¸ æ–¹æ³• ä¸ºäº†å¾—åˆ°ä¸­å¿ƒåæ ‡
         /// </summary>
         public void CalculateCapsuleColliderDimensions()
         {
-            //ÒÑ¾­ÉèÖÃºÃµÄ°ë¾¶Êı¾İ°ÑÔ­±¾µÄ°ë¾¶Êı¾İ¸üĞÂ
+            //å·²ç»è®¾ç½®å¥½çš„åŠå¾„æ•°æ®æŠŠåŸæœ¬çš„åŠå¾„æ•°æ®æ›´æ–°
             SetCapsuleColliderRadius(DefaultColliderData.Radius);
-            //ĞèÒª¸ß¶È³ËÒÔ²½¸ß°Ù·Ö±È,ÕâÀïÓÃ1À´É¾³ı±íÊ¾µÄÊÇ£¬Ä¬ÈÏÌ§Æğ°Ù·ÖÖ®ÆßÊ®Îå
+            //éœ€è¦é«˜åº¦ä¹˜ä»¥æ­¥é«˜ç™¾åˆ†æ¯”,è¿™é‡Œç”¨1æ¥åˆ é™¤è¡¨ç¤ºçš„æ˜¯ï¼Œé»˜è®¤æŠ¬èµ·ç™¾åˆ†ä¹‹ä¸ƒåäº”
             SetCapsileColliderHeight(DefaultColliderData.Height * (1f - SlopeData.StepHeightPersentage));
-            //ÕâÀï¸¡¶¯½ºÄÒÔ­ÀíÊÇÒ»Ö±±£³Ö×îÉÏÃæ¸ß¶È²»±ä£¬Å²¶¯µÄÊÇÏÂÃæµÄÎ»ÖÃ£¬ËùÒÔÖĞĞÄµã»áÔÚ¸ß¶È²îÖµÒ»°ëµÄÎ»ÖÃ
+            //è¿™é‡Œæµ®åŠ¨èƒ¶å›ŠåŸç†æ˜¯ä¸€ç›´ä¿æŒæœ€ä¸Šé¢é«˜åº¦ä¸å˜ï¼ŒæŒªåŠ¨çš„æ˜¯ä¸‹é¢çš„ä½ç½®ï¼Œæ‰€ä»¥ä¸­å¿ƒç‚¹ä¼šåœ¨é«˜åº¦å·®å€¼ä¸€åŠçš„ä½ç½®
             SetCapsileColliderCenter();
 
-            //13.6Ğ´µ½´Ë´¦»á³öÏÖÒ»¸öÎÊÌâ µ±¸ß¶ÈËõ¶Ìµ½Ò»¶¨³Ì¶È£¬½ºÄÒÌå»á³ÊÏÖÀàËÆ¸ºÊı£¬ÒòÎª×î¶ÌÊÇÇòÌåÈ»ºóµ¼ÖÂÕû¸öÇòÌåÉÏÒÆ
-            //ËùÒÔĞ´Ò»¸ö²¢²»ÍêÃÀµÄ·½·¨½â¾öÕâ¸öÎÊÌâ ÒòÎªÃ¿´ÎÉÏÉıµ½´óÔ¼°ë¾¶¶ş±¶µÄÊ±ºò²Å»á³öÏÖÕâÖÖÇé¿ö£¬ËùÓĞÎÒÃÇÔÚ´ËÊ±Ëõ¶Ì°ë¾¶
+            //13.6å†™åˆ°æ­¤å¤„ä¼šå‡ºç°ä¸€ä¸ªé—®é¢˜ å½“é«˜åº¦ç¼©çŸ­åˆ°ä¸€å®šç¨‹åº¦ï¼Œèƒ¶å›Šä½“ä¼šå‘ˆç°ç±»ä¼¼è´Ÿæ•°ï¼Œå› ä¸ºæœ€çŸ­æ˜¯çƒä½“ç„¶åå¯¼è‡´æ•´ä¸ªçƒä½“ä¸Šç§»
+            //æ‰€ä»¥å†™ä¸€ä¸ªå¹¶ä¸å®Œç¾çš„æ–¹æ³•è§£å†³è¿™ä¸ªé—®é¢˜ å› ä¸ºæ¯æ¬¡ä¸Šå‡åˆ°å¤§çº¦åŠå¾„äºŒå€çš„æ—¶å€™æ‰ä¼šå‡ºç°è¿™ç§æƒ…å†µï¼Œæ‰€æœ‰æˆ‘ä»¬åœ¨æ­¤æ—¶ç¼©çŸ­åŠå¾„
             float halfColliderHeight = CapsuleColliderData.Collider.height / 2f;
             if (halfColliderHeight < CapsuleColliderData.Collider.radius)
             {
-                //Èç¹û¸ß¶ÈµÄÒ»°ëĞ¡ÓÚ°ë¾¶£¬¾ÍÈÃ°ë¾¶±ä³É¸ß¶ÈµÄÒ»°ë ËõĞ¡°ë¾¶
+                //å¦‚æœé«˜åº¦çš„ä¸€åŠå°äºåŠå¾„ï¼Œå°±è®©åŠå¾„å˜æˆé«˜åº¦çš„ä¸€åŠ ç¼©å°åŠå¾„
                 SetCapsuleColliderRadius(halfColliderHeight);
             }
 
-            //×îÖÕÊÇÎªÁËµÃµ½½ºÄÒÌåÖĞĞÄ£¬²¢»º´æ
-            //*ÔÙ´Î½«ÖĞĞÄ»º´æÔÚ±¾µØ¿Õ¼äÖĞ
+            //æœ€ç»ˆæ˜¯ä¸ºäº†å¾—åˆ°èƒ¶å›Šä½“ä¸­å¿ƒï¼Œå¹¶ç¼“å­˜
+            //*å†æ¬¡å°†ä¸­å¿ƒç¼“å­˜åœ¨æœ¬åœ°ç©ºé—´ä¸­
             CapsuleColliderData.UpdateColliderData();
         }
 
 
         public void SetCapsuleColliderRadius(float radius)
         {
-            //Íæ¼ÒµÄ½ºÄÒÌåÊı¾İ¸üĞÂ³ÉÕâ¸öĞÂµÄ°ë¾¶
+            //ç©å®¶çš„èƒ¶å›Šä½“æ•°æ®æ›´æ–°æˆè¿™ä¸ªæ–°çš„åŠå¾„
             CapsuleColliderData.Collider.radius = radius;
         }
 
         public void SetCapsileColliderHeight(float height)
         {
-            //Íæ¼ÒµÄ½ºÄÒÌåÊı¾İ¸üĞÂ³ÉÕâ¸öĞÂµÄ¸ß¶È
+            //ç©å®¶çš„èƒ¶å›Šä½“æ•°æ®æ›´æ–°æˆè¿™ä¸ªæ–°çš„é«˜åº¦
             CapsuleColliderData.Collider.height = height;
         }
 
@@ -84,7 +79,7 @@ namespace MovementStstem
         {
             float capsuleHeightDifference = DefaultColliderData.Height - CapsuleColliderData.Collider.height;
             Vector3 newColliderCenter = new Vector3(0f, DefaultColliderData.CenterY + (capsuleHeightDifference / 2f), 0f);
-            //Íæ¼ÒµÄ½ºÄÒÌåÊı¾İ¸üĞÂ³ÉÕâ¸öĞÂµÄÖĞĞÄ
+            //ç©å®¶çš„èƒ¶å›Šä½“æ•°æ®æ›´æ–°æˆè¿™ä¸ªæ–°çš„ä¸­å¿ƒ
             CapsuleColliderData.Collider.center = newColliderCenter;
         }
 

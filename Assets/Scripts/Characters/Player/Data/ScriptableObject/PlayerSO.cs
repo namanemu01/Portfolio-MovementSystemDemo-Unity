@@ -16,6 +16,6 @@ namespace MovementStstem
         //12.1做有关数据类这个往下的所有安排
         //界面可配，对外只读，如果不写序列化的话就不能在编辑器界面显示，这是针对属性写的序列化
         [field:SerializeField]public PlayerGroundedData GroundedData { get; private set; }
-        [field: SerializeField] public PlayerAirborneData AirborneData { get; private set; }
+        [field:SerializeField]public PlayerAirborneData AirborneData { get; private set; }
     }
 }

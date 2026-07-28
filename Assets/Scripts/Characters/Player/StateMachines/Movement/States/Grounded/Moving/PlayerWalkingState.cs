@@ -7,12 +7,11 @@ using UnityEngine.InputSystem;
 namespace MovementStstem
 {
     /// <summary>
-    /// ÕâÀïÃæ Ò»¸öÊÇ¼àÌıËÉ¿ª¼ü½øÈë´ı»ú×´Ì¬ ÁíÒ»¸öÊÇ´Ó×ßÂ·ÇĞ»»µ½ÅÜ²½×´Ì¬
+    /// è¿™é‡Œé¢ ä¸€ä¸ªæ˜¯ç›‘å¬æ¾å¼€é”®è¿›å…¥å¾…æœºçŠ¶æ€ å¦ä¸€ä¸ªæ˜¯ä»èµ°è·¯åˆ‡æ¢åˆ°è·‘æ­¥çŠ¶æ€
     /// </summary>
     public class PlayerWalkingState : PlayerMovingState
     {
         private PlayerWalkData walkData;
-
         public PlayerWalkingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
             walkData = movementData.WalkData;
@@ -20,79 +19,77 @@ namespace MovementStstem
 
         #region IState Methods
         /// <summary>
-        /// 9.4Ê×ÏÈÏÈĞ´½øÈëÂß¼­ 
+        /// 9.4é¦–å…ˆå…ˆå†™è¿›å…¥é€»è¾‘ 
         /// </summary>
         public override void Enter()
         {
-            //¸ü¸ÄËÙ¶È¿ØÖÆÆ÷
-            //12.4 ¸ü¸Ä±äÁ¿ Êı¾İ½»»»
+            //æ›´æ”¹é€Ÿåº¦æ§åˆ¶å™¨
+            //12.4 æ›´æ”¹å˜é‡ æ•°æ®äº¤æ¢
             stateMachine.ReusableData.MovementSpeedModifier = walkData.SpeedModifier;
-            
-            //18.2
+
             stateMachine.ReusableData.BackwardsCameraRecenteringData = walkData.BackwardsCameraRecenteringData;
 
             base.Enter();
+
             StartAnimation(stateMachine.Player.AnimationData.WalkParemeterHash);
 
-            //15
             stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.WeakForce;
         }
-
         public override void Exit()
         {
             base.Exit();
             StopAnimation(stateMachine.Player.AnimationData.WalkParemeterHash);
+            
             SetBaseCameraRecenteringData();
         }
         #endregion
 
 
-        #region ÊäÈë·½·¨ Input Methods
-        //13ÈÃ²½ĞĞÖ®ºó½øÈëÇáÍ£Ö¹×´Ì¬
+        #region è¾“å…¥æ–¹æ³• Input Methods
         protected override void OnMovementCanceled(InputAction.CallbackContext context)
         {
-            //ÕâÀïÖØĞ´ÁË£¬Ô­À´µÄÂß¼­ÊÇ½ø´ı»ú×´Ì¬£¬ÏÖÔÚÓĞÁËÍ£Ö¹×´Ì¬¾Í¸²¸ÇÁË
             stateMachine.ChangeState(stateMachine.LightStoppingState);
-            //18.2Ê¹µÃ½ûÓÃÖ®ºóÖØĞÂµ÷ÓÃ
+
             base.OnMovementCanceled(context);
         }
         /// <summary>
-        /// 9.4¸øÃ¿¸ö×´Ì¬¶¼»Øµ÷£¬Õâ¸ö²»ÓÃ£¬Ö±½ÓÇĞ»»
+        /// 9.4ç»™æ¯ä¸ªçŠ¶æ€éƒ½å›è°ƒï¼Œè¿™ä¸ªä¸ç”¨ï¼Œç›´æ¥åˆ‡æ¢
         /// </summary>
         /// <param name="context"></param>
         protected override void OnWalkToggleStarted(InputAction.CallbackContext context)
         {
-            //ÎÒ¾õµÃµ÷ÓÃÕâ¸ö´ú±íÊÇÏÈĞŞ¸ÄshouldwalkµÄ×´Ì¬£¬Èç¹ûÒÑ¾­ÊÇwalkÁË£¬È¡Ïû£¬È»ºó½øÈëÅÜ²½×´Ì¬
-            //Õâ¸öµ÷ÓÃÁËshouldwalk
             base.OnWalkToggleStarted(context);
-            //¹ı¶É×´Ì¬
-            stateMachine.ChangeState(stateMachine.RunningState);
+
+            if (!stateMachine.ReusableData.ShouldWalk)
+            {
+                stateMachine.ChangeState(stateMachine.RunningState);
+            }
         }
 
 
         //protected void OnMovementCanceled(InputAction.CallbackContext context)
         //{
-        //    //ËÉ¿ª°´¼üÇĞ»»µ½´ı»ú×´Ì¬
+        //    //æ¾å¼€æŒ‰é”®åˆ‡æ¢åˆ°å¾…æœºçŠ¶æ€
         //    stateMachine.ChangeState(stateMachine.IdlingState);
         //}
         #endregion
 
-        //ÒÔÉÏÊÇ²½ĞĞ×´Ì¬µÄÈ«²¿Âß¼­
+        //ä»¥ä¸Šæ˜¯æ­¥è¡ŒçŠ¶æ€çš„å…¨éƒ¨é€»è¾‘
 
-        // Êµ¼Ê·¢ÉúµÄ¹ı³Ì£º
+        // å®é™…å‘ç”Ÿçš„è¿‡ç¨‹ï¼š
 
-//[Íæ¼ÒËÉ¿ª·½Ïò¼ü]
-//    ¡ı
-//[ÊäÈëÏµÍ³¼ì²âµ½Movement.canceledÊÂ¼ş]
-//    ¡ı
-//[²éÕÒËùÓĞ¼àÌıÕâ¸öÊÂ¼şµÄ·½·¨]
-//    ¡ı
-//[µ÷ÓÃ OnMovementCanceled(context)]  ¡û ÏµÍ³×Ô¶¯µ÷ÓÃ£¡
-//    ¡ı
-//[ÄãµÄ·½·¨Ö´ĞĞ£ºstateMachine.ChangeState(...)]
-//    ¡ı
-//[ĞÂ×´Ì¬µÄEnter()£¬¾É×´Ì¬µÄExit()]
-//    ¡ı
-//[Exit()ÖĞÖ´ĞĞ£ºMovement.canceled -= OnMovementCanceled]
+//[ç©å®¶æ¾å¼€æ–¹å‘é”®]
+//    â†“
+//[è¾“å…¥ç³»ç»Ÿæ£€æµ‹åˆ°Movement.canceledäº‹ä»¶]
+//    â†“
+//[æŸ¥æ‰¾æ‰€æœ‰ç›‘å¬è¿™ä¸ªäº‹ä»¶çš„æ–¹æ³•]
+//    â†“
+//[è°ƒç”¨ OnMovementCanceled(context)]  â† ç³»ç»Ÿè‡ªåŠ¨è°ƒç”¨ï¼
+//    â†“
+//[ä½ çš„æ–¹æ³•æ‰§è¡Œï¼šstateMachine.ChangeState(...)]
+//    â†“
+//[æ–°çŠ¶æ€çš„Enter()ï¼Œæ—§çŠ¶æ€çš„Exit()]
+//    â†“
+//[Exit()ä¸­æ‰§è¡Œï¼šMovement.canceled -= OnMovementCanceled]
     }
 }

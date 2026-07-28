@@ -75,7 +75,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Sprint"",
                     ""type"": ""Button"",
-                    ""id"": ""e0b98516-a002-454e-bae1-89251780030d"",
+                    ""id"": ""cb82f633-d055-4e10-ac3f-4934bd5867a6"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Hold(duration=1)"",
@@ -84,7 +84,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""14c0e878-2efd-4a1b-83df-8a867296bf42"",
+                    ""id"": ""ac6d3bd9-ff0e-4e11-baa9-7bed2164f818"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -204,7 +204,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ce9a630f-1d7a-486e-8efc-2490da6ce631"",
+                    ""id"": ""017d5ef3-f284-4374-8287-e12ab6c3188e"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -215,7 +215,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""306d8e35-284e-4dd3-97a5-416c64e4f154"",
+                    ""id"": ""29a45526-1f05-4b38-8b4a-9cc527a270e6"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -226,7 +226,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c973e077-0b7f-47a6-8623-b0fc91ff7ef5"",
+                    ""id"": ""17da90e5-f40c-46db-a187-c9f79cca8f22"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",

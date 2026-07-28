@@ -6,72 +6,68 @@ using UnityEngine;
 namespace MovementStstem
 {
     /// <summary>
-    /// µÚ¾Å½Ú ¿ÕÏĞ×´Ì¬½Å±¾ É¶Ò²²»¸É
+    /// ç¬¬ä¹èŠ‚ ç©ºé—²çŠ¶æ€è„šæœ¬ å•¥ä¹Ÿä¸å¹²
     /// </summary>
     public class PlayerIdlingState : PlayerGroundedState
     {
         private PlayerIdleData idleData;
-        //Õâ¼¸¸öÊÇÒª±»»º´æµÄ×´Ì¬£¬ÒòÎªÆµ·±ÇĞ»»
+        //è¿™å‡ ä¸ªæ˜¯è¦è¢«ç¼“å­˜çš„çŠ¶æ€ï¼Œå› ä¸ºé¢‘ç¹åˆ‡æ¢
         public PlayerIdlingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
         {
             idleData = movementData.IdleData;
         }
 
-        #region IState Methods ½Ó¿Ú_×´Ì¬·½·¨
+        #region IState Methods æ¥å£_çŠ¶æ€æ–¹æ³•
         /// <summary>
-        /// 9.2½øÈë×´Ì¬ ·½·¨
+        /// 9.2è¿›å…¥çŠ¶æ€ æ–¹æ³•
         /// </summary>
         public override void Enter()
         {
-
-            //1.Ò»µ©½øÈëÕâ¸ö×´Ì¬£¬½«ËÙ¶ÈĞŞ¸ÄÆ÷ÉèÖÃÎª0£¬ÕâÑù±£Ö¤½øÀ´Õâ¸ö×´Ì¬¾Í²»ÔÙÒÆ¶¯
-            //1.²»ĞèÒªÀë¿ªÕâ¸öÖµÔÙÉèÖÃ£¬ÒòÎªÃ¿¸ö½øÈë×´Ì¬¶¼»áÖØĞÂÉèÖÃÕâ¸öĞŞ¸ÄÆ÷µÄÖµ
+            //1.ä¸€æ—¦è¿›å…¥è¿™ä¸ªçŠ¶æ€ï¼Œå°†é€Ÿåº¦ä¿®æ”¹å™¨è®¾ç½®ä¸º0ï¼Œè¿™æ ·ä¿è¯è¿›æ¥è¿™ä¸ªçŠ¶æ€å°±ä¸å†ç§»åŠ¨
+            //1.ä¸éœ€è¦ç¦»å¼€è¿™ä¸ªå€¼å†è®¾ç½®ï¼Œå› ä¸ºæ¯ä¸ªè¿›å…¥çŠ¶æ€éƒ½ä¼šé‡æ–°è®¾ç½®è¿™ä¸ªä¿®æ”¹å™¨çš„å€¼
             stateMachine.ReusableData.MovementSpeedModifier = 0f;
-
-            //18.2
             stateMachine.ReusableData.BackwardsCameraRecenteringData = idleData.BackwardsCameraRecenteringData;
-
             base.Enter();
-            //µÃµ½»ùÀàµÄhash
             StartAnimation(stateMachine.Player.AnimationData.IdleParemeterHash);
 
-            //15
             stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StationaryForce;
 
-            //2.ÖØÖÃÍæ¼ÒËÙ¶È£¬ÒÔ·ÀÍæ¼ÒÒòÎªÎïÀíÔ­ÒòÒÆ¶¯
+            //2.é‡ç½®ç©å®¶é€Ÿåº¦ï¼Œä»¥é˜²ç©å®¶å› ä¸ºç‰©ç†åŸå› ç§»åŠ¨
             ResetVelocity();
         }
 
         public override void Exit()
         {
             base.Exit();
-            //µÃµ½»ùÀàµÄhash
             StopAnimation(stateMachine.Player.AnimationData.IdleParemeterHash);
+
+            SetBaseCameraRecenteringData();
         }
         /// <summary>
-        /// 9.3¸üĞÂ·½·¨ ÔÚÕâÀïÇĞ»» ÆäËû×´Ì¬
+        /// 9.3æ›´æ–°æ–¹æ³• åœ¨è¿™é‡Œåˆ‡æ¢ å…¶ä»–çŠ¶æ€
         /// </summary>
         public override void Update()
         {
             base.Update();
-            //Èç¹ûÊäÈëÎª0 µ÷»Ø
-            if (stateMachine.ReusableData.MovementInput == Vector2.zero) return;
+            //å¦‚æœè¾“å…¥ä¸º0 è°ƒå›
+            if (stateMachine.ReusableData.MovementInput == Vector2.zero)
+            {
+                return;
+            }
 
-            //·ñÔò ½øÈëÇĞ»»×´Ì¬
+            //å¦åˆ™ è¿›å…¥åˆ‡æ¢çŠ¶æ€
             OnMove();
         }
-
-        //19.1Ê¹ÔÚ×´Ì¬ÖĞ²»Æ¯ÒÆ
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-
             if(!IsMovingHorizontally())
             {
                 return;
             }
             ResetVelocity();
         }
+        
         #endregion
     }
 }
