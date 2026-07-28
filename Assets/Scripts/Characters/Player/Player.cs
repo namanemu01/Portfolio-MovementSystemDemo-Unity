@@ -131,5 +131,20 @@ namespace MovementStstem
             movementStateMachine.PhysicsUpdate();//������������
 
         }
+
+        public void OnAnimationEnterEvent()
+        {
+            movementStateMachine?.OnAnimationEnterEvent();
+        }
+
+        public void OnAnimationExitEvent()
+        {
+            movementStateMachine?.OnAnimationExitEvent();
+        }
+
+        public void OnAnimationTransitionEvent()
+        {
+            movementStateMachine?.OnAnimationTransitionEvent();
+        }
     }
 }

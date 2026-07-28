@@ -5,13 +5,14 @@ using UnityEngine;
 namespace MovementStstem
 {
     /// <summary>
-    /// ×´Ì¬»ú³éÏóÀà ÕâÀïÃæ´¦Àí½Ó¿ÚµÄ¾ßÌåÊµÏÖ ÀàËÆÓÚÒ»¸ö×´Ì¬¹ÜÀíÆ÷ ¶àÌ¬
+    /// çŠ¶æ€æœºåŸºç±»ï¼Œè´Ÿè´£ç®¡ç†å½“å‰çŠ¶æ€å¹¶è½¬å‘ç”Ÿå‘½å‘¨æœŸè°ƒç”¨ã€‚
     /// </summary>
-    public abstract class StateMachine 
+    public abstract class StateMachine
     {
-        protected IState currentState;//½Ó¿ÚÀïµ±Ç°×´Ì¬
+        protected IState currentState;
+
         /// <summary>
-        /// ¸Ä±ä×´Ì¬ 
+        /// åˆ‡æ¢çŠ¶æ€ã€‚
         /// </summary>
         /// <param name="newState"></param>
         public void ChangeState(IState newState)
@@ -37,37 +38,29 @@ namespace MovementStstem
         {
             currentState?.PhysicsUpdate();
         }
-        
+
         public void OnAnimationEnterEvent()
         {
             currentState?.OnAnimationEnterEvent();
         }
+
         public void OnAnimationExitEvent()
         {
             currentState?.OnAnimationExitEvent();
         }
+
         public void OnAnimationTransitionEvent()
         {
             currentState?.OnAnimationTransitionEvent();
         }
+
         public void OnTriggerEnter(Collider collider)
         {
             currentState?.OnTriggerEnter(collider);
-        }
-        public void OnTriggerExit(Collider collider)
-        {
-            currentState?.OnTriggerExit(collider);
         }
 
-        //15.2
-        public void OnTriggerEnter(Collider collider)
-        {
-            //Õâ¸öµ÷ÓÃµÄÊÇistateÀïÃæÄÇ¸ö
-            currentState?.OnTriggerEnter(collider);
-        }
         public void OnTriggerExit(Collider collider)
         {
-            //Õâ¸öµ÷ÓÃµÄÊÇistateÀïÃæÄÇ¸ö
             currentState?.OnTriggerExit(collider);
         }
     }
