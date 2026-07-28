@@ -17,14 +17,15 @@ namespace MovementStstem
         #region IState Methods
         public override void Enter()
         {
-            //ֹͣ���ƶ��� Ҳ�ᱣ�ֹ���
+            //先设置翻滚参数，再进入基础着陆逻辑，确保 Animator 进入 Landing 状态机时优先匹配 Roll 入口
             stateMachine.ReusableData.MovementSpeedModifier = rollData.SpeedModifier;
 
-            base.Enter();
             StartAnimation(stateMachine.Player.AnimationData.RollParemeterHash);
 
-            //����֮�� ���ܳ��
+            //着陆之后，不能冲刺
             stateMachine.ReusableData.ShouldSprint = false;
+
+            base.Enter();
 
             startTime = Time.time;
         }
