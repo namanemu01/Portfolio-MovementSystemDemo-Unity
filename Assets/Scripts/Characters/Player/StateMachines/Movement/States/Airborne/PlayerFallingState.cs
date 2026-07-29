@@ -15,21 +15,24 @@ namespace MovementStstem
             fallData = airborneData.FallData;
         }
 
-        #region IState Methods ½Ó¿Ú×´Ì¬·½·¨ ÒòÎª×°Õâ¸öµÄÀàÊÇ¼Ì³Ğ½Ó¿Ú·½·¨µÄ
+        #region IState Methods ï¿½Ó¿ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Îª×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼Ì³Ğ½Ó¿Ú·ï¿½ï¿½ï¿½ï¿½ï¿½
         public override void Enter()
         {
             base.Enter();
             StartAnimation(stateMachine.Player.AnimationData.FallParemeterHash);
 
-            //¼ÇÂ¼½øÈëÏÂÂä×´Ì¬Ê±Íæ¼ÒµÄÎ»ÖÃ ÓÃÀ´¼ÆËãÏÂÂä¾àÀë
+          //  Debug.Log(GetPlayerVerticalVelocity().y);
             playerPositionOnEnter = stateMachine.Player.transform.position;
 
 
-            //½øÈëÏÂÂä×´Ì¬Ê± ²»ÔÊĞíÒÆ¶¯
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Ê± ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
             stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
-            //½øÈëÏÂÂä×´Ì¬Ê± ÖØÖÃÍæ¼ÒµÄ´¹Ö±ËÙ¶È£¬È·±£Íæ¼Ò·¢ÉúÆäËûÎÊÌâ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Ê± ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ´ï¿½Ö±ï¿½Ù¶È£ï¿½È·ï¿½ï¿½ï¿½ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             ResetVerticalVelocity();
+
+            // [DEBUG] Log entry state for diagnosing fall-to-landing stuck bugç”¨äºè¯Šæ–­è½åœ°å¡æ­»Bug çš„æ—¥å¿—æ¡ç›®çŠ¶æ€
+            //Debug.Log($"[DEBUG-Fall] Enter | PosY={stateMachine.Player.transform.position.y:F3} | VelY={GetPlayerVerticalVelocity().y:F3} | Input={stateMachine.ReusableData.MovementInput}");
         }
         public override void Exit()
         {
@@ -39,72 +42,98 @@ namespace MovementStstem
         }
         
         /// <summary>
-        /// Ìí¼Ó´¹Ö±Á¦ ·ÀÖ¹ËÙ¶ÈÌØ±ğ¸ßÅö×²Æ÷´©Í¸µØÃæ ÎŞ·¨¼ì²âµ½Íæ¼ÒÂäµØ Õâ¸ö·½·¨ÊÇÈÃÍæ¼ÒÔÚÏÂÂä×´Ì¬Ê±±£³ÖÒ»¶¨µÄ´¹Ö±ËÙ¶È£¬±ÜÃâÒòÎªÖØÁ¦¼ÓËÙ¶È¹ı´óµ¼ÖÂÍæ¼Ò´©Í¸µØÃæÎŞ·¨¼ì²âµ½ÂäµØÊÂ¼ş¡£
+        /// ï¿½ï¿½ï¿½Ó´ï¿½Ö±ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½Ù¶ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ş·ï¿½ï¿½ï¿½âµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Ê±ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä´ï¿½Ö±ï¿½Ù¶È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½Ş·ï¿½ï¿½ï¿½âµ½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½
         /// </summary>
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
+
+            // [DEBUG] Visualize ground-check ray and log hit/miss for diagnosing stuck fall
+            //å¯è§†åŒ–åœ°é¢æ£€æµ‹å°„çº¿å¹¶è®°å½•å‘½ä¸­/æœªå‘½ä¸­æ—¥å¿—ï¼Œç”¨äºè¯Šæ–­ä¸‹è½å¡æ­»é—®é¢˜
+            //DebugGroundCheckRay();
 
             LimitVerticalVelocity();
         }
 
         #endregion
 
-        #region Reusable Methods ¿ÉÖØÓÃ·½·¨
+        #region Reusable Methods ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½
         protected override void ResetSprintState()
         {
-            //È·±£ÔÚÏÂÂä×´Ì¬Ê± ²»ÄÜÊ¹ÓÃ³å´Ì
+            //È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Ê± ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã³ï¿½ï¿½
         }
 
-        //17Ê¹Ó²×ÅÂ½ºÍÇá×ÅÂ½²úÉúÌõ¼şÇø·Ö
-        //*Èç¹ûÏëÒªÌí¼Ó×¹ÂäÉËº¦ ¿ÉÒÔÔÚÕâ¸ö·½·¨ÀïÌí¼ÓÒ»¸öÊÂ¼ş ÈÃÍæ¼ÒÔÚÏÂÂä×´Ì¬Ê±¸ù¾İÏÂÂä¾àÀëÀ´¼ÆËãÉËº¦
+        //17Ê¹Ó²ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //*ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½×¹ï¿½ï¿½ï¿½Ëºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Â¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
         /// <summary>
-        /// »ñÈ¡Íæ¼ÒÏÂÂäµÄ¾àÀë ´Ó½øÈëµÄÊ±ºò±£´æÎ»ÖÃ ÔÙ±£´æÓëµØÃæÅö×²µÄÎ»ÖÃ
+        /// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ò±£´ï¿½Î»ï¿½ï¿½ ï¿½Ù±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½Î»ï¿½ï¿½
         /// </summary>
         /// <param name="collider"></param>
         protected override void OnContactWithGround(Collider collider)
         {
-            //¼ÆËãÏÂÂä¾àÀë µÃµ½Íæ¼ÒÔÚ½øÈëÏÂÂä×´Ì¬Ê±µÄÎ»ÖÃºÍµ±Ç°Íæ¼ÒÎ»ÖÃµÄyÖá²îÖµµÄ¾ø¶ÔÖµ
+            // [DEBUG] Log ground contact details for diagnosing stuck fall
+            //è®°å½•åœ°é¢æ¥è§¦è¯¦æƒ…ï¼Œç”¨äºè¯Šæ–­ä¸‹è½å¡æ­»é—®é¢˜
             float fallDistance = playerPositionOnEnter.y - stateMachine.Player.transform.position.y;
+           // Debug.Log($"[DEBUG-Fall] OnContactWithGround | collider={collider.name} | fallDistance={fallDistance:F3} | MinHardFall={fallData.MinimumDistanceToBeConsideredHardFall:F3} | ShouldWalk={stateMachine.ReusableData.ShouldWalk} | ShouldSprint={stateMachine.ReusableData.ShouldSprint} | Input={stateMachine.ReusableData.MovementInput}");
 
-            //Èç¹ûÏÂÂä¾àÀëĞ¡ÓÚ×îĞ¡¾àÀë ¾ÍÇĞ»»µ½Çá×ÅÂ½×´Ì¬
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½×´Ì¬
             if (fallDistance < fallData.MinimumDistanceToBeConsideredHardFall)
             {
                 stateMachine.ChangeState(stateMachine.LightLandingState);
 
                 return;
             }
-            //Èç¹ûÏÂÂä¾àÀë´óÓÚ×îĞ¡¾àÀë ²¢ÇÒ²»ÊäÈë ¾ÍÇĞ»»µ½Ó²×ÅÂ½×´Ì¬
-            //ÕâÀïµÄÌõ¼ş Èç¹ûÊÇĞĞ×ßÄ£Ê½²¢ÇÒ²»ÄÜ³å´Ì »òÕßÃ»ÓĞÊäÈë ¾ÍÇĞ»»µ½Ó²×ÅÂ½×´Ì¬ ÕâÑù¾ÍÇø·ÖÁËÇá×ÅÂ½ºÍÓ²×ÅÂ½µÄÌõ¼ş
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½Ó²ï¿½ï¿½Â½×´Ì¬
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Ü³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½Ó²ï¿½ï¿½Â½×´Ì¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½Ó²ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (stateMachine.ReusableData.ShouldWalk && !stateMachine.ReusableData.ShouldSprint || stateMachine.ReusableData.MovementInput == Vector2.zero)
             {
                 stateMachine.ChangeState(stateMachine.HardLandingState);
                 return;
             }
-            //Èç¹ûÏÂÂä¾àÀë´óÓÚ×îĞ¡¾àÀë ²¢ÇÒÓĞÊäÈë ¾ÍÇĞ»»µ½¹ö¶¯×´Ì¬
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
             stateMachine.ChangeState(stateMachine.RollingState);
         }
         #endregion
-        #region Main Methods Ö÷Òª·½·¨
+        #region Main Methods ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
         private void LimitVerticalVelocity()
         {
             Vector3 playerVerticalVelocity = GetPlayerVerticalVelocity();
 
-            //Èç¹ûÍæ¼ÒµÄ´¹Ö±ËÙ¶È³¬¹ıÁËÏÂÂäËÙ¶ÈÏŞÖÆ£¬Ôò½«ÆäÏŞÖÆÔÚ¸Ã·¶Î§ÄÚ
-            //ÒòÎªÏÂÂä ËùÒÔÊÇ¸ºÊı ifĞèÒªÊÇtrue²ÅÖ´ĞĞ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ´ï¿½Ö±ï¿½Ù¶È³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸Ã·ï¿½Î§ï¿½ï¿½
+            //ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ ifï¿½ï¿½Òªï¿½ï¿½trueï¿½ï¿½Ö´ï¿½ï¿½
             if (playerVerticalVelocity.y>=-fallData.FallSpeedLimit)
             {
-               //Èç¹ûĞ¡ÓÚ×î´óÏÂÂäËÙ¶È ÖÕÖ¹Õâ¸ö·½·¨£¬Õâ¸ö·½·¨½áÊø -6>-5false½ø²»À´
+               //ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -6>-5falseï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 return;
             }
 
-            //Èç¹û´óÓÚ×î´óÏÂÂäËÙ¶È Ö´ĞĞÏÂÃæ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½â´¹Ö±ï¿½Ù¶È·ï¿½Ö¹ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ï¿½Ö¸Ğµï¿½
 
-            
+
             Vector3 limitedVelocity = new Vector3(0f,-fallData.FallSpeedLimit-playerVerticalVelocity.y,0f);
-            
+
             stateMachine.Player.Rigidbody.AddForce(limitedVelocity, ForceMode.VelocityChange);
         }
+
+        // [DEBUG] Helper method to draw ground-check ray and log results
+       /* private void DebugGroundCheckRay()
+        {
+            //èµ·ç‚¹
+            Vector3 rayOrigin = stateMachine.Player.transform.position + Vector3.up * 0.1f;
+            Vector3 rayDirection = Vector3.down;//å°„çº¿æ–¹å‘å‘ä¸‹
+            float rayLength = 2f;//é•¿åº¦ä¸¤ç±³
+
+            if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, rayLength, stateMachine.Player.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
+            {
+                Debug.Log($"[DEBUG-Fall] GroundCheckRay HIT | object={hit.collider.name} | distance={hit.distance:F3} | point={hit.point}");
+                Debug.DrawRay(rayOrigin, rayDirection * hit.distance, Color.green);
+            }
+            else
+            {
+                Debug.Log("[DEBUG-Fall] GroundCheckRay MISS");
+                Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.red);
+            }
+        }*/
         #endregion
     }
 }
