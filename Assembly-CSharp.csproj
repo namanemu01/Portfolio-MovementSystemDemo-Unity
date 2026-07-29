@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Characters\Player\StateMachines\Movement\States\Grounded\Moving\PlayerMovingState.cs" />
     <Compile Include="Assets\Scripts\Characters\Player\StateMachines\Movement\States\Airborne\PlayerAirborneState.cs" />
     <Compile Include="Assets\Scripts\Characters\Player\Data\States\Grounded\PlayerDashData.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\Utilities\Animation\AnimationEventForwarder.cs" />
     <Compile Include="Assets\Scripts\Characters\Player\StateMachines\Movement\States\Grounded\PlayerIdlingState.cs" />
     <Compile Include="Assets\Scripts\Characters\Player\Data\States\PlayerRotationData.cs" />
     <Compile Include="Assets\Scripts\StateMachine\IState.cs" />

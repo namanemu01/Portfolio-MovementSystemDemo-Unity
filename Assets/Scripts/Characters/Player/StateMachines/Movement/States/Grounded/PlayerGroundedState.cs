@@ -49,12 +49,16 @@ namespace MovementStstem
         #endregion
 
         #region Main Methods 主要方法
+        /// <summary>
+        /// 疾跑逻辑  清理残余标记的逻辑 
+        /// </summary>
         private void UpdateShouldSprintState()
         {
             if (!stateMachine.ReusableData.ShouldSprint)
             {
                 return;
             }
+            //应该疾跑但是
             if (stateMachine.ReusableData.MovementInput != Vector2.zero)
             {
                 return;

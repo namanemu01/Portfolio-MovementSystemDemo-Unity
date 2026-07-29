@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace MovementStstem
 {
- 
+
     public class PlayerMovementState : IState
     {
         //状态机可以引用player之后，状态对状态机进行引用,因为究极目标是在state里面引用player？

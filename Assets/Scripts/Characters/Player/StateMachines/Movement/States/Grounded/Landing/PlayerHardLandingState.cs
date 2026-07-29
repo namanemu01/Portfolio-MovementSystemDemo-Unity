@@ -21,8 +21,10 @@ namespace MovementStstem
         {
             stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
-            base.Enter();
+            //先设置硬着陆参数，再进入基础着陆逻辑，确保 Animator 进入 Landing 状态机时优先匹配 HardLanding 入口
             StartAnimation(stateMachine.Player.AnimationData.HardLandParemeterHash);
+
+            base.Enter();
             //硬着陆状态禁用移动输入，只能等待动画结束
             stateMachine.Player.Input.PlayerActions.Movement.Disable();
 
